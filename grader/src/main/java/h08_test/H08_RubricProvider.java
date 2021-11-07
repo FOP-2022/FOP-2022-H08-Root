@@ -1,0 +1,197 @@
+package h08_test;
+
+import org.sourcegrade.jagr.api.rubric.*;
+
+public class H08_RubricProvider implements RubricProvider {
+  //---------------------- H1 -------------------------
+  public static final Criterion H1_T1 = Criterion.builder()
+    .shortDescription("Klasse TimeStamp, der Konstruktor und das Attribut lastUpdate existieren")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H1_Definition_Test.class.getMethod("testDefinitionAndAttribute")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+
+  public static final Criterion H1_T2 = Criterion.builder()
+    .shortDescription("Void update() und Calendar getTimeStamp() existieren und diese und der Konstruktor funktionieren")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H1_Test.class.getMethod("content")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  //---------------------- H2 -------------------------
+
+  public static final Criterion H2_T1 = Criterion.builder()
+    .shortDescription("Methode update(Calendar c) existiert")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H2_Test.class.getMethod("testDefinitionTimeStampUpdateWithParameter")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+
+  public static final Criterion H2_T2 = Criterion.builder()
+    .shortDescription("Methode update(Calendar c) existiert")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H2_Test.class.getMethod("testContentTimeStampUpdateWithParameterCorrectCase")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+
+
+  public static final Criterion H2_T3 = Criterion.builder()
+    .shortDescription("update(Calendar c) funktioniert im Fall mit validem Kalender korrekt")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H2_Test.class.getMethod("testContentTimeStampUpdateWithParameterTooEarlyCase")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H2_Test.class.getMethod("testContentTimeStampUpdateWithParameterTooLateCase")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  //---------------------- H3 -------------------------
+
+  public static final Criterion H3_T1 = Criterion.builder()
+    .shortDescription("Alle drei Klassen existieren korrekt")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H3_Definition_Test.class.getMethod("checkClasses")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  public static final Criterion H3_T2 = Criterion.builder()
+    .shortDescription("Der Konstruktor von BadUpdateTimeException setzt den korrekten String")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H3_Test.class.getMethod("testConstructorExistenceBadUpdateTimeException")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H3_Test.class.getMethod("testConstructorContentBadUpdateTimeException")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+
+  public static final Criterion H3_T3 = Criterion.builder()
+    .shortDescription("Die Klassen UpdateTimeBeforeLastUpdateException und UpdateTimeInTheFutureException sind korrekt")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H3_Test.class.getMethod("testConstructorExistenceUpdateTimeBeforeLastUpdateException")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H3_Test.class.getMethod("testConstructorContentUpdateTimeBeforeLastUpdateException")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H3_Test.class.getMethod("testConstructorExistenceUpdateTimeInTheFutureException")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H3_Test.class.getMethod("testConstructorContentUpdateTimeInTheFutureException")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  //---------------------- H4 -------------------------
+
+  public static final Criterion H4_T1 = Criterion.builder()
+    .shortDescription("Alle fünf Methoden existieren korrekt")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H4_Test.class.getMethod("testExistenceUpdateWithExc", int.class)))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  //fehlt noch einiges
+
+  //---------------------- H5 -------------------------
+
+  public static final Criterion H5_T1 = Criterion.builder()
+    .shortDescription("Die Klasse TestTimeStampException und alle fünf Methoden testCatchn existieren korrekt")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Definition_Test.class.getMethod("testExistenceTestCatch", int.class)))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  public static final Criterion H5_T2 = Criterion.builder()
+    .shortDescription("In allen Methoden wird der Fall, dass keine Exception geworfen wird (also keine Ausgabe) mit allen n richtig behandelt")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatchShouldWork", int.class)))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  //fehlt noch einiges
+
+  public static final Criterion H5_T6 = Criterion.builder()
+    .shortDescription("Die gesamte Aufgabe wurde korrekt bewältigt")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatch", int.class)))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatchShouldWork", int.class)))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  //---------------------- H6 -------------------------
+
+  public static final Criterion H6_T1 = Criterion.builder()
+    .shortDescription("Methode testPass existiert und ist korrekt implementiert")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H6_Test.class.getMethod("testExistenceTestPass")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H6_Test.class.getMethod("testTestPassContent")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  public static final Criterion H6_T2 = Criterion.builder()
+    .shortDescription("Methode testCatchpassed existiert und ist korrekt implementiert")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H6_Test.class.getMethod("testExistenceTestCatchPassed")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H6_Test.class.getMethod("testTestCatchPassedContent")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+
+  //---------------------- Zusammenfassungen -----------------------
+
+  public static final Criterion H1 = Criterion.builder()
+    .shortDescription("H1 – Vorbereitung")
+    .addChildCriteria(
+      H1_T1,
+      H1_T2
+    )
+    .build();
+
+  @Override
+  public Rubric getRubric() {
+    return null;
+  }
+}
