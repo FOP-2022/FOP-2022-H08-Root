@@ -49,8 +49,25 @@ class H4_Test {
 	
 	
 	
-	@ParameterizedTest(name = "updateWithExc{index}")
-	@ValueSource(ints = {1, 2, 3, 4, 5})
+	@Test
+	void testContentUpdateWithExc123() throws IllegalArgumentException, IllegalAccessException {
+		for (int i = 1; i<=3; i++) {
+			testContentUpdateWithExc(i);
+		}
+	}
+	
+	@Test
+	void testContentUpdateWithExc4() throws IllegalArgumentException, IllegalAccessException {
+		testContentUpdateWithExc(4);
+	}
+	
+	@Test
+	void testContentUpdateWithExc5() throws IllegalArgumentException, IllegalAccessException {
+		testContentUpdateWithExc(5);
+	}
+	
+	//@ParameterizedTest(name = "updateWithExc{index}")
+	//@ValueSource(ints = {1, 2, 3, 4, 5})
 	void testContentUpdateWithExc(int nr) throws IllegalArgumentException, IllegalAccessException {
 		
 		Method[] methods = TimeStamp.class.getDeclaredMethods();

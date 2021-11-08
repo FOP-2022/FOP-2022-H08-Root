@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -26,47 +27,94 @@ class H5_Test {
 	private final String[] staticExceptionBeforeLastUpdateDynamic = {"UpdateTimeBeforeLastUpdateException", "UpdateTimeBeforeLastUpdateException", "UpdateTimeBeforeLastUpdateException", "BadUpdateTimeException", "Exception"};
 	private final String[] staticExceptionUpdateTimeInTheFutureDynamic = {"UpdateTimeInTheFutureException", "UpdateTimeInTheFutureException", "UpdateTimeInTheFutureException", "BadUpdateTimeException", "Exception"};
 	private final int[] nrOutputPrinted = {3, 3, 4, 4, 5};
-	
+
 	private ByteArrayOutputStream outContent;
-	
-	
-	@ParameterizedTest(name = "testCatchn ->{0}<- updateWithExcn")
-	@ValueSource(ints = {11, 12, 13, 14, 15, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 52, 53, 54, 55})
+
+	@Test
+	void testContentTestCatch1115_3135() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		for (int i = 11; i<=15; i++) {
+			testContentTestCatch(i);
+		}
+		for (int i = 31; i<=35; i++) {
+			testContentTestCatch(i);
+		}
+	}
+
+	@Test
+	void testContentTestCatch2125() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		for (int i = 21; i<=25; i++) {
+			testContentTestCatch(i);
+		}
+	}
+
+	@Test
+	void testContentTestCatch4145_5155() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		for (int i = 41; i<=45; i++) {
+			testContentTestCatch(i);
+		}
+		for (int i = 51; i<=55; i++) {
+			testContentTestCatch(i);
+		}
+	}
+
+
+  @Test
+  void testContentTestCatchAll() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    for (int i = 11; i<=15; i++) {
+      testContentTestCatch(i);
+    }
+    for (int i = 21; i<=25; i++) {
+      testContentTestCatch(i);
+    }
+    for (int i = 31; i<=35; i++) {
+      testContentTestCatch(i);
+    }
+    for (int i = 41; i<=45; i++) {
+      testContentTestCatch(i);
+    }
+    for (int i = 51; i<=55; i++) {
+      testContentTestCatch(i);
+    }
+  }
+
+
+	//@ParameterizedTest(name = "testCatchn ->{0}<- updateWithExcn")
+	//@ValueSource(ints = {11, 12, 13, 14, 15, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 52, 53, 54, 55})
 	void testContentTestCatch(int n) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		
+
 		int updateWithExcNr = n % 10;
 		int testCatchNr = (int) (n/10);
-		
+
 		TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
-		
+
 		//content
-		
-		
+
+
 		// wie überprüft man, dass switch-case angewendet wird?
-		
+
 		Method[] methodsCatch = TestTimeStampExceptions.class.getDeclaredMethods();
-		
+
 		Method methodCatch = null;
 		for (Method m : methodsCatch) {
 			if (m.getName().equals("testCatch" + testCatchNr)) {
 				methodCatch = m;
 			}
 		}
-		
-		
-		
+
+
+
 		String outputBegin = updateWithExcNr + " : ";
 		renewOutContent();
-		
-		
-		
+
+
+
 		// content tests
 				Calendar before = Calendar.getInstance();
 				Helper.sleep();
 				TimeStamp instance = new TimeStamp();
 				Helper.sleep();
 				Calendar after = Calendar.getInstance();
-				
+
 				Field[] fields = TimeStamp.class.getDeclaredFields();
 				Field f = null;
 				for (Field field : fields) {
@@ -75,15 +123,15 @@ class H5_Test {
 						f = field;
 					}
 				}
-				
-				
-				
+
+
+
 					//situation where it should fail
-				
+
 						//time too early
-				 
+
 				Calendar variableValueBefore = (Calendar) f.get(instance);
-				
+
 				methodCatch.invoke(exceptions, instance, before, updateWithExcNr);
 				//exceptions.testCatch1(instance, before, updateWithExcNr);
 				if (updateWithExcNr <= nrOutputPrinted[testCatchNr - 1]) {
@@ -93,22 +141,22 @@ class H5_Test {
 					} else {
 						compareString = outputBegin + staticExceptionBeforeLastUpdateStatic[testCatchNr-1] + " : " + staticExceptionBeforeLastUpdateDynamic[updateWithExcNr-1] + " " + Helper.createCorrectMessage(before, true)  + "\n";
 					}
-					
+
 					assertEquals(outContent.toString(), compareString);
 				}else
 					assertEquals(outContent.toString(), "");
-				
+
 				renewOutContent();
-				
-				
+
+
 				assertTrue(variableValueBefore == f.get(instance));
-				
-				
+
+
 						//time too late
-				
+
 				Calendar futureCal = Helper.createFutureCal();
-				
-				
+
+
 				variableValueBefore = (Calendar) f.get(instance);
 				methodCatch.invoke(exceptions, instance, futureCal, updateWithExcNr);
 				//exceptions.testCatch1(instance, futureCal, updateWithExcNr);
@@ -117,32 +165,32 @@ class H5_Test {
 				else
 					assertEquals(outContent.toString(), "");
 				renewOutContent();
-				
-				
+
+
 				assertTrue(variableValueBefore == f.get(instance));
-					
-					
-				
-				
-				
-					
-		
-		
+
+
+
+
+
+
+
+
 		System.setOut(System.out);
-		
+
 	}
-	
-	
+
+
 	@ParameterizedTest(name = "testCatchn ->{0}<- updateWithExcn")
 	@ValueSource(ints = {11, 12, 13, 14, 15, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 52, 53, 54, 55})
 	void testContentTestCatchShouldWork (int n) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
-		
+
 		int updateWithExcNr = n % 10;
-		
-		
+
+
 		Method[] methodsCatch = TestTimeStampExceptions.class.getDeclaredMethods();
-		
+
 		Method methodCatch = null;
 		for (Method m : methodsCatch) {
 			int testCatchNr = (int) (n /10);
@@ -150,17 +198,17 @@ class H5_Test {
 				methodCatch = m;
 			}
 		}
-		
+
 		renewOutContent();
-		
-		
-		
+
+
+
 		Calendar before = Calendar.getInstance();
 		Helper.sleep();
 		TimeStamp instance = new TimeStamp();
 		Helper.sleep();
 		Calendar after = Calendar.getInstance();
-		
+
 		Field[] fields = TimeStamp.class.getDeclaredFields();
 		Field f = null;
 		for (Field field : fields) {
@@ -169,30 +217,30 @@ class H5_Test {
 				f = field;
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 		Calendar variableValueBefore = (Calendar) f.get(instance);
-		
+
 		//should work
-		
+
 		Calendar toAdd = Calendar.getInstance();
 		Helper.sleep();
-		
+
 		variableValueBefore = (Calendar) f.get(instance);
-		
+
 		methodCatch.invoke(exceptions, instance, toAdd, updateWithExcNr);
 		//exceptions.testCatch1(instance, toAdd, n);
 		assertEquals(outContent.toString(), "");
-		
-		
+
+
 		assertTrue(toAdd == f.get(instance));
-		
-		
+
+
 		System.setOut(System.out);
 	}
-	
+
 	private void renewOutContent() {
 		outContent = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outContent));

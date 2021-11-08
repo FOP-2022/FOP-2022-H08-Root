@@ -115,7 +115,35 @@ public class H08_RubricProvider implements RubricProvider {
       .build()
     ).build();
 
-  //fehlt noch einiges
+  public static final Criterion H4_T2 = Criterion.builder()
+    .shortDescription("Methoden updateWithExcn mit n aus {1,2,3} sind korrekt implementiert")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H4_Test.class.getMethod("testContentUpdateWithExc123")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  public static final Criterion H4_T3 = Criterion.builder()
+    .shortDescription("Methode updateWithExc4 ist korrekt implementiert")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H4_Test.class.getMethod("testContentUpdateWithExc4")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  public static final Criterion H4_T4 = Criterion.builder()
+    .shortDescription("Methode updateWithExc5 ist korrekt implementiert")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H4_Test.class.getMethod("testContentUpdateWithExc5")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
 
   //---------------------- H5 -------------------------
 
@@ -139,7 +167,36 @@ public class H08_RubricProvider implements RubricProvider {
       .build()
     ).build();
 
-  //fehlt noch einiges
+  public static final Criterion H5_T3 = Criterion.builder()
+    .shortDescription("Die try-catch-Klausel bei testCatch1 und testCatch3 ist vollständig korrekt und liefert die korrekte Ausgabe")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatch1115_3135")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  public static final Criterion H5_T4 = Criterion.builder()
+    .shortDescription("Die try-catch-Klausel bei testCatch2 ist vollständig korrekt und liefert die korrekte Ausgabe")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatch2125")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
+  public static final Criterion H5_T5 = Criterion.builder()
+    .shortDescription("Die try-catch-Klausel bei testCatch4 und testCatch5 ist vollständig korrekt und liefert die korrekte Ausgabe")
+    .grader(Grader.testAwareBuilder()
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatch4145_5155")))
+      .pointsPassedMax()
+      .pointsFailedMin()
+      .build()
+    ).build();
+
 
   public static final Criterion H5_T6 = Criterion.builder()
     .shortDescription("Die gesamte Aufgabe wurde korrekt bewältigt")
@@ -147,7 +204,7 @@ public class H08_RubricProvider implements RubricProvider {
       .requirePass(JUnitTestRef.ofMethod(() ->
         H5_Test.class.getMethod("testContentTestCatch", int.class)))
       .requirePass(JUnitTestRef.ofMethod(() ->
-        H5_Test.class.getMethod("testContentTestCatchShouldWork", int.class)))
+        H5_Test.class.getMethod("testContentTestCatchAll")))
       .pointsPassedMax()
       .pointsFailedMin()
       .build()
