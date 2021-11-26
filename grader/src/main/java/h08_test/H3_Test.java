@@ -28,7 +28,7 @@ class H3_Test {
 			// TODO Auto-generated catch block
 			exceptions++;
 		}
-		assertTrue(exceptions < 2);
+		assertTrue(exceptions < 2, "correct constructor of BadUpdateTimeException does not exist");
 		
 	}
 	
@@ -37,8 +37,8 @@ class H3_Test {
 		Calendar[] calendars = createManyRandomCalendars();
 		
 		for (Calendar c : calendars) {
-			assertTrue(new BadUpdateTimeException(c, true).getMessage().equals(Helper.createCorrectMessage(c, true)));
-			assertTrue(new BadUpdateTimeException(c, false).getMessage().equals(Helper.createCorrectMessage(c, false)));
+			assertTrue(new BadUpdateTimeException(c, true).getMessage().equals(Helper.createCorrectMessage(c, true)), "constructor of BadUpdateTimeException returns wrong message at least in true case");
+			assertTrue(new BadUpdateTimeException(c, false).getMessage().equals(Helper.createCorrectMessage(c, false)), "constructor of BadUpdateTimeException returns wrong message in false case");
 		}
 	}
 	
@@ -48,7 +48,7 @@ class H3_Test {
 			Constructor constructor = UpdateTimeBeforeLastUpdateException.class.getDeclaredConstructor(Calendar.class);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			fail(e.getMessage());
+			fail("constructor of UpdateTimeBeforeLastUpdateException wrong");
 		}
 		
 	}
@@ -59,7 +59,7 @@ class H3_Test {
 		Calendar[] calendars = createManyRandomCalendars();
 		
 		for (Calendar c : calendars) {
-			assertTrue(new UpdateTimeBeforeLastUpdateException(c).getMessage().equals(Helper.createCorrectMessage(c, true)));
+			assertTrue(new UpdateTimeBeforeLastUpdateException(c).getMessage().equals(Helper.createCorrectMessage(c, true)), "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
 		}
 	}
 	
@@ -69,7 +69,7 @@ class H3_Test {
 			Constructor constructor = UpdateTimeInTheFutureException.class.getDeclaredConstructor(Calendar.class);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			fail(e.getMessage());
+			fail("constructor of UpdateTimeInTheFutureException wrong");
 		}
 		
 	}
@@ -80,7 +80,7 @@ class H3_Test {
 		Calendar[] calendars = createManyRandomCalendars();
 		
 		for (Calendar c : calendars) {
-			assertTrue(new UpdateTimeInTheFutureException(c).getMessage().equals(Helper.createCorrectMessage(c, false)));
+			assertTrue(new UpdateTimeInTheFutureException(c).getMessage().equals(Helper.createCorrectMessage(c, false)), "constructor of UpdateTimeInTheFutureException returns wrong message");
 		}
 	}
 	

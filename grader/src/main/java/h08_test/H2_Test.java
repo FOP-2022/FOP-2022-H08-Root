@@ -20,24 +20,24 @@ class H2_Test {
 	@Test
 	void testDefinitionTimeStampUpdateWithParameter () {
 		Method[] methods = TimeStamp.class.getDeclaredMethods();
-		assertTrue(Arrays.stream(methods).anyMatch(m -> m.getName().equals("update")));
+		assertTrue(Arrays.stream(methods).anyMatch(m -> m.getName().equals("update")), "method update does not exist");
 		
 		boolean hasUpdateWithParameter = false;
 		for (Method m : methods) {
 			if (m.getName() == "update") {
-				assertTrue(isPublic(m.getModifiers()));
-				assertFalse(isStatic(m.getModifiers()));
-				assertTrue(void.class.equals(m.getReturnType()));
+				assertTrue(isPublic(m.getModifiers()), "method update is not public");
+				assertFalse(isStatic(m.getModifiers()), "method update is static");
+				assertTrue(void.class.equals(m.getReturnType()), "method update is not void");
 				
 				Parameter[] parameter = m.getParameters();
 				if (parameter.length == 1) {
 					hasUpdateWithParameter = true;
-					assertTrue(parameter[0].getType() == Calendar.class);
+					assertTrue(parameter[0].getType() == Calendar.class, "method update has wrong parameter type");
 				}
 						
 			}
 		}
-		assertTrue(hasUpdateWithParameter);
+		assertTrue(hasUpdateWithParameter, "method update has wrong parameter count");
 		
 	}
 	
@@ -45,11 +45,7 @@ class H2_Test {
 	@Test
 	void testContentTimeStampUpdateWithParameterCorrectCase () throws IllegalArgumentException, IllegalAccessException {
 		// content tests
-				Calendar before = Calendar.getInstance();
-				sleep();
 				TimeStamp instance = new TimeStamp();
-				sleep();
-				Calendar after = Calendar.getInstance();
 				
 				Field[] fields = TimeStamp.class.getDeclaredFields();
 				Field f = null;
@@ -62,35 +58,27 @@ class H2_Test {
 				
 				
 				Calendar variableValueBefore = (Calendar) f.get(instance);
-				boolean errorThrown = false;
 				
-				int reps = 10;
+				
+				
 					//should work
-				for (int i = 0; i< reps ; i++) {
-					Calendar toAdd = Calendar.getInstance();
-					sleep();
-					
-					errorThrown = false;
-					variableValueBefore = (Calendar) f.get(instance);
-					
-					try {
-						instance.update(toAdd);
-					} catch (AssertionError e) {
-						errorThrown = true;
-					}
-					
-					assertFalse(errorThrown);
-					assertTrue(toAdd == f.get(instance));
+				
+				Calendar toAdd = Calendar.getInstance();
+				Helper.sleep();
+				try {
+					instance.update(toAdd);
+				} catch (AssertionError e) {
+					fail("AssertionError thrown although input correct");
 				}
+				
+				
+				assertTrue(toAdd == f.get(instance), "method update does not overwrite lastUpdate correctly");
+				
 	}
 	
 	@Test
 	void testContentTimeStampUpdateWithParameterTooLateCase() throws IllegalArgumentException, IllegalAccessException {
-		Calendar before = Calendar.getInstance();
-		sleep();
 		TimeStamp instance = new TimeStamp();
-		sleep();
-		Calendar after = Calendar.getInstance();
 		
 		Field[] fields = TimeStamp.class.getDeclaredFields();
 		Field f = null;
@@ -104,35 +92,22 @@ class H2_Test {
 		Calendar variableValueBefore = (Calendar) f.get(instance);
 		boolean errorThrown = false;
 		
-		int reps = 10;
+		
 		//time too late
-		for ( int i = 0; i< reps; i++) {
-			Calendar futureCal = Calendar.getInstance();
-			
-			if (futureCal.get(Calendar.MILLISECOND) < 998) {
-				futureCal.set(Calendar.MILLISECOND, futureCal.get(Calendar.MILLISECOND) + 2);
-			} else if (futureCal.get(Calendar.SECOND) <58) {
-				futureCal.set(Calendar.SECOND, futureCal.get(Calendar.SECOND) + 2);
-			} else if (futureCal.get(Calendar.MINUTE) <59) {
-				futureCal.set(Calendar.MINUTE, futureCal.get(Calendar.MINUTE) + 1);
-			} else {
-				futureCal.set(Calendar.YEAR, futureCal.get(Calendar.YEAR) + 1);
-			}
-			
-			errorThrown = false;
-			variableValueBefore = (Calendar) f.get(instance);
-			
-			try {
-				instance.update(futureCal);
-			} catch (AssertionError e) {
-				errorThrown = true;
-			}
-			
-			assertTrue(errorThrown);
-			assertTrue(variableValueBefore == f.get(instance));
-			
-			sleep();	
+		variableValueBefore = (Calendar) f.get(instance);
+		Calendar futureCal = Helper.createFutureCal();
+		try {
+			instance.update(futureCal);
+		} catch (AssertionError e) {
+			errorThrown = true;
 		}
+		
+		
+		
+		assertTrue(errorThrown, "no AssertionError thrown although Calender in the future");
+		assertTrue(variableValueBefore == f.get(instance), "lastUpdate was changed although Calendar in the future");
+			
+		
 	}
 	
 	
@@ -140,10 +115,9 @@ class H2_Test {
 	void testContentTimeStampUpdateWithParameterTooEarlyCase() throws IllegalArgumentException, IllegalAccessException {
 		
 	Calendar before = Calendar.getInstance();
-	sleep();
+	Helper.sleep();
 	TimeStamp instance = new TimeStamp();
-	sleep();
-	Calendar after = Calendar.getInstance();
+
 	
 	Field[] fields = TimeStamp.class.getDeclaredFields();
 	Field f = null;
@@ -162,20 +136,13 @@ class H2_Test {
 	} catch (AssertionError e) {
 		errorThrown = true;
 	}
-	assertTrue(errorThrown);
+	assertTrue(errorThrown, "no AssertionError thrown although Calender too old");
 	
-	assertTrue(variableValueBefore == f.get(instance));
+	assertTrue(variableValueBefore == f.get(instance), "lastUpdate was changed although Calendar too old");
 	
 	
 	}
 	
-	void sleep() {
-		try {
-			Thread.sleep(3);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 
 }

@@ -21,13 +21,18 @@ class H5_Definition_Test {
 
 	@BeforeEach
 	void classExistence() throws ClassNotFoundException{
-		Class.forName("h08.TestTimeStampExceptions");
+		try {
+			Class.forName("h08.TestTimeStampExceptions");
+		} catch (ClassNotFoundException e) {
+			fail("Class TestTimeStampExceptions does not exist");
+		}
+		
 		
 		
 		// not abstract
-		assertFalse(isAbstract(Class.forName("h08.TimeStamp").getModifiers()));
+		assertFalse(isAbstract(Class.forName("h08.TimeStamp").getModifiers()), "Class TestTimeStampExceptions is abstract");
 		//is public
-		assertTrue(isPublic(Class.forName("h08.TimeStamp").getModifiers()));
+		assertTrue(isPublic(Class.forName("h08.TimeStamp").getModifiers()), "Class TestTimeStampExceptions is abstract");
 		
 		
 	}
@@ -41,9 +46,9 @@ class H5_Definition_Test {
 		boolean hasMethod = false;
 		for (Method m : methods) {
 			if (m.getName().equals(methodName)) {
-				assertTrue(isPublic(m.getModifiers()));
-				assertFalse(isStatic(m.getModifiers()));
-				assertTrue(void.class.equals(m.getReturnType()));
+				assertTrue(isPublic(m.getModifiers()), "method " + methodName + " is not public");
+				assertFalse(isStatic(m.getModifiers()), "method " + methodName + " is static");
+				assertTrue(void.class.equals(m.getReturnType()), "method " + methodName + " is not void");
 				
 				Parameter[] parameter = m.getParameters();
 				boolean containsParam = false;
@@ -53,15 +58,15 @@ class H5_Definition_Test {
 						if (retClass.equals(p.getType()))
 							containsParam = true;
 					}
-					assertTrue(containsParam);
+					assertTrue(containsParam, "method " + methodName + " does not have all parameter");
 					containsParam = false;
 				}
 				
-				assertTrue(parameter.length == 3);
+				assertTrue(parameter.length == 3, "method " + methodName + " has too many parameters");
 				hasMethod = true;
 			}
 		}
-		assertTrue(hasMethod);
+		assertTrue(hasMethod, "method " + methodName + " does not exist");
 		
 	}
 

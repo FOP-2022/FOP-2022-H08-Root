@@ -33,9 +33,9 @@ class H4_Test {
 		boolean hasMethod = false;
 		for (Method m : methods) {
 			if (m.getName().equals(methodName)) {
-				assertTrue(isPublic(m.getModifiers()));
-				assertFalse(isStatic(m.getModifiers()));
-				assertTrue(void.class.equals(m.getReturnType()));
+				assertTrue(isPublic(m.getModifiers()), "method " + methodName + " is not public");
+				assertFalse(isStatic(m.getModifiers()), "method " + methodName + " is static");
+				assertTrue(void.class.equals(m.getReturnType()), "method " + methodName + " is not void");
 				
 				Parameter[] parameter = m.getParameters();
 				assertTrue(parameter[0].getType() == Calendar.class);
@@ -43,7 +43,7 @@ class H4_Test {
 				hasMethod = true;
 			}
 		}
-		assertTrue(hasMethod);
+		assertTrue(hasMethod, "method " + methodName + " does not exist");
 		
 	}
 	
@@ -110,21 +110,21 @@ class H4_Test {
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			if (nr < 4)
-				assertTrue(e.getCause().getClass().equals(UpdateTimeBeforeLastUpdateException.class));
+				assertTrue(e.getCause().getClass().equals(UpdateTimeBeforeLastUpdateException.class), "time of Calendar too early: wrong Exception type thrown in method updateWithExc" + nr + ": " + e.getCause().getClass() );
 			if (nr == 4) {
-				assertTrue(e.getCause().getClass().equals(BadUpdateTimeException.class));
-				assertTrue(e.getCause().getMessage().contains("Update time is earlier than the last update: "));
+				assertTrue(e.getCause().getClass().equals(BadUpdateTimeException.class), "time of Calendar too early: wrong exception type thrown in method updateWithExc" + nr + ": " + e.getCause().getClass() );
+				assertTrue(e.getCause().getMessage().contains("Update time is earlier than the last update: "), "time of Calendar too early: wrong message in exception of method updateWithExc" + nr + ": " + e.getCause().getMessage() + " (probably wrong exception)" );
 			}
 			if (nr == 5) {
-				assertTrue(e.getCause().getClass().equals(Exception.class));
-				assertTrue(e.getCause().getMessage().contains("Update time is earlier than the last update: "));
+				assertTrue(e.getCause().getClass().equals(Exception.class), "time of Calendar too early: wrong exception type thrown in method updateWithExc" + nr + ": " + e.getCause().getClass() );
+				assertTrue(e.getCause().getMessage().contains("Update time is earlier than the last update: "), "time of Calendar too early: wrong message in exception of method updateWithExc" + nr + ": " + e.getCause().getMessage() + " (probably wrong exception)");
 			}
 				
 			errorThrown = true;
 		}
-		assertTrue(errorThrown);
+		assertTrue(errorThrown, "time of Calendar too early: method updateWithExc" + nr + " does not throw any exception");
 		
-		assertTrue(variableValueBefore == f.get(instance));
+		assertTrue(variableValueBefore == f.get(instance), "time of Calendar too early: method updateWithExc" + nr + " changes value of lastUpdate");
 		
 		
 				//time too late
@@ -140,22 +140,22 @@ class H4_Test {
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			if (nr < 4)
-				assertTrue(e.getCause().getClass().equals(UpdateTimeInTheFutureException.class));
+				assertTrue(e.getCause().getClass().equals(UpdateTimeInTheFutureException.class), "time of Calendar in the future: wrong exception type thrown in method updateWithExc" + nr + ": " + e.getCause().getClass());
 			if (nr == 4) {
-				assertTrue(e.getCause().getClass().equals(BadUpdateTimeException.class));
-				assertTrue(e.getCause().getMessage().contains("Update time is in the future: "));
+				assertTrue(e.getCause().getClass().equals(BadUpdateTimeException.class), "time of Calendar in the future: wrong exception type thrown in method updateWithExc" + nr + ": " + e.getCause().getClass());
+				assertTrue(e.getCause().getMessage().contains("Update time is in the future: "), "time of Calendar in the future: wrong message in exception of method updateWithExc" + nr + ": " + e.getCause().getMessage() + " (probably wrong exception)");
 			}
 			if (nr == 5) {
-				assertTrue(e.getCause().getClass().equals(Exception.class));
-				assertTrue(e.getCause().getMessage().contains("Update time is in the future: "));
+				assertTrue(e.getCause().getClass().equals(Exception.class), "time of Calendar in the future: wrong exception type thrown in method updateWithExc" + nr + ": " + e.getCause().getClass());
+				assertTrue(e.getCause().getMessage().contains("Update time is in the future: "), "time of Calendar in the future: wrong message in exception of method updateWithExc" + nr + ": " + e.getCause().getClass() + " (probably wrong exception)");
 			}
 				
 			errorThrown = true;
 		}	
 		
 		
-		assertTrue(errorThrown);
-		assertTrue(variableValueBefore == f.get(instance));
+		assertTrue(errorThrown, "time of Calendar in the future: method updateWithExc" + nr + " does not throw any exception");
+		assertTrue(variableValueBefore == f.get(instance), "time of Calendar in the future: method updateWithExc" + nr + " changes value of lastUpdate");
 		
 		Helper.sleep();	
 		
@@ -173,10 +173,10 @@ class H4_Test {
 			method.invoke(instance, toAdd);
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
-			fail("Exception thrown! " + e.getCause());
+			fail("correct Calendar, but exception thrown in method updateWithExc " + nr + ": " + e.getCause().getClass());
 		}
 		
-		assertTrue(toAdd == f.get(instance));
+		assertTrue(toAdd == f.get(instance), "correct Calendar, but lastUpdate not updated");
 		
 	}
 	

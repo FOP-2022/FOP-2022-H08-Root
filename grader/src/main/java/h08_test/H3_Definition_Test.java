@@ -19,44 +19,59 @@ class H3_Definition_Test {
 
 	@BeforeEach
 	void checkClassBadUpdateTimeException() throws ClassNotFoundException {
-		Class.forName("h08.BadUpdateTimeException");
+		try {
+			Class.forName("h08.BadUpdateTimeException");
+		} catch (ClassNotFoundException e) {
+			fail("class BadUpdateTimeException does not exist");
+		}
+
 
 
 		// not abstract
-		assertFalse(isAbstract(Class.forName("h08.BadUpdateTimeException").getModifiers()));
+		assertFalse(isAbstract(Class.forName("h08.BadUpdateTimeException").getModifiers()), "class BadUpdateTimeException is abstract");
 		//is public
-		assertTrue(isPublic(Class.forName("h08.BadUpdateTimeException").getModifiers()));
+		assertTrue(isPublic(Class.forName("h08.BadUpdateTimeException").getModifiers()), "class BadUpdateTimeException is not public");
 		//superclass correct
-		assertTrue(Class.forName("h08.BadUpdateTimeException").getSuperclass().equals(Exception.class));
+		assertTrue(Class.forName("h08.BadUpdateTimeException").getSuperclass().equals(Exception.class), "class BadUpdateTimeException does not extend class Exception");
 	}
 
 
 	@BeforeEach
 	void checkClassUpdateTimeBeforeLastUpdateException() throws ClassNotFoundException {
-		Class.forName("h08.UpdateTimeBeforeLastUpdateException");
+		try {
+			Class.forName("h08.UpdateTimeBeforeLastUpdateException");
+		} catch (ClassNotFoundException e) {
+			fail("class UpdateTimeBeforeLastUpdateException does not exist");
+		}
+
 
 
 		// not abstract
-		assertFalse(isAbstract(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getModifiers()));
+		assertFalse(isAbstract(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getModifiers()), "class UpdateTimeBeforeLastUpdateException is abstract");
 		//is public
-		assertTrue(isPublic(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getModifiers()));
+		assertTrue(isPublic(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getModifiers()), "class UpdateTimeBeforeLastUpdateException is not public");
 		//superclass correct
-		assertTrue(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getSuperclass().equals(BadUpdateTimeException.class));
+		assertTrue(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getSuperclass().equals(BadUpdateTimeException.class), "class UpdateTimeBeforeLastUpdateException does not extend class BadUpdateTimeException");
 	}
 
 
 
 	@BeforeEach
 	void checkClassUpdateTimeInTheFutureException() throws ClassNotFoundException {
-		Class.forName("h08.UpdateTimeInTheFutureException");
+		try {
+			Class.forName("h08.UpdateTimeInTheFutureException");
+		} catch (ClassNotFoundException e) {
+			fail("class UpdateTimeInTheFutureException does not exist");
+		}
+
 
 
 		// not abstract
-		assertFalse(isAbstract(Class.forName("h08.UpdateTimeInTheFutureException").getModifiers()));
+		assertFalse(isAbstract(Class.forName("h08.UpdateTimeInTheFutureException").getModifiers()), "class UpdateTimeInTheFutureException is abstract");
 		//is public
-		assertTrue(isPublic(Class.forName("h08.UpdateTimeInTheFutureException").getModifiers()));
+		assertTrue(isPublic(Class.forName("h08.UpdateTimeInTheFutureException").getModifiers()), "class UpdateTimeInTheFutureException is not public");
 		//superclass correct
-		assertTrue(Class.forName("h08.UpdateTimeInTheFutureException").getSuperclass().equals(BadUpdateTimeException.class));
+		assertTrue(Class.forName("h08.UpdateTimeInTheFutureException").getSuperclass().equals(BadUpdateTimeException.class), "class UpdateTimeInTheFutureException does not extend class BadUpdateTimeException");
 	}
 
 	@Test

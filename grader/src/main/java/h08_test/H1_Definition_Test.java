@@ -17,14 +17,19 @@ import h08.TimeStamp;
 class H1_Definition_Test {
 
 	@BeforeEach
-	void classExistence() throws ClassNotFoundException{
-		Class.forName("h08.TimeStamp");
+	void classExistence() throws ClassNotFoundException {
+		try {
+			Class.forName("h08.TimeStamp");
+		} catch (ClassNotFoundException e) {
+			fail("Class TimeStamp does not exist");
+		}
+		
 		
 		
 		// not abstract
-		assertFalse(isAbstract(Class.forName("h08.TimeStamp").getModifiers()));
+		assertFalse(isAbstract(Class.forName("h08.TimeStamp").getModifiers()), "Class TimeStamp is abstract");
 		//is public
-		assertTrue(isPublic(Class.forName("h08.TimeStamp").getModifiers()));
+		assertTrue(isPublic(Class.forName("h08.TimeStamp").getModifiers()), "Class TimeStamp is not public");
 		
 		
 	}
@@ -35,7 +40,7 @@ class H1_Definition_Test {
 			Constructor constructor = TimeStamp.class.getDeclaredConstructor();
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			fail(e.getMessage());
+			fail("Constructor does not exist");
 		}
 		
 	}
@@ -55,7 +60,7 @@ class H1_Definition_Test {
 			}
 		}
 		
-		assertTrue(containsLastUpdate);
+		assertTrue(containsLastUpdate , "Attribute lastUpdate is missing");
 	}
 
 }

@@ -41,9 +41,9 @@ class H6_Test {
 		boolean hasMethod = false;
 		for (Method m : methods) {
 			if (m.getName().equals(methodName)) {
-				assertTrue(isPublic(m.getModifiers()));
-				assertFalse(isStatic(m.getModifiers()));
-				assertTrue(void.class.equals(m.getReturnType()));
+				assertTrue(isPublic(m.getModifiers()), "method testPass is not public");
+				assertFalse(isStatic(m.getModifiers()), "method testPass is static");
+				assertTrue(void.class.equals(m.getReturnType()), "method testPass is not void");
 				
 				Parameter[] parameter = m.getParameters();
 				boolean containsParam = false;
@@ -53,17 +53,17 @@ class H6_Test {
 						if (retClass.equals(p.getType()))
 							containsParam = true;
 					}
-					assertTrue(containsParam);
+					assertTrue(containsParam, "method testPass does not contain at least one parameter");
 					containsParam = false;
 				}
 				
-				assertTrue(parameter.length == 2);
+				assertTrue(parameter.length == 2, "method testPass has too many parameters");
 				hasMethod = true;
 			}
 			
 			
 		}
-		assertTrue(hasMethod);
+		assertTrue(hasMethod, "method testPass does not exist");
 		
 		
 		TestTimeStampExceptions tte = new TestTimeStampExceptions();
@@ -88,9 +88,9 @@ class H6_Test {
 		boolean hasMethod = false;
 		for (Method m : methods) {
 			if (m.getName().equals(methodName)) {
-				assertTrue(isPublic(m.getModifiers()));
-				assertFalse(isStatic(m.getModifiers()));
-				assertTrue(void.class.equals(m.getReturnType()));
+				assertTrue(isPublic(m.getModifiers()), "method testCatchPass is not public");
+				assertFalse(isStatic(m.getModifiers()), "method testCatchPass is static");
+				assertTrue(void.class.equals(m.getReturnType()), "method testCatchPass is not void");
 				
 				Parameter[] parameter = m.getParameters();
 				boolean containsParam = false;
@@ -100,17 +100,17 @@ class H6_Test {
 						if (retClass.equals(p.getType()))
 							containsParam = true;
 					}
-					assertTrue(containsParam);
+					assertTrue(containsParam, "method testCatchPass does not contain at least one parameter");
 					containsParam = false;
 				}
 				
-				assertTrue(parameter.length == 2);
+				assertTrue(parameter.length == 2, "method testCatchPass has too many parameters");
 				hasMethod = true;
 			}
 			
 			
 		}
-		assertTrue(hasMethod);
+		assertTrue(hasMethod, "method testCatchPass does not exist");
 		
 	}
 	
@@ -152,11 +152,10 @@ class H6_Test {
 			errorThrown = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			fail("wrong exception: " + e.getMessage());
+			fail("time of Calendar is too early: method testPass throws wrong exception");
 		}
-		assertTrue(errorThrown);
+		assertTrue(errorThrown, "time of Calendar is too early: method testPass does not throw any exception");
 		
-		assertTrue(variableValueBefore == f.get(instance));
 		
 		
 				//time too late
@@ -175,12 +174,11 @@ class H6_Test {
 			errorThrown = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			fail("wrong exception: " + e.getMessage());
+			fail("time of Calendar in the future: method testPass throws wrong exception");
 		}	
 		
 		
-		assertTrue(errorThrown);
-		assertTrue(variableValueBefore == f.get(instance));
+		assertTrue(errorThrown, "time of Calendar in the future: method testPass does not throw any exception");
 		
 		Helper.sleep();	
 		
@@ -199,11 +197,11 @@ class H6_Test {
 			tte.testPass(instance, toAdd);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			fail("Exception thrown although should work");
+			fail("correct Calendar: method testPass throws exception");
 		} 
 		
 		
-		assertTrue(toAdd == f.get(instance));
+		
 		
 	
 	}
@@ -253,13 +251,13 @@ class H6_Test {
 				String compareString = "BadUpdateTimeException" + " : " + "UpdateTimeBeforeLastUpdateException" + " " + Helper.createCorrectMessage(before, true) + "\n";
 					
 					
-				assertEquals(outContent.toString(), compareString);
+				assertEquals(outContent.toString(), compareString, "time of Calendar is too early: method testCatchPass writes wrong message");
 				
 				
 				renewOutContent();
 				
 				
-				assertTrue(variableValueBefore == f.get(instance));
+				
 				
 				
 						//time too late
@@ -272,12 +270,12 @@ class H6_Test {
 				//exceptions.testCatch1(instance, futureCal, updateWithExcNr);
 				compareString = "BadUpdateTimeException" + " : " + "UpdateTimeInTheFutureException" + " " + Helper.createCorrectMessage(futureCal, false) + "\n";
 				
-				assertEquals(outContent.toString(), compareString);
+				assertEquals(outContent.toString(), compareString, "time of Calendar in the future: method testPass does not throw any Exception");
 				
 				renewOutContent();
 				
 				
-				assertTrue(variableValueBefore == f.get(instance));
+				
 					
 		
 		
