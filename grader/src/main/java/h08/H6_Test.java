@@ -1,0 +1,229 @@
+package h08;
+
+import org.junit.jupiter.api.Test;
+import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.Calendar;
+
+import static java.lang.reflect.Modifier.isPublic;
+import static java.lang.reflect.Modifier.isStatic;
+import static org.junit.jupiter.api.Assertions.*;
+
+@TestForSubmission("h08")
+public class H6_Test {
+
+  private ByteArrayOutputStream outContent;
+
+  @Test
+  public void testExistenceTestPass() {
+    String methodName = "testPass";
+
+    Method[] methods = TestTimeStampExceptions.class.getDeclaredMethods();
+    boolean hasMethod = false;
+    for (Method m : methods) {
+      if (m.getName().equals(methodName)) {
+        assertTrue(isPublic(m.getModifiers()), "method testPass is not public");
+        assertFalse(isStatic(m.getModifiers()), "method testPass is static");
+        assertEquals(void.class, m.getReturnType(), "method testPass is not void");
+
+        Parameter[] parameter = m.getParameters();
+        boolean containsParam = false;
+        Object[] returnClasses = {Calendar.class, TimeStamp.class};
+        for (Parameter p : parameter) {
+          for (Object retClass : returnClasses) {
+            if (retClass.equals(p.getType()))
+              containsParam = true;
+          }
+          assertTrue(containsParam, "method testPass does not contain at least one parameter");
+          containsParam = false;
+        }
+
+        assertTrue(parameter.length == 2, "method testPass has too many parameters");
+        hasMethod = true;
+      }
+    }
+    assertTrue(hasMethod, "method testPass does not exist");
+
+    TestTimeStampExceptions tte = new TestTimeStampExceptions();
+    TimeStamp instance = new TimeStamp();
+    Calendar cal = Calendar.getInstance();
+    try {
+      tte.testPass(instance, cal);
+    } catch (BadUpdateTimeException e) {
+      // TODO Auto-generated catch block
+
+    }
+  }
+
+  @Test
+  public void testExistenceTestCatchPassed() {
+    String methodName = "testCatchPassed";
+
+    Method[] methods = TestTimeStampExceptions.class.getDeclaredMethods();
+    boolean hasMethod = false;
+    for (Method m : methods) {
+      if (m.getName().equals(methodName)) {
+        assertTrue(isPublic(m.getModifiers()), "method testCatchPass is not public");
+        assertFalse(isStatic(m.getModifiers()), "method testCatchPass is static");
+        assertEquals(void.class, m.getReturnType(), "method testCatchPass is not void");
+
+        Parameter[] parameter = m.getParameters();
+        boolean containsParam = false;
+        Object[] returnClasses = {Calendar.class, TimeStamp.class};
+        for (Parameter p : parameter) {
+          for (Object retClass : returnClasses) {
+            if (retClass.equals(p.getType()))
+              containsParam = true;
+          }
+          assertTrue(containsParam, "method testCatchPass does not contain at least one parameter");
+          containsParam = false;
+        }
+
+        assertEquals(2, parameter.length, "method testCatchPass has too many parameters");
+        hasMethod = true;
+      }
+    }
+    assertTrue(hasMethod, "method testCatchPass does not exist");
+  }
+
+  @Test
+  public void testTestPassContent() throws IllegalAccessException {
+
+    // content tests
+    Calendar before = Calendar.getInstance();
+    Helper.sleep();
+    TimeStamp instance = new TimeStamp();
+    Helper.sleep();
+
+    Field[] fields = TimeStamp.class.getDeclaredFields();
+    Field f = null;
+    for (Field field : fields) {
+      if (field.getName() == "lastUpdate") {
+        field.setAccessible(true);
+        f = field;
+      }
+    }
+
+    TestTimeStampExceptions tte = new TestTimeStampExceptions();
+
+    //situation where it should fail
+
+    //time too early
+
+    Calendar variableValueBefore = (Calendar) f.get(instance);
+    boolean errorThrown = false;
+    try {
+      tte.testPass(instance, before);
+    } catch (UpdateTimeBeforeLastUpdateException e) {
+      // TODO Auto-generated catch block
+      errorThrown = true;
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      fail("time of Calendar is too early: method testPass throws wrong exception");
+    }
+    assertTrue(errorThrown, "time of Calendar is too early: method testPass does not throw any exception");
+
+    //time too late
+
+    Calendar futureCal = Helper.createFutureCal();
+
+    errorThrown = false;
+    variableValueBefore = (Calendar) f.get(instance);
+
+    try {
+      tte.testPass(instance, futureCal);
+    } catch (UpdateTimeInTheFutureException e) {
+      // TODO Auto-generated catch block
+
+      errorThrown = true;
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      fail("time of Calendar in the future: method testPass throws wrong exception");
+    }
+
+    assertTrue(errorThrown, "time of Calendar in the future: method testPass does not throw any exception");
+
+    Helper.sleep();
+
+    //should work
+
+    Calendar toAdd = Calendar.getInstance();
+    Helper.sleep();
+
+    errorThrown = false;
+    variableValueBefore = (Calendar) f.get(instance);
+
+    try {
+      tte.testPass(instance, toAdd);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      fail("correct Calendar: method testPass throws exception");
+    }
+  }
+
+  @Test
+  public void testTestCatchPassedContent() throws IllegalArgumentException, IllegalAccessException {
+    TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
+
+    //content
+
+    // wie überprüft man, dass switch-case angewendet wird?
+
+    renewOutContent();
+
+    // content tests
+    Calendar before = Calendar.getInstance();
+    Helper.sleep();
+    TimeStamp instance = new TimeStamp();
+    Helper.sleep();
+
+    Field[] fields = TimeStamp.class.getDeclaredFields();
+    Field f = null;
+    for (Field field : fields) {
+      if (field.getName().equals("lastUpdate")) {
+        field.setAccessible(true);
+        f = field;
+      }
+    }
+
+    //situation where it should fail
+
+    //time too early
+
+    Calendar variableValueBefore = (Calendar) f.get(instance);
+
+    exceptions.testCatchPassed(instance, before);
+    //exceptions.testCatch1(instance, before, updateWithExcNr);
+
+    String compareString = "BadUpdateTimeException" + " : " + "UpdateTimeBeforeLastUpdateException" + " " + Helper.createCorrectMessage(before, true) + "\n";
+
+    assertEquals(outContent.toString(), compareString, "time of Calendar is too early: method testCatchPass writes wrong message");
+
+    renewOutContent();
+
+    //time too late
+
+    Calendar futureCal = Helper.createFutureCal();
+
+    variableValueBefore = (Calendar) f.get(instance);
+    exceptions.testCatchPassed(instance, futureCal);
+    //exceptions.testCatch1(instance, futureCal, updateWithExcNr);
+    compareString = "BadUpdateTimeException" + " : " + "UpdateTimeInTheFutureException" + " " + Helper.createCorrectMessage(futureCal, false) + "\n";
+
+    assertEquals(outContent.toString(), compareString, "time of Calendar in the future: method testPass does not throw any Exception");
+
+    renewOutContent();
+
+    System.setOut(System.out);
+  }
+
+  private void renewOutContent() {
+    outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+  }
+}

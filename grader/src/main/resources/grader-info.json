@@ -1,0 +1,35 @@
+{
+  "name": "FOP-2022-H08",
+  "assignmentIds": [
+    "h08"
+  ],
+  "sourceSets": [
+    {
+      "name": "grader",
+      "files": [
+        "h08\\H1_Definition_Test.java",
+        "h08\\H1_Test.java",
+        "h08\\H2_Test.java",
+        "h08\\H3_Definition_Test.java",
+        "h08\\H3_Test.java",
+        "h08\\H4_Test.java",
+        "h08\\H5_Definition_Test.java",
+        "h08\\H5_Test.java",
+        "h08\\H6_Test.java",
+        "h08\\H08_RubricProvider.java",
+        "h08\\Helper.java",
+        "h08\\TimeStampVisitor.java"
+      ]
+    },
+    {
+      "name": "solution",
+      "files": [
+        "h08\\BadUpdateTimeException.java",
+        "h08\\TestTimeStampExceptions.java",
+        "h08\\TimeStamp.java",
+        "h08\\UpdateTimeBeforeLastUpdateException.java",
+        "h08\\UpdateTimeInTheFutureException.java"
+      ]
+    }
+  ]
+}

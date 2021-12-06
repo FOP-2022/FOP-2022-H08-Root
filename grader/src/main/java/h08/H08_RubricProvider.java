@@ -1,7 +1,14 @@
-package h08_test;
+package h08;
 
-import org.sourcegrade.jagr.api.rubric.*;
+import org.sourcegrade.jagr.api.rubric.Criterion;
+import org.sourcegrade.jagr.api.rubric.Grader;
+import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
+import org.sourcegrade.jagr.api.rubric.Rubric;
+import org.sourcegrade.jagr.api.rubric.RubricForSubmission;
+import org.sourcegrade.jagr.api.rubric.RubricProvider;
+import org.sourcegrade.jagr.api.testing.RubricConfiguration;
 
+@RubricForSubmission("h08")
 public class H08_RubricProvider implements RubricProvider {
   //---------------------- H1 -------------------------
   public static final Criterion H1_T1 = Criterion.builder()
@@ -13,7 +20,6 @@ public class H08_RubricProvider implements RubricProvider {
       .pointsFailedMin()
       .build()
     ).build();
-
 
   public static final Criterion H1_T2 = Criterion.builder()
     .shortDescription("Void update() und Calendar getTimeStamp() existieren und diese und der Konstruktor funktionieren")
@@ -37,7 +43,6 @@ public class H08_RubricProvider implements RubricProvider {
       .build()
     ).build();
 
-
   public static final Criterion H2_T2 = Criterion.builder()
     .shortDescription("Methode update(Calendar c) existiert")
     .grader(Grader.testAwareBuilder()
@@ -47,8 +52,6 @@ public class H08_RubricProvider implements RubricProvider {
       .pointsFailedMin()
       .build()
     ).build();
-
-
 
   public static final Criterion H2_T3 = Criterion.builder()
     .shortDescription("update(Calendar c) funktioniert im Fall mit validem Kalender korrekt")
@@ -85,7 +88,6 @@ public class H08_RubricProvider implements RubricProvider {
       .pointsFailedMin()
       .build()
     ).build();
-
 
   public static final Criterion H3_T3 = Criterion.builder()
     .shortDescription("Die Klassen UpdateTimeBeforeLastUpdateException und UpdateTimeInTheFutureException sind korrekt")
@@ -197,7 +199,6 @@ public class H08_RubricProvider implements RubricProvider {
       .build()
     ).build();
 
-
   public static final Criterion H5_T6 = Criterion.builder()
     .shortDescription("Die gesamte Aufgabe wurde korrekt bewältigt")
     .grader(Grader.testAwareBuilder()
@@ -242,7 +243,6 @@ public class H08_RubricProvider implements RubricProvider {
       .build()
     ).build();
 
-
   //---------------------- Zusammenfassungen -----------------------
 
   public static final Criterion H1 = Criterion.builder()
@@ -250,11 +250,65 @@ public class H08_RubricProvider implements RubricProvider {
     .addChildCriteria(
       H1_T1,
       H1_T2
+    ).build();
+
+  public static final Criterion H2 = Criterion.builder()
+    .shortDescription("H2 – Vorbereitung")
+    .addChildCriteria(
+      H2_T1,
+      H2_T2,
+      H2_T3
+    ).build();
+
+  public static final Criterion H3 = Criterion.builder()
+    .shortDescription("H1 – Vorbereitung")
+    .addChildCriteria(
+      H3_T1,
+      H3_T2,
+      H3_T3
+    ).build();
+
+  public static final Criterion H4 = Criterion.builder()
+    .shortDescription("H1 – Vorbereitung")
+    .addChildCriteria(
+      H4_T1,
+      H4_T2,
+      H4_T3,
+      H4_T4
+    ).build();
+
+  public static final Criterion H5 = Criterion.builder()
+    .shortDescription("H1 – Vorbereitung")
+    .addChildCriteria(
+      H5_T1,
+      H5_T2,
+      H5_T3,
+      H5_T4,
+      H5_T5,
+      H5_T6
     )
+    .build();
+
+  public static final Criterion H6 = Criterion.builder()
+    .shortDescription("H1 – Vorbereitung")
+    .addChildCriteria(
+      H6_T1,
+      H6_T2
+    )
+    .build();
+
+  public static final Rubric RUBRIC = Rubric.builder()
+    .title("H08")
+    .addChildCriteria(H1, H2, H3, H4, H5, H6)
     .build();
 
   @Override
   public Rubric getRubric() {
-    return null;
+    return RUBRIC;
+  }
+
+  @Override
+  public void configure(RubricConfiguration configuration) {
+    configuration.addTransformer(new TimeStampVisitor.TimeStampTransformer());
   }
 }
