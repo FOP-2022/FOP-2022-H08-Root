@@ -202,9 +202,15 @@ public class H08_RubricProvider implements RubricProvider {
     .shortDescription("Die gesamte Aufgabe wurde korrekt bewältigt")
     .grader(Grader.testAwareBuilder()
       .requirePass(JUnitTestRef.ofMethod(() ->
-        H5_Test.class.getMethod("testContentTestCatch", int.class)))
+        H5_Test.class.getMethod("testContentTestCatch1115_3135")))
       .requirePass(JUnitTestRef.ofMethod(() ->
-        H5_Test.class.getMethod("testContentTestCatchAll")))
+        H5_Test.class.getMethod("testContentTestCatch2125")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatch4145_5155")))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testContentTestCatchShouldWork", int.class)))
+      .requirePass(JUnitTestRef.ofMethod(() ->
+        H5_Test.class.getMethod("testSwitchCase")))
       .pointsPassedMax()
       .pointsFailedMin()
       .build()
