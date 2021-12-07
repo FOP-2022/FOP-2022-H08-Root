@@ -33,6 +33,9 @@ public class H1_Test {
         assertFalse(after.before(field.get(instance)), "new Calendar not correctly generated: too late date");
       }
     }
+
+    assertTrue(TimeStampVisitor.callsMethod);
+
   }
 
   @Test

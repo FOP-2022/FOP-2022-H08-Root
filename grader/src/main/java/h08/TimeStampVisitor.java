@@ -13,6 +13,8 @@ import org.sourcegrade.jagr.launcher.env.Jagr;
 
 public class TimeStampVisitor extends ClassVisitor {
 
+  static boolean callsMethod = false;
+
   public static class TimeStampTransformer implements ClassTransformer {
 
     @Override
@@ -36,6 +38,7 @@ public class TimeStampVisitor extends ClassVisitor {
 
   @Override
   public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+
     Jagr.Default.getInjector().getInstance(Logger.class)
       .info("{}{}", name, descriptor);
     if (name.equals("<init>") && descriptor.equals("()V")) {
@@ -52,6 +55,10 @@ public class TimeStampVisitor extends ClassVisitor {
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
+      if (owner.equals("h08/TimeStamp") && name.equals("update") && descriptor.equals("()V")) {
+        callsMethod = true;
+      }
+
       Jagr.Default.getInjector().getInstance(Logger.class)
         .info("Statement: {} {}.{}{}", Printer.OPCODES[opcode], owner, name, descriptor);
       super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
