@@ -91,7 +91,7 @@ public class H5_Test {
         int updateWithExcNr = n % 10;
         int testCatchNr = n / 10;
 
-        TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
+
 
         //content
 
@@ -122,13 +122,10 @@ public class H5_Test {
                 f = field;
             }
         }
-
         //situation where it should fail
-
         //time too early
-
         final Calendar variableValueBefore1 = (Calendar) f.get(instance);
-
+        TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
         methodCatch.invoke(exceptions, instance, before, updateWithExcNr);
         //exceptions.testCatch1(instance, before, updateWithExcNr);
         if (updateWithExcNr <= nrOutputPrinted[testCatchNr - 1]) {
@@ -190,7 +187,7 @@ public class H5_Test {
     @ValueSource(ints = {11, 12, 13, 14, 15, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 52, 53, 54, 55})
     public void testContentTestCatchShouldWork(int n) throws IllegalArgumentException, IllegalAccessException,
         InvocationTargetException {
-        TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
+
 
         final int updateWithExcNr = n % 10;
 
@@ -230,7 +227,7 @@ public class H5_Test {
         Helper.sleep();
 
         variableValueBefore = (Calendar) f.get(instance);
-
+        TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
         methodCatch.invoke(exceptions, instance, toAdd, updateWithExcNr);
         //exceptions.testCatch1(instance, toAdd, n);
         assertEquals(outContent.toString(), "",

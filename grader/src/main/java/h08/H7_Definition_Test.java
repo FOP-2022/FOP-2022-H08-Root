@@ -1,20 +1,20 @@
 package h08;
 
-    import h08.roommanagement.NoCertificateException;
-    import h08.roommanagement.Room;
-    import h08.roommanagement.Student;
-    import org.junit.jupiter.api.BeforeEach;
-    import org.junit.jupiter.api.Test;
-    import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import h08.roommanagement.NoCertificateException;
+import h08.roommanagement.Room;
+import h08.roommanagement.Student;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-    import java.lang.reflect.Constructor;
-    import java.lang.reflect.Field;
-    import java.util.Calendar;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.Calendar;
 
-    import static java.lang.reflect.Modifier.isAbstract;
-    import static java.lang.reflect.Modifier.isPrivate;
-    import static java.lang.reflect.Modifier.isPublic;
-    import static org.junit.jupiter.api.Assertions.*;
+import static java.lang.reflect.Modifier.isAbstract;
+import static java.lang.reflect.Modifier.isPrivate;
+import static java.lang.reflect.Modifier.isPublic;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestForSubmission("h08")
 public class H7_Definition_Test {
@@ -28,11 +28,15 @@ public class H7_Definition_Test {
         }
 
         // not abstract
-        assertFalse(isAbstract(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getModifiers()), "class InsufficientNumberOfSeatsException is abstract");
+        assertFalse(isAbstract(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getModifiers()),
+            "class InsufficientNumberOfSeatsException is abstract");
         //is public
-        assertTrue(isPublic(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getModifiers()), "class InsufficientNumberOfSeatsException is not public");
+        assertTrue(isPublic(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getModifiers()),
+            "class InsufficientNumberOfSeatsException is not public");
         //superclass correct
-        assertEquals(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getSuperclass(), RuntimeException.class, "class InsufficientNumberOfSeatsException does not extend class RuntimeException");
+        assertEquals(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getSuperclass(),
+            RuntimeException.class, "class InsufficientNumberOfSeatsException does "
+                + "not extend class RuntimeException");
     }
 
     @Test
@@ -44,10 +48,13 @@ public class H7_Definition_Test {
         }
 
         // not abstract
-        assertFalse(isAbstract(Class.forName("h08.roommanagement.NoCertificateException").getModifiers()), "class NoCertificateException is abstract");
+        assertFalse(isAbstract(Class.forName("h08.roommanagement.NoCertificateException").getModifiers()),
+            "class NoCertificateException is abstract");
         //is public
-        assertTrue(isPublic(Class.forName("h08.roommanagement.NoCertificateException").getModifiers()), "class NoCertificateException is not public");
+        assertTrue(isPublic(Class.forName("h08.roommanagement.NoCertificateException").getModifiers()),
+            "class NoCertificateException is not public");
         //superclass correct
-        assertEquals(Class.forName("h08.roommanagement.NoCertificateException").getSuperclass(), Exception.class, "class NoCertificateException does not extend class Exception");
+        assertEquals(Class.forName("h08.roommanagement.NoCertificateException").getSuperclass(), Exception.class,
+            "class NoCertificateException does not extend class Exception");
     }
 }

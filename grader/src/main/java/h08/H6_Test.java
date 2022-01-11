@@ -120,7 +120,7 @@ public class H6_Test {
 
         //time too early
 
-        Calendar variableValueBefore = (Calendar) f.get(instance);
+
         boolean errorThrown = false;
         try {
             tte.testPass(instance, before);
@@ -136,6 +136,7 @@ public class H6_Test {
         //time too late
 
         Calendar futureCal = Helper.createFutureCal();
+        Calendar variableValueBefore;
 
         errorThrown = false;
         variableValueBefore = (Calendar) f.get(instance);
@@ -173,7 +174,7 @@ public class H6_Test {
 
     @Test
     public void testTestCatchPassedContent() throws IllegalArgumentException, IllegalAccessException {
-        TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
+
 
         //content
 
@@ -201,6 +202,7 @@ public class H6_Test {
         //time too early
 
         // Calendar variableValueBefore = (Calendar) f.get(instance);
+        TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
 
         exceptions.testCatchPassed(instance, before);
         //exceptions.testCatch1(instance, before, updateWithExcNr);

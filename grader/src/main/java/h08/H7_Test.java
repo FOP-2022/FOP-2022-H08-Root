@@ -1,24 +1,17 @@
 package h08;
 
-import org.junit.jupiter.api.Test;
-import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+
 import h08.roommanagement.InsufficientNumberOfSeatsException;
 import h08.roommanagement.NoCertificateException;
 import h08.roommanagement.Room;
 import h08.roommanagement.Student;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.stream.Collectors;
 
-import static java.lang.reflect.Modifier.isAbstract;
-import static java.lang.reflect.Modifier.isPrivate;
-import static java.lang.reflect.Modifier.isPublic;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -44,7 +37,8 @@ public class H7_Test {
 
     @Test
     void testContentInsufficientNumberOfSeatsException() {
-        int numberOfSeats = 126, seatsMissing;
+        int numberOfSeats = 126;
+        int seatsMissing;
         String names = "AhcusahNaisieboiLohghuGaeRiewophahlahaquahghaiquievaepievoyaikauXaekaegeekeiyeCixueghodieSivaiphieC";
         InsufficientNumberOfSeatsException e;
         Room r;
@@ -61,7 +55,8 @@ public class H7_Test {
             String tmpName = "" + names.charAt(i) + names.charAt(i + 1) + names.charAt(i + 2);
             r = new Room(tmpName, numberOfSeats);
             e = new InsufficientNumberOfSeatsException(r, seatsMissing);
-            assertEquals(tmpName + " has not enough seats", e.getMessage(), "InsufficientNumberOfSeatsException has wrong message: " + e.getMessage());
+            assertEquals(tmpName + " has not enough seats", e.getMessage(),
+                "InsufficientNumberOfSeatsException has wrong message: " + e.getMessage());
         }
 
         //missing!!!!: getMessage() is NOT overwritten by studi
@@ -80,7 +75,8 @@ public class H7_Test {
             // TODO Auto-generated catch block
             fail("constructor of UpdateTimeBeforeLastUpdateException wrong");
         }
-        assertTrue(1 == allconstructors.length, "there is more than one constructor in InsufficientNumberOfSeatsException");
+        assertTrue(1 == allconstructors.length,
+            "there is more than one constructor in InsufficientNumberOfSeatsException");
 
     }
 
@@ -102,7 +98,9 @@ public class H7_Test {
 
         //test getMessage()
         e = new NoCertificateException(students);
-        assertEquals(Arrays.stream(students).map(stud -> stud.name).collect(Collectors.joining(", ")) + " has/have no certificate(s)", e.getMessage(), "NoCertificateException has wrong message: " + e.getMessage());
+        assertEquals(Arrays.stream(students).map(stud -> stud.name).collect(Collectors.joining(", "))
+            + " has/have no certificate(s)", e.getMessage(), "NoCertificateException has wrong message: "
+            + e.getMessage());
 
 
     }

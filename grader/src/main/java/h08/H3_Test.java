@@ -56,7 +56,8 @@ public class H3_Test {
 
     @Test
     public void testConstructorContentUpdateTimeBeforeLastUpdateException() {
-        //wie testet man, dass auch wirklich der Konstruktor der Superklasse aufgerufen wird und nicht der String neu erzeugt wird?
+        //wie testet man, dass auch wirklich der Konstruktor der Superklasse aufgerufen
+        // wird und nicht der String neu erzeugt wird?
         Calendar[] calendars = createManyRandomCalendars();
 
         for (Calendar c : calendars) {
@@ -79,7 +80,8 @@ public class H3_Test {
 
     @Test
     public void testConstructorContentUpdateTimeInTheFutureException() {
-        //wie testet man, dass auch wirklich der Konstruktor der Superklasse aufgerufen wird und nicht der STring neu erzeugt wird?
+        //wie testet man, dass auch wirklich der Konstruktor der Superklasse aufgerufen wird
+        // und nicht der STring neu erzeugt wird?
         Calendar[] calendars = createManyRandomCalendars();
 
         for (Calendar c : calendars) {
