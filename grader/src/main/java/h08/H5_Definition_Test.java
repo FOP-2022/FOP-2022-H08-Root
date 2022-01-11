@@ -15,6 +15,9 @@ import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The JUnit tests for H5 definitions.
+ */
 @TestForSubmission("h08")
 public class H5_Definition_Test {
 
@@ -51,8 +54,9 @@ public class H5_Definition_Test {
                 Object[] returnClasses = {Calendar.class, TimeStamp.class, int.class};
                 for (Parameter p : parameter) {
                     for (Object retClass : returnClasses) {
-                        if (retClass.equals(p.getType()))
+                        if (retClass.equals(p.getType())) {
                             containsParam = true;
+                        }
                     }
                     assertTrue(containsParam, "method " + methodName + " does not have all parameter");
                     containsParam = false;

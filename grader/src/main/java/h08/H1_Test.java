@@ -16,6 +16,9 @@ import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The JUnit tests for H1.
+ */
 @TestForSubmission("h08")
 public class H1_Test {
 
@@ -27,7 +30,7 @@ public class H1_Test {
         Calendar after = Calendar.getInstance();
         Field[] fields = TimeStamp.class.getDeclaredFields();
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 field.setAccessible(true);
                 assertFalse(before.after(field.get(instance)), "new Calendar not correctly generated: too early date");
                 assertFalse(after.before(field.get(instance)), "new Calendar not correctly generated: too late date");
@@ -51,8 +54,9 @@ public class H1_Test {
                 assertEquals(void.class, m.getReturnType(), "method update is not void");
 
                 Parameter[] parameter = m.getParameters();
-                if (parameter.length == 0)
+                if (parameter.length == 0) {
                     hasUpdateWithoutParameters = true;
+                }
             }
         }
         assertTrue(hasUpdateWithoutParameters, "there is no method update without any parameter");
@@ -66,11 +70,12 @@ public class H1_Test {
         Helper.sleep();
         Field[] fields = TimeStamp.class.getDeclaredFields();
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 field.setAccessible(true);
                 assertFalse(before.after(field.get(instance)), "update process returns too early Calender / is not done");
                 assertFalse(after.before(field.get(instance)), "update process returns too late Calendar");
-                assertEquals(GregorianCalendar.class, field.get(instance).getClass(), "update does not create a GregorianCalendar");
+                assertEquals(GregorianCalendar.class, field.get(instance).getClass(),
+                    "update does not create a GregorianCalendar");
             }
         }
     }
@@ -79,10 +84,11 @@ public class H1_Test {
     @BeforeEach
     public void testGetTimeStamp() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Method[] methods = TimeStamp.class.getDeclaredMethods();
-        assertTrue(Arrays.stream(methods).anyMatch(m -> m.getName().equals("getTimeStamp")), "method getTimeStamp does not exist");
+        assertTrue(Arrays.stream(methods).anyMatch(m -> m.getName().equals("getTimeStamp")),
+            "method getTimeStamp does not exist");
 
         boolean hasGetTimeStampWithCorrectParameters = false;
-        Parameter[] parameter = null;
+        Parameter[] parameter;
         for (Method m : methods) {
             if (m.getName().equals("getTimeStamp")) {
                 assertTrue(isPublic(m.getModifiers()), "method getTimeStamp is not public");
@@ -90,8 +96,9 @@ public class H1_Test {
                 assertEquals(Calendar.class, m.getReturnType(), "method getTimeStamp does not return Calendar");
 
                 parameter = m.getParameters();
-                if (parameter.length == 0)
+                if (parameter.length == 0) {
                     hasGetTimeStampWithCorrectParameters = true;
+                }
             }
         }
         assertTrue(hasGetTimeStampWithCorrectParameters, "method getTimeStamp has incorrect parameters");
@@ -103,7 +110,8 @@ public class H1_Test {
 
         for (Method method : methods) {
             if (method.getName().equals("getTimeStamp")) {
-                assertTrue(returnValue1.equals(method.invoke(instance)) || returnValue2.equals(method.invoke(instance)), "getTimeStamp returns incorrect Calendar");
+                assertTrue(returnValue1.equals(method.invoke(instance)) || returnValue2.equals(method.invoke(instance)),
+                    "getTimeStamp returns incorrect Calendar");
             }
         }
     }

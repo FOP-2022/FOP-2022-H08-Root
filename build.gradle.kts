@@ -1,5 +1,6 @@
 plugins {
     java
+    id("org.sourcegrade.style") version "1.1.0"
 }
 
 tasks {
@@ -15,6 +16,7 @@ tasks {
 
 allprojects {
     apply(plugin = "java")
+    apply(plugin = "org.sourcegrade.style")
     version = "1.0.0-SNAPSHOT"
     repositories {
         mavenCentral()
@@ -23,6 +25,11 @@ allprojects {
         withSourcesJar()
     }
     tasks {
+        withType<JavaCompile> {
+            options.encoding = "UTF-8"
+            sourceCompatibility = "11"
+            targetCompatibility = "11"
+        }
         jar {
             archiveFileName.set("${rootProject.name}-${project.name}.jar")
         }

@@ -64,11 +64,13 @@ public class TimeStamp {
      * @throws BadUpdateTimeException thrown if calendar is older than the current one or in the future
      */
     public void updateWithExc2(Calendar calendar) throws BadUpdateTimeException {
-        if (calendar.before(lastUpdate))
+        if (calendar.before(lastUpdate)) {
             throw new UpdateTimeBeforeLastUpdateException(calendar);
+        }
 
-        if (calendar.after(Calendar.getInstance()))
+        if (calendar.after(Calendar.getInstance())) {
             throw new UpdateTimeInTheFutureException(calendar);
+        }
 
         lastUpdate = calendar;
     }
@@ -80,11 +82,13 @@ public class TimeStamp {
      * @throws Exception thrown if calendar is older than the current one or in the future
      */
     public void updateWithExc3(Calendar calendar) throws Exception {
-        if (calendar.before(lastUpdate))
+        if (calendar.before(lastUpdate)) {
             throw new UpdateTimeBeforeLastUpdateException(calendar);
+        }
 
-        if (calendar.after(Calendar.getInstance()))
+        if (calendar.after(Calendar.getInstance())) {
             throw new UpdateTimeInTheFutureException(calendar);
+        }
 
         lastUpdate = calendar;
     }
@@ -96,11 +100,13 @@ public class TimeStamp {
      * @throws Exception thrown if calendar is older than the current one or in the future
      */
     public void updateWithExc4(Calendar calendar) throws Exception {
-        if (calendar.before(lastUpdate))
+        if (calendar.before(lastUpdate)) {
             throw new BadUpdateTimeException(calendar, true);
+        }
 
-        if (calendar.after(Calendar.getInstance()))
+        if (calendar.after(Calendar.getInstance())) {
             throw new BadUpdateTimeException(calendar, false);
+        }
 
         lastUpdate = calendar;
     }
@@ -112,7 +118,7 @@ public class TimeStamp {
      * @throws Exception thrown if calendar is older than the current one or in the future
      */
     public void updateWithExc5(Calendar calendar) throws Exception {
-        if (calendar.before(lastUpdate))
+        if (calendar.before(lastUpdate)) {
             throw new Exception("Update time is earlier than the last update: "
                 + calendar.get(Calendar.DAY_OF_MONTH)
                 + "." + (calendar.get(Calendar.MONTH) + 1)
@@ -122,8 +128,9 @@ public class TimeStamp {
                 + ":" + calendar.get(Calendar.SECOND)
                 + ":" + calendar.get(Calendar.MILLISECOND)
                 + "!");
+        }
 
-        if (calendar.after(Calendar.getInstance()))
+        if (calendar.after(Calendar.getInstance())) {
             throw new Exception("Update time is in the future: "
                 + calendar.get(Calendar.DAY_OF_MONTH)
                 + "." + (calendar.get(Calendar.MONTH) + 1)
@@ -133,6 +140,7 @@ public class TimeStamp {
                 + ":" + calendar.get(Calendar.SECOND)
                 + ":" + calendar.get(Calendar.MILLISECOND)
                 + "!");
+        }
 
         lastUpdate = calendar;
     }

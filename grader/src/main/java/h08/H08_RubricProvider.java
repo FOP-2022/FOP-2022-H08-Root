@@ -160,7 +160,8 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H5_T2 = Criterion.builder()
-        .shortDescription("In allen Methoden wird der Fall, dass keine Exception geworfen wird (also keine Ausgabe) mit allen n richtig behandelt")
+        .shortDescription("In allen Methoden wird der Fall, dass keine Exception geworfen wird (also keine Ausgabe)"
+            + " mit allen n richtig behandelt")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H5_Test.class.getMethod("testContentTestCatchShouldWork", int.class)))
@@ -170,7 +171,8 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H5_T3 = Criterion.builder()
-        .shortDescription("Die try-catch-Klausel bei testCatch1 und testCatch3 ist vollständig korrekt und liefert die korrekte Ausgabe")
+        .shortDescription("Die try-catch-Klausel bei testCatch1 und testCatch3 ist vollständig korrekt"
+            + " und liefert die korrekte Ausgabe")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H5_Test.class.getMethod("testContentTestCatch1115_3135")))
@@ -180,7 +182,8 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H5_T4 = Criterion.builder()
-        .shortDescription("Die try-catch-Klausel bei testCatch2 ist vollständig korrekt und liefert die korrekte Ausgabe")
+        .shortDescription("Die try-catch-Klausel bei testCatch2 ist vollständig korrekt"
+            + " und liefert die korrekte Ausgabe")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H5_Test.class.getMethod("testContentTestCatch2125")))
@@ -190,7 +193,8 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H5_T5 = Criterion.builder()
-        .shortDescription("Die try-catch-Klausel bei testCatch4 und testCatch5 ist vollständig korrekt und liefert die korrekte Ausgabe")
+        .shortDescription("Die try-catch-Klausel bei testCatch4 und testCatch5 ist vollständig korrekt"
+            + " und liefert die korrekte Ausgabe")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H5_Test.class.getMethod("testContentTestCatch4145_5155")))

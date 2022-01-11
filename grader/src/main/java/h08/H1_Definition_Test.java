@@ -13,6 +13,9 @@ import static java.lang.reflect.Modifier.isPrivate;
 import static java.lang.reflect.Modifier.isPublic;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The JUnit tests for H1 definitions.
+ */
 @TestForSubmission("h08")
 public class H1_Definition_Test {
 
@@ -46,7 +49,7 @@ public class H1_Definition_Test {
         Field[] fields = TimeStamp.class.getDeclaredFields();
         boolean containsLastUpdate = false;
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 containsLastUpdate = true;
                 assertTrue(isPrivate(field.getModifiers()));
                 assertEquals(Calendar.class, field.getType());

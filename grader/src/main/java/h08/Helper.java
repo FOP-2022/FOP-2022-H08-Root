@@ -5,7 +5,7 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import java.util.Calendar;
 
 @TestForSubmission("h08")
-public class Helper {
+class Helper {
     static Calendar createFutureCal() {
         Calendar futureCal = Calendar.getInstance();
 

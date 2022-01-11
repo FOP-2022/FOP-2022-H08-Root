@@ -8,6 +8,9 @@ import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The JUnit tests for H3.
+ */
 @TestForSubmission("h08")
 public class H3_Test {
 
@@ -34,8 +37,10 @@ public class H3_Test {
         Calendar[] calendars = createManyRandomCalendars();
 
         for (Calendar c : calendars) {
-            assertTrue(new BadUpdateTimeException(c, true).getMessage().equals(Helper.createCorrectMessage(c, true)), "constructor of BadUpdateTimeException returns wrong message at least in true case");
-            assertTrue(new BadUpdateTimeException(c, false).getMessage().equals(Helper.createCorrectMessage(c, false)), "constructor of BadUpdateTimeException returns wrong message in false case");
+            assertTrue(new BadUpdateTimeException(c, true).getMessage().equals(Helper.createCorrectMessage(c, true)),
+                "constructor of BadUpdateTimeException returns wrong message at least in true case");
+            assertTrue(new BadUpdateTimeException(c, false).getMessage().equals(Helper.createCorrectMessage(c, false)),
+                "constructor of BadUpdateTimeException returns wrong message in false case");
         }
     }
 
@@ -55,7 +60,8 @@ public class H3_Test {
         Calendar[] calendars = createManyRandomCalendars();
 
         for (Calendar c : calendars) {
-            assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(), Helper.createCorrectMessage(c, true), "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
+            assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(), Helper.createCorrectMessage(c, true),
+                "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
         }
 
         //hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
@@ -65,10 +71,9 @@ public class H3_Test {
     @Test
     public void testConstructorExistenceUpdateTimeInTheFutureException() {
         try {
-            Constructor<UpdateTimeInTheFutureException> constructor = UpdateTimeInTheFutureException.class.getDeclaredConstructor(Calendar.class);
+            UpdateTimeInTheFutureException.class.getDeclaredConstructor(Calendar.class);
         } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            fail("constructor of UpdateTimeInTheFutureException wrong");
+            fail("constructor of UpdateTimeInTheFutureException wrong", e);
         }
     }
 
@@ -78,7 +83,8 @@ public class H3_Test {
         Calendar[] calendars = createManyRandomCalendars();
 
         for (Calendar c : calendars) {
-            assertEquals(new UpdateTimeInTheFutureException(c).getMessage(), Helper.createCorrectMessage(c, false), "constructor of UpdateTimeInTheFutureException returns wrong message");
+            assertEquals(new UpdateTimeInTheFutureException(c).getMessage(), Helper.createCorrectMessage(c, false),
+                "constructor of UpdateTimeInTheFutureException returns wrong message");
         }
 
         //hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin

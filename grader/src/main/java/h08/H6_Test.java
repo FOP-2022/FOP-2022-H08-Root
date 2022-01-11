@@ -14,6 +14,9 @@ import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The JUnit tests for H6.
+ */
 @TestForSubmission("h08")
 public class H6_Test {
 
@@ -36,8 +39,9 @@ public class H6_Test {
                 Object[] returnClasses = {Calendar.class, TimeStamp.class};
                 for (Parameter p : parameter) {
                     for (Object retClass : returnClasses) {
-                        if (retClass.equals(p.getType()))
+                        if (retClass.equals(p.getType())) {
                             containsParam = true;
+                        }
                     }
                     assertTrue(containsParam, "method testPass does not contain at least one parameter");
                     containsParam = false;
@@ -77,8 +81,9 @@ public class H6_Test {
                 Object[] returnClasses = {Calendar.class, TimeStamp.class};
                 for (Parameter p : parameter) {
                     for (Object retClass : returnClasses) {
-                        if (retClass.equals(p.getType()))
+                        if (retClass.equals(p.getType())) {
                             containsParam = true;
+                        }
                     }
                     assertTrue(containsParam, "method testCatchPass does not contain at least one parameter");
                     containsParam = false;
@@ -177,9 +182,9 @@ public class H6_Test {
         renewOutContent();
 
         // content tests
-        Calendar before = Calendar.getInstance();
+        final Calendar before = Calendar.getInstance();
         Helper.sleep();
-        TimeStamp instance = new TimeStamp();
+        final TimeStamp instance = new TimeStamp();
         Helper.sleep();
 
         Field[] fields = TimeStamp.class.getDeclaredFields();
@@ -195,14 +200,16 @@ public class H6_Test {
 
         //time too early
 
-        Calendar variableValueBefore = (Calendar) f.get(instance);
+        // Calendar variableValueBefore = (Calendar) f.get(instance);
 
         exceptions.testCatchPassed(instance, before);
         //exceptions.testCatch1(instance, before, updateWithExcNr);
 
-        String compareString = "BadUpdateTimeException" + " : " + "UpdateTimeBeforeLastUpdateException" + " " + Helper.createCorrectMessage(before, true) + "\n";
+        String compareString = String.format("BadUpdateTimeException : UpdateTimeBeforeLastUpdateException %s\n",
+            Helper.createCorrectMessage(before, true));
 
-        assertEquals(outContent.toString(), compareString, "time of Calendar is too early: method testCatchPass writes wrong message");
+        assertEquals(outContent.toString(), compareString,
+            "time of Calendar is too early: method testCatchPass writes wrong message");
 
         renewOutContent();
 
@@ -210,12 +217,14 @@ public class H6_Test {
 
         Calendar futureCal = Helper.createFutureCal();
 
-        variableValueBefore = (Calendar) f.get(instance);
+        Calendar variableValueBefore = (Calendar) f.get(instance);
         exceptions.testCatchPassed(instance, futureCal);
         //exceptions.testCatch1(instance, futureCal, updateWithExcNr);
-        compareString = "BadUpdateTimeException" + " : " + "UpdateTimeInTheFutureException" + " " + Helper.createCorrectMessage(futureCal, false) + "\n";
+        compareString = String.format("BadUpdateTimeException : UpdateTimeInTheFutureException %s\n",
+            Helper.createCorrectMessage(futureCal, false));
 
-        assertEquals(outContent.toString(), compareString, "time of Calendar in the future: method testPass does not throw any Exception");
+        assertEquals(outContent.toString(), compareString,
+            "time of Calendar in the future: method testPass does not throw any Exception");
 
         renewOutContent();
 

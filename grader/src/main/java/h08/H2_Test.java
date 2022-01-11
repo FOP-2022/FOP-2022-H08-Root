@@ -13,6 +13,9 @@ import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The JUnit tests for H2.
+ */
 @TestForSubmission("h08")
 public class H2_Test {
 
