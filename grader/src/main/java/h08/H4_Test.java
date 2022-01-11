@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestForSubmission("h08")
 public class H4_Test {
-
+    @Test
     @ParameterizedTest(name = "updateWithExc{index}")
     @ValueSource(ints = {1, 2, 3, 4, 5})
     public void testExistenceUpdateWithExc(int nr) {

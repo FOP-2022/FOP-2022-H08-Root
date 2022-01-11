@@ -32,6 +32,7 @@ public class TimeStampVisitor extends ClassVisitor {
         }
     }
 
+
     public TimeStampVisitor(ClassVisitor visitor) {
         super(Opcodes.ASM9, visitor);
     }

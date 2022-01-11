@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestForSubmission("h08")
 public class H1_Test {
 
+    @Test
     @BeforeEach
     public void testConstructorContent() throws IllegalAccessException {
 

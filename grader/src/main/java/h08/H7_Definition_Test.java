@@ -16,6 +16,9 @@ import static java.lang.reflect.Modifier.isPrivate;
 import static java.lang.reflect.Modifier.isPublic;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The JUnit tests for H7.
+ */
 @TestForSubmission("h08")
 public class H7_Definition_Test {
 

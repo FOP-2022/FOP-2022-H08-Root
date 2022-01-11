@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestForSubmission("h08")
 public class H1_Definition_Test {
 
+    @Test
     @BeforeEach
     public void classExistence() throws ClassNotFoundException {
         try {
