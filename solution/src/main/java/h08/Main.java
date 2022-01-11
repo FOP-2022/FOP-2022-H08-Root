@@ -12,25 +12,23 @@ public class Main {
 
     public static void main(String[] args) {
 
-
     }
 
-    public static void checkRegistration(Student[] students, Room room) throws NoCertificateException{
-      if (students.length > room.numberOfSeats / 2) {
-        throw new InsufficientNumberOfSeatsException(room, students.length - room.numberOfSeats / 2);
-      }
-
-      List<Student> studentsWithoutCertificate = new ArrayList<Student>();
-
-      for (Student stud : students) {
-        if (!stud.hasCertificate) {
-          studentsWithoutCertificate.add(stud);
+    public static void checkRegistration(Student[] students, Room room) throws NoCertificateException {
+        if (students.length > room.numberOfSeats / 2) {
+            throw new InsufficientNumberOfSeatsException(room, students.length - room.numberOfSeats / 2);
         }
-      }
 
-      if (studentsWithoutCertificate.size() > 0) {
-        throw new NoCertificateException( studentsWithoutCertificate.toArray(new Student[0]));
-      }
+        List<Student> studentsWithoutCertificate = new ArrayList<Student>();
 
+        for (Student stud : students) {
+            if (!stud.hasCertificate) {
+                studentsWithoutCertificate.add(stud);
+            }
+        }
+
+        if (studentsWithoutCertificate.size() > 0) {
+            throw new NoCertificateException(studentsWithoutCertificate.toArray(new Student[0]));
+        }
     }
 }

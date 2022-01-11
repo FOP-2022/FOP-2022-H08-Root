@@ -13,55 +13,55 @@ import org.sourcegrade.jagr.launcher.env.Jagr;
 
 public class TimeStampVisitor extends ClassVisitor {
 
-  static boolean callsMethod = false;
+    static boolean callsMethod = false;
 
-  public static class TimeStampTransformer implements ClassTransformer {
+    public static class TimeStampTransformer implements ClassTransformer {
 
-    @Override
-    public String getName() {
-      return "TimeStamp";
+        @Override
+        public String getName() {
+            return "TimeStamp";
+        }
+
+        @Override
+        public void transform(ClassReader reader, ClassWriter writer) {
+            if (reader.getClassName().equals(Type.getInternalName(TimeStamp.class))) {
+                reader.accept(new TimeStampVisitor(writer), 0);
+            } else {
+                reader.accept(writer, 0);
+            }
+        }
+    }
+
+    public TimeStampVisitor(ClassVisitor visitor) {
+        super(Opcodes.ASM9, visitor);
     }
 
     @Override
-    public void transform(ClassReader reader, ClassWriter writer) {
-      if (reader.getClassName().equals(Type.getInternalName(TimeStamp.class))) {
-        reader.accept(new TimeStampVisitor(writer), 0);
-      } else {
-        reader.accept(writer, 0);
-      }
-    }
-  }
+    public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
 
-  public TimeStampVisitor(ClassVisitor visitor) {
-    super(Opcodes.ASM9, visitor);
-  }
-
-  @Override
-  public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-
-    Jagr.Default.getInjector().getInstance(Logger.class)
-      .info("{}{}", name, descriptor);
-    if (name.equals("<init>") && descriptor.equals("()V")) {
-      return new TSMethodVisitor(super.visitMethod(access, name, descriptor, signature, exceptions));
-    }
-    return super.visitMethod(access, name, descriptor, signature, exceptions);
-  }
-
-  private static class TSMethodVisitor extends MethodVisitor {
-
-    public TSMethodVisitor(MethodVisitor methodVisitor) {
-      super(Opcodes.ASM9, methodVisitor);
+        Jagr.Default.getInjector().getInstance(Logger.class)
+            .info("{}{}", name, descriptor);
+        if (name.equals("<init>") && descriptor.equals("()V")) {
+            return new TSMethodVisitor(super.visitMethod(access, name, descriptor, signature, exceptions));
+        }
+        return super.visitMethod(access, name, descriptor, signature, exceptions);
     }
 
-    @Override
-    public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-      if (owner.equals("h08/TimeStamp") && name.equals("update") && descriptor.equals("()V")) {
-        callsMethod = true;
-      }
+    private static class TSMethodVisitor extends MethodVisitor {
 
-      Jagr.Default.getInjector().getInstance(Logger.class)
-        .info("Statement: {} {}.{}{}", Printer.OPCODES[opcode], owner, name, descriptor);
-      super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+        public TSMethodVisitor(MethodVisitor methodVisitor) {
+            super(Opcodes.ASM9, methodVisitor);
+        }
+
+        @Override
+        public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
+            if (owner.equals("h08/TimeStamp") && name.equals("update") && descriptor.equals("()V")) {
+                callsMethod = true;
+            }
+
+            Jagr.Default.getInjector().getInstance(Logger.class)
+                .info("Statement: {} {}.{}{}", Printer.OPCODES[opcode], owner, name, descriptor);
+            super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+        }
     }
-  }
 }
