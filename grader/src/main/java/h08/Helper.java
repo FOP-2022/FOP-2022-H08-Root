@@ -22,14 +22,7 @@ class Helper {
         return futureCal;
     }
 
-    static void sleep() {
-        try {
-            Thread.sleep(3);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+
 
     static String createCorrectMessage(Calendar calendar, boolean time) {
         return (time ? "Update time is earlier than the last update: " : "Update time is in the future: ")

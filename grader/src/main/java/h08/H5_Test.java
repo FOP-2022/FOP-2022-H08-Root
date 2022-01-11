@@ -108,11 +108,12 @@ public class H5_Test {
         renewOutContent();
 
         // content tests
+
         Calendar before = Calendar.getInstance();
-        Helper.sleep();
-        TimeStamp instance = new TimeStamp();
-        Helper.sleep();
         Calendar after = Calendar.getInstance();
+        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
+        after.set(after.get(Calendar.YEAR) + 2, 5, 15);
+        TimeStamp instance = new TimeStamp();
 
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
@@ -183,7 +184,7 @@ public class H5_Test {
         System.setOut(System.out);
     }
 
-    @Test
+
     @ParameterizedTest(name = "testCatchn ->{0}<- updateWithExcn")
     @ValueSource(ints = {11, 12, 13, 14, 15, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 52, 53, 54, 55})
     public void testContentTestCatchShouldWork(int n) throws IllegalArgumentException, IllegalAccessException,
@@ -205,11 +206,12 @@ public class H5_Test {
 
         renewOutContent();
 
+
         Calendar before = Calendar.getInstance();
-        Helper.sleep();
-        TimeStamp instance = new TimeStamp();
-        Helper.sleep();
         Calendar after = Calendar.getInstance();
+        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
+        after.set(after.get(Calendar.YEAR) + 2, 5, 15);
+        TimeStamp instance = new TimeStamp();
 
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
@@ -225,7 +227,6 @@ public class H5_Test {
         //should work
 
         Calendar toAdd = Calendar.getInstance();
-        Helper.sleep();
 
         variableValueBefore = (Calendar) f.get(instance);
         TestTimeStampExceptions exceptions = new TestTimeStampExceptions();

@@ -100,10 +100,9 @@ public class H6_Test {
     public void testTestPassContent() throws IllegalAccessException {
 
         // content tests
-        Calendar before = Calendar.getInstance();
-        Helper.sleep();
         TimeStamp instance = new TimeStamp();
-        Helper.sleep();
+        Calendar before = Calendar.getInstance();
+        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
 
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
@@ -154,12 +153,9 @@ public class H6_Test {
 
         assertTrue(errorThrown, "time of Calendar in the future: method testPass does not throw any exception");
 
-        Helper.sleep();
-
         //should work
 
         Calendar toAdd = Calendar.getInstance();
-        Helper.sleep();
 
         errorThrown = false;
         variableValueBefore = (Calendar) f.get(instance);
@@ -183,10 +179,10 @@ public class H6_Test {
         renewOutContent();
 
         // content tests
-        final Calendar before = Calendar.getInstance();
-        Helper.sleep();
-        final TimeStamp instance = new TimeStamp();
-        Helper.sleep();
+        TimeStamp instance = new TimeStamp();
+        Calendar before = Calendar.getInstance();
+        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
+
 
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;

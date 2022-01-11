@@ -38,7 +38,7 @@ public class H1_Test {
             }
         }
 
-        assertTrue(TimeStampVisitor.callsMethod);
+        //assertTrue(TimeStampVisitor.callsMethod);
     }
 
     @Test
@@ -64,11 +64,11 @@ public class H1_Test {
 
         // content tests
         TimeStamp instance = new TimeStamp();
-        Helper.sleep();
+
         Calendar before = Calendar.getInstance();
         instance.update();
         Calendar after = Calendar.getInstance();
-        Helper.sleep();
+
         Field[] fields = TimeStamp.class.getDeclaredFields();
         for (Field field : fields) {
             if (field.getName().equals("lastUpdate")) {
@@ -77,6 +77,7 @@ public class H1_Test {
                 assertFalse(after.before(field.get(instance)), "update process returns too late Calendar");
                 assertEquals(GregorianCalendar.class, field.get(instance).getClass(),
                     "update does not create a GregorianCalendar");
+                assertNotSame(instance, field.get(instance));
             }
         }
     }

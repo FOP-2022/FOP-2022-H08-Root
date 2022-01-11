@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestForSubmission("h08")
 public class H4_Test {
-    @Test
+
     @ParameterizedTest(name = "updateWithExc{index}")
     @ValueSource(ints = {1, 2, 3, 4, 5})
     public void testExistenceUpdateWithExc(int nr) {
@@ -76,11 +76,12 @@ public class H4_Test {
         assertNotNull(method); // sollte nicht vorkommen, da schon in testExistenceUpdateWithExc geprüft
 
         // content tests
+
         Calendar before = Calendar.getInstance();
-        Helper.sleep();
-        TimeStamp instance = new TimeStamp();
-        Helper.sleep();
         Calendar after = Calendar.getInstance();
+        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
+        after.set(after.get(Calendar.YEAR) + 2, 5, 15);
+        TimeStamp instance = new TimeStamp();
 
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
@@ -170,12 +171,12 @@ public class H4_Test {
         assertSame(variableValueBefore, f.get(instance),
             "time of Calendar in the future: method updateWithExc" + nr + " changes value of lastUpdate");
 
-        Helper.sleep();
+
 
         //should work
 
         Calendar toAdd = Calendar.getInstance();
-        Helper.sleep();
+
 
         errorThrown = false;
         variableValueBefore = (Calendar) f.get(instance);

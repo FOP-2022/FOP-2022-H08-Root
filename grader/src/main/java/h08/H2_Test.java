@@ -60,7 +60,7 @@ public class H2_Test {
         //should work
 
         Calendar toAdd = Calendar.getInstance();
-        Helper.sleep();
+
         try {
             instance.update(toAdd);
         } catch (AssertionError e) {
@@ -102,9 +102,11 @@ public class H2_Test {
     @Test
     public void testContentTimeStampUpdateWithParameterTooEarlyCase() throws IllegalArgumentException, IllegalAccessException {
 
-        Calendar before = Calendar.getInstance();
-        Helper.sleep();
+
+
         TimeStamp instance = new TimeStamp();
+        Calendar before = Calendar.getInstance();
+        before.set(2020, 5, 15);
 
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
