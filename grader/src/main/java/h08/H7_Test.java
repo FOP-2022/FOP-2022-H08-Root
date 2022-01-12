@@ -20,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestForSubmission("h08")
 public class H7_Test {
 
+    String names = "AhcusahNaisieboiLohghuGaeRiuewophahlahaquahghaiquievaepievoyaikauXaekaegeekeiyeCixueghodieSivaiphieC";
+
     @Test
     void testConstructorExistenceInsufficientNumberOfSeatsException() {
         Constructor[] allconstructors = null;
@@ -39,7 +41,6 @@ public class H7_Test {
     void testContentInsufficientNumberOfSeatsException() {
         int numberOfSeats = 126;
         int seatsMissing;
-        String names = "AhcusahNaisieboiLohghuGaeRiewophahlahaquahghaiquievaepievoyaikauXaekaegeekeiyeCixueghodieSivaiphieC";
         InsufficientNumberOfSeatsException e;
         Room r;
 
@@ -84,7 +85,6 @@ public class H7_Test {
     @Test
     void testContentNoCertificateException() {
         int studNr = 20; //bei Erhöhung muss names verlängert werden
-        String names = "AhcusahNaisieboiLohghuGaeRiuewophahlahaquahghaiquievaepievoyaikauXaekaegeekeiyeCixueghodieSivaiphieC";
         NoCertificateException e;
         Student[] students = new Student[studNr];
         String realName;
@@ -102,6 +102,67 @@ public class H7_Test {
             + " has/have no certificate(s)", e.getMessage(), "NoCertificateException has wrong message: "
             + e.getMessage());
 
+
+    }
+
+    @Test
+    void testCheckRegistration() {
+        int studNr = 20;
+        Student[] studentsOK = new Student[studNr];
+        Student[] studentsNoCert = new Student[studNr];
+        String realName;
+        for (int i = 0; i < studNr; i++) {
+            realName = "";
+            for (int j = 0; j < 5; j++) {
+                realName += names.charAt(i + j);
+            }
+            studentsOK[i] = new Student(realName, true);
+            studentsNoCert[i] = new Student(realName, i != studNr/2);
+        }
+
+        Room bigRoom = new Room("big", studNr * 2);
+        Room smallRoom = new Room("small", studNr*2 - 2);
+        boolean excThrown = false;
+
+        //works
+        try {
+            Main.checkRegistration(studentsOK, bigRoom);
+        } catch (Exception e) {
+            fail("Exceptino was thrown although registration should not fail: " + e.getMessage());
+        }
+
+        //noCertificate
+        try {
+            Main.checkRegistration(studentsNoCert, bigRoom);
+        } catch (NoCertificateException e) {
+            excThrown = true;
+        } catch (Exception e) {
+            fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
+        }
+        assertTrue(excThrown, "no NoCertificateException was thrown although it should");
+        excThrown = false;
+
+        //room too small
+        try {
+            Main.checkRegistration(studentsOK, smallRoom);
+        } catch (InsufficientNumberOfSeatsException e) {
+            excThrown = true;
+        } catch (Exception e) {
+            fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
+        }
+        assertTrue(excThrown, "no InsufficientNumberOfSeatsException was thrown although it should");
+        excThrown = false;
+
+        //both fail --> InsufficientNumberOfSeatsException
+        try {
+            Main.checkRegistration(studentsNoCert, smallRoom);
+        } catch (InsufficientNumberOfSeatsException e) {
+            excThrown = true;
+        } catch (Exception e) {
+            fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
+        }
+        assertTrue(excThrown, "no InsufficientNumberOfSeatsException was thrown although it should");
+        excThrown = false;
 
     }
 
