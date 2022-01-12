@@ -38,18 +38,11 @@ public class H7_Test {
 
 
     @Test
-    void testContentInsufficientNumberOfSeatsException() {
+    void testConstructorContentInsufficientNumberOfSeatsException() {
         int numberOfSeats = 126;
-        int seatsMissing;
+        int seatsMissing = 6;
         InsufficientNumberOfSeatsException e;
         Room r;
-
-        //test getNumberOfSeats
-        r = new Room("einsA", numberOfSeats);
-        for (seatsMissing = 1; seatsMissing < 500; seatsMissing += 7) {
-            e = new InsufficientNumberOfSeatsException(r, seatsMissing);
-            assertEquals(seatsMissing, e.getNumberOfMissingSeats(), "method getNumberOfMissingSeats does not work");
-        }
 
         //test getMessage()
         for (int i = 0; i < 99; i += 3) {
@@ -63,6 +56,21 @@ public class H7_Test {
         //missing!!!!: getMessage() is NOT overwritten by studi
 
 
+    }
+
+    @Test
+    void testGetNumberOfMissingSeats() {
+        int numberOfSeats = 126;
+        int seatsMissing;
+        InsufficientNumberOfSeatsException e;
+        Room r;
+
+        //test getNumberOfSeats
+        r = new Room("einsA", numberOfSeats);
+        for (seatsMissing = 1; seatsMissing < 500; seatsMissing += 7) {
+            e = new InsufficientNumberOfSeatsException(r, seatsMissing);
+            assertEquals(seatsMissing, e.getNumberOfMissingSeats(), "method getNumberOfMissingSeats does not work");
+        }
     }
 
 
@@ -106,7 +114,7 @@ public class H7_Test {
     }
 
     @Test
-    void testCheckRegistration() {
+    void testCheckRegistrationWithoutException() {
         int studNr = 20;
         Student[] studentsOK = new Student[studNr];
         Student[] studentsNoCert = new Student[studNr];
@@ -130,6 +138,27 @@ public class H7_Test {
         } catch (Exception e) {
             fail("Exceptino was thrown although registration should not fail: " + e.getMessage());
         }
+    }
+
+    @Test
+    void testCheckRegistrationWithException() {
+        int studNr = 20;
+        Student[] studentsOK = new Student[studNr];
+        Student[] studentsNoCert = new Student[studNr];
+        String realName;
+        for (int i = 0; i < studNr; i++) {
+            realName = "";
+            for (int j = 0; j < 5; j++) {
+                realName += names.charAt(i + j);
+            }
+            studentsOK[i] = new Student(realName, true);
+            studentsNoCert[i] = new Student(realName, i != studNr / 2);
+        }
+
+        Room bigRoom = new Room("big", studNr * 2);
+        Room smallRoom = new Room("small", studNr * 2 - 2);
+        boolean excThrown = false;
+
 
         //noCertificate
         try {

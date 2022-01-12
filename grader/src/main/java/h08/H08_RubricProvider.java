@@ -247,6 +247,84 @@ public class H08_RubricProvider implements RubricProvider {
             .build()
         ).build();
 
+
+    //---------------------- H7.1 -------------------------
+
+    public static final Criterion H7_1_T1 = Criterion.builder()
+        .shortDescription("Die beiden Exception Klassen existieren und die Methode getNumberOfMissingSeats funktioniert")
+        .grader(Grader.testAwareBuilder()
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Definition_Test.class.getMethod("testClassExistenceInsufficentNumberOfSeatsException")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Definition_Test.class.getMethod("testClassExistenceNoCertificateException")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testGetNumberOfMissingSeats")))
+            .pointsPassedMax()
+            .pointsFailedMin()
+            .build()
+        ).build();
+
+    public static final Criterion H7_1_T2 = Criterion.builder()
+        .shortDescription("InsufficientNumberOfSeatsException existiert und die message wird korrekt gesetzt")
+        .grader(Grader.testAwareBuilder()
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testConstructorExistenceInsufficientNumberOfSeatsException")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testConstructorContentInsufficientNumberOfSeatsException")))
+            .pointsPassedMax()
+            .pointsFailedMin()
+            .build()
+        ).build();
+
+    public static final Criterion H7_1_T3 = Criterion.builder()
+        .shortDescription("NoCertificateException existiert und die message wird korrekt gesetzt")
+        .maxPoints(2)
+        .grader(Grader.testAwareBuilder()
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testConstructorExistenceNoCertificateException")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testContentNoCertificateException")))
+            .pointsPassedMax()
+            .pointsFailedMin()
+            .build()
+        ).build();
+
+
+    //---------------------- H7.2 -------------------------
+
+    public static final Criterion H7_2_T1 = Criterion.builder()
+        .shortDescription("Die Methode funktioniert im Fall, dass der Raum groß genug ist und die Studenten alle die 3G Regel erfüllen")
+        .grader(Grader.testAwareBuilder()
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Definition_Test.class.getMethod("testCheckRegistrationWithoutException")))
+            .pointsPassedMax()
+            .pointsFailedMin()
+            .build()
+        ).build();
+
+    public static final Criterion H7_2_T2 = Criterion.builder()
+        .shortDescription("Die Methode funktioniert im Fall, dass irgendeine Exception geworfen werden soll")
+        .maxPoints(2)
+        .grader(Grader.testAwareBuilder()
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testCheckRegistrationWithException")))
+            .pointsPassedMax()
+            .pointsFailedMin()
+            .build()
+        ).build();
+
+    public static final Criterion H7_2_T3 = Criterion.builder()
+        .shortDescription("Die Methode funktioniert insgesamt korrekt")
+        .grader(Grader.testAwareBuilder()
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testCheckRegistrationWithoutException")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H7_Test.class.getMethod("testCheckRegistrationWithException")))
+            .pointsPassedMax()
+            .pointsFailedMin()
+            .build()
+        ).build();
+
     //---------------------- Zusammenfassungen -----------------------
 
     public static final Criterion H1 = Criterion.builder()
@@ -298,6 +376,24 @@ public class H08_RubricProvider implements RubricProvider {
         .addChildCriteria(
             H6_T1,
             H6_T2
+        )
+        .build();
+
+    public static final Criterion H7_1 = Criterion.builder()
+        .shortDescription("H7.1 – Exception-Klassen")
+        .addChildCriteria(
+            H7_1_T1,
+            H7_1_T2,
+            H7_1_T3
+        )
+        .build();
+
+    public static final Criterion H7_2 = Criterion.builder()
+        .shortDescription("H7.2 – Überprüfung")
+        .addChildCriteria(
+            H7_2_T1,
+            H7_2_T2,
+            H7_2_T3
         )
         .build();
 
