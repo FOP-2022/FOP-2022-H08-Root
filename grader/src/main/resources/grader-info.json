@@ -16,6 +16,8 @@
         "h08/H5_Definition_Test.java",
         "h08/H5_Test.java",
         "h08/H6_Test.java",
+        "H7_Definition_Test",
+        "H7_Test",
         "h08/H08_RubricProvider.java",
         "h08/Helper.java",
         "h08/TimeStampVisitor.java"
