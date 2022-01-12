@@ -257,7 +257,7 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H2 = Criterion.builder()
-        .shortDescription("H2 – Vorbereitung")
+        .shortDescription("H2 – Mit assert arbeiten")
         .addChildCriteria(
             H2_T1,
             H2_T2,
@@ -265,7 +265,7 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H3 = Criterion.builder()
-        .shortDescription("H1 – Vorbereitung")
+        .shortDescription("H3 – Exception-Klassen definieren")
         .addChildCriteria(
             H3_T1,
             H3_T2,
@@ -273,7 +273,7 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H4 = Criterion.builder()
-        .shortDescription("H1 – Vorbereitung")
+        .shortDescription("H4 – Exception werfen")
         .addChildCriteria(
             H4_T1,
             H4_T2,
@@ -282,7 +282,7 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H5 = Criterion.builder()
-        .shortDescription("H1 – Vorbereitung")
+        .shortDescription("H5 – Exception werfen")
         .addChildCriteria(
             H5_T1,
             H5_T2,
@@ -294,7 +294,7 @@ public class H08_RubricProvider implements RubricProvider {
         .build();
 
     public static final Criterion H6 = Criterion.builder()
-        .shortDescription("H1 – Vorbereitung")
+        .shortDescription("H6 – Exception weiterreichen")
         .addChildCriteria(
             H6_T1,
             H6_T2

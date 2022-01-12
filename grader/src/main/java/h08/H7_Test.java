@@ -117,11 +117,11 @@ public class H7_Test {
                 realName += names.charAt(i + j);
             }
             studentsOK[i] = new Student(realName, true);
-            studentsNoCert[i] = new Student(realName, i != studNr/2);
+            studentsNoCert[i] = new Student(realName, i != studNr / 2);
         }
 
         Room bigRoom = new Room("big", studNr * 2);
-        Room smallRoom = new Room("small", studNr*2 - 2);
+        Room smallRoom = new Room("small", studNr * 2 - 2);
         boolean excThrown = false;
 
         //works
