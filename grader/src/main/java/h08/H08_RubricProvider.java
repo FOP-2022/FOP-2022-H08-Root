@@ -296,7 +296,7 @@ public class H08_RubricProvider implements RubricProvider {
         .shortDescription("Die Methode funktioniert im Fall, dass der Raum groß genug ist und die Studenten alle die 3G Regel erfüllen")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H7_Definition_Test.class.getMethod("testCheckRegistrationWithoutException")))
+                H7_Test.class.getMethod("testCheckRegistrationWithoutException")))
             .pointsPassedMax()
             .pointsFailedMin()
             .build()
@@ -399,7 +399,7 @@ public class H08_RubricProvider implements RubricProvider {
 
     public static final Rubric RUBRIC = Rubric.builder()
         .title("H08")
-        .addChildCriteria(H1, H2, H3, H4, H5, H6)
+        .addChildCriteria(H1, H2, H3, H4, H5, H6, H7_1, H7_2)
         .build();
 
     @Override
