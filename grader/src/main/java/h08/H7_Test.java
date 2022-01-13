@@ -23,7 +23,7 @@ public class H7_Test {
     String names = "AhcusahNaisieboiLohghuGaeRiuewophahlahaquahghaiquievaepievoyaikauXaekaegeekeiyeCixueghodieSivaiphieC";
 
     @Test
-    void testConstructorExistenceInsufficientNumberOfSeatsException() {
+    public void testConstructorExistenceInsufficientNumberOfSeatsException() {
         Constructor[] allconstructors = null;
         try {
             Constructor constructor = InsufficientNumberOfSeatsException.class.getDeclaredConstructor(Room.class, int.class);
@@ -38,7 +38,7 @@ public class H7_Test {
 
 
     @Test
-    void testConstructorContentInsufficientNumberOfSeatsException() {
+    public void testConstructorContentInsufficientNumberOfSeatsException() {
         int numberOfSeats = 126;
         int seatsMissing = 6;
         InsufficientNumberOfSeatsException e;
@@ -59,7 +59,7 @@ public class H7_Test {
     }
 
     @Test
-    void testGetNumberOfMissingSeats() {
+    public void testGetNumberOfMissingSeats() {
         int numberOfSeats = 126;
         int seatsMissing;
         InsufficientNumberOfSeatsException e;
@@ -75,7 +75,7 @@ public class H7_Test {
 
 
     @Test
-    void testConstructorExistenceNoCertificateException() {
+    public void testConstructorExistenceNoCertificateException() {
         Constructor[] allconstructors = null;
         try {
             Constructor constructor = NoCertificateException.class.getDeclaredConstructor(Student[].class);
@@ -91,7 +91,7 @@ public class H7_Test {
 
 
     @Test
-    void testContentNoCertificateException() {
+    public void testContentNoCertificateException() {
         int studNr = 20; //bei Erhöhung muss names verlängert werden
         NoCertificateException e;
         Student[] students = new Student[studNr];
@@ -114,7 +114,7 @@ public class H7_Test {
     }
 
     @Test
-    void testCheckRegistrationWithoutException() {
+    public void testCheckRegistrationWithoutException() {
         int studNr = 20;
         Student[] studentsOK = new Student[studNr];
         Student[] studentsNoCert = new Student[studNr];
@@ -141,7 +141,7 @@ public class H7_Test {
     }
 
     @Test
-    void testCheckRegistrationWithException() {
+    public void testCheckRegistrationWithException() {
         int studNr = 20;
         Student[] studentsOK = new Student[studNr];
         Student[] studentsNoCert = new Student[studNr];

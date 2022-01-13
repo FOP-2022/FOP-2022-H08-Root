@@ -49,7 +49,7 @@ public class H2_Test {
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 field.setAccessible(true);
                 f = field;
             }
@@ -96,7 +96,7 @@ public class H2_Test {
         }
 
         assertTrue(errorThrown, "no AssertionError thrown although Calender in the future");
-        assertTrue(variableValueBefore == f.get(instance), "lastUpdate was changed although Calendar in the future");
+        assertSame(variableValueBefore, f.get(instance), "lastUpdate was changed although Calendar in the future");
     }
 
     @Test
@@ -127,6 +127,6 @@ public class H2_Test {
         }
         assertTrue(errorThrown, "no AssertionError thrown although Calender too old");
 
-        assertTrue(variableValueBefore == f.get(instance), "lastUpdate was changed although Calendar too old");
+        assertSame(variableValueBefore, f.get(instance), "lastUpdate was changed although Calendar too old");
     }
 }
