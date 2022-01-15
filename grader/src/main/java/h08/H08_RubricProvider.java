@@ -293,7 +293,8 @@ public class H08_RubricProvider implements RubricProvider {
     //---------------------- H7.2 -------------------------
 
     public static final Criterion H7_2_T1 = Criterion.builder()
-        .shortDescription("Die Methode funktioniert im Fall, dass der Raum groß genug ist und die Studenten alle die 3G Regel erfüllen")
+        .shortDescription("Die Methode funktioniert im Fall, dass der Raum groß genug ist und die Studenten "
+            + "alle die 3G Regel erfüllen")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H7_Test.class.getMethod("testCheckRegistrationWithoutException")))
@@ -406,6 +407,7 @@ public class H08_RubricProvider implements RubricProvider {
     public Rubric getRubric() {
         return RUBRIC;
     }
+
 
     @Override
     public void configure(RubricConfiguration configuration) {
