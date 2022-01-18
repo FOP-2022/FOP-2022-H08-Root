@@ -10,7 +10,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Calendar;
 
-import static java.lang.reflect.Modifier.*;
+import static java.lang.reflect.Modifier.isAbstract;
+import static java.lang.reflect.Modifier.isPrivate;
+import static java.lang.reflect.Modifier.isPublic;
+import static java.lang.reflect.Modifier.isStatic;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
