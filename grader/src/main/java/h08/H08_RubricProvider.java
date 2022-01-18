@@ -268,7 +268,7 @@ public class H08_RubricProvider implements RubricProvider {
         .shortDescription("InsufficientNumberOfSeatsException existiert und die message wird korrekt gesetzt")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H7_Test.class.getMethod("testConstructorExistenceInsufficientNumberOfSeatsException")))
+                H7_Definition_Test.class.getMethod("testConstructorExistenceInsufficientNumberOfSeatsException")))
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H7_Test.class.getMethod("testConstructorContentInsufficientNumberOfSeatsException")))
             .pointsPassedMax()
@@ -281,7 +281,7 @@ public class H08_RubricProvider implements RubricProvider {
         .maxPoints(2)
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H7_Test.class.getMethod("testConstructorExistenceNoCertificateException")))
+                H7_Definition_Test.class.getMethod("testConstructorExistenceNoCertificateException")))
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H7_Test.class.getMethod("testContentNoCertificateException")))
             .pointsPassedMax()

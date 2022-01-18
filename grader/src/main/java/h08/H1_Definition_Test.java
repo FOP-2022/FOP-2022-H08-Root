@@ -52,8 +52,8 @@ public class H1_Definition_Test {
         for (Field field : fields) {
             if (field.getName().equals("lastUpdate")) {
                 containsLastUpdate = true;
-                assertTrue(isPrivate(field.getModifiers()));
-                assertEquals(Calendar.class, field.getType());
+                assertTrue(isPrivate(field.getModifiers()), "lastUpdate is not private");
+                assertEquals(Calendar.class, field.getType(), "lastUpdate is not Calendar");
                 break;
             }
         }

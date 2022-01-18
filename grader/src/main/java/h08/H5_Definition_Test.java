@@ -10,9 +10,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Calendar;
 
-import static java.lang.reflect.Modifier.isAbstract;
-import static java.lang.reflect.Modifier.isPublic;
-import static java.lang.reflect.Modifier.isStatic;
+import static java.lang.reflect.Modifier.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -46,7 +44,7 @@ public class H5_Definition_Test {
         boolean hasMethod = false;
         for (Method m : methods) {
             if (m.getName().equals(methodName)) {
-                assertTrue(isPublic(m.getModifiers()), "method " + methodName + " is not public");
+                assertFalse(isPrivate(m.getModifiers()), "method " + methodName + " is private");
                 assertFalse(isStatic(m.getModifiers()), "method " + methodName + " is static");
                 assertEquals(void.class, m.getReturnType(), "method " + methodName + " is not void");
 
