@@ -111,7 +111,7 @@ public class H7_Test {
         try {
             Main.checkRegistration(studentsOK, bigRoom);
         } catch (Exception e) {
-            fail("Exceptino was thrown although registration should not fail: " + e.getMessage());
+            fail("Exception was thrown although registration should not fail: " + e.getMessage());
         }
     }
 
