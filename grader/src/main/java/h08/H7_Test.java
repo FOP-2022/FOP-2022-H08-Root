@@ -130,7 +130,7 @@ public class H7_Test {
             }
             studentsOK[i] = new Student(realName, true);
             studentsNoCert[i] = new Student(realName, i != studNr / 2);
-            if (i == studNr) {
+            if (i == studNr / 2) {
                 nameNoCert = realName;
             }
         }
