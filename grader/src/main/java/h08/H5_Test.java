@@ -1,9 +1,15 @@
 package h08;
 
+import h08.reflection.ClassTester;
+import h08.reflection.MethodTester;
+import javassist.bytecode.analysis.ControlFlow;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import spoon.reflect.code.CtCatch;
+import spoon.reflect.code.CtTry;
+import spoon.reflect.visitor.filter.TypeFilter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -11,6 +17,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,6 +74,12 @@ public class H5_Test {
         for (int i = 21; i <= 25; i++) {
             testContentTestCatch(i);
         }
+
+        ClassTester<TestTimeStampExceptions> classtester = new ClassTester<TestTimeStampExceptions>(TestTimeStampExceptions.class).assureClassResolved();
+        MethodTester methodTester = new MethodTester(classtester, "testCatch2").assureMethodResolved();
+        assertTrue(methodTester.assertCtMethodExists().getElements(new TypeFilter<>(CtTry.class)).get(0).getCatchers().size() == 2);
+
+        methodTester.assertConstructsUsed(List.of(CtCatch.class));
 
         //Kontrolle, dass Catch Klausel nur einen Catch-Block enthält
 

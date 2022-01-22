@@ -1,5 +1,7 @@
 package h08;
 
+import h08.reflection.ClassTester;
+import h08.reflection.MethodTester;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
@@ -64,6 +66,8 @@ public class H3_Test {
             assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(), Helper.createCorrectMessage(c, true),
                 "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
         }
+
+
 
         //hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
 

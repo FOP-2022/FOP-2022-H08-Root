@@ -1,5 +1,6 @@
 package h08;
 
+
 import org.sourcegrade.jagr.api.rubric.Criterion;
 import org.sourcegrade.jagr.api.rubric.Grader;
 import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
@@ -411,6 +412,7 @@ public class H08_RubricProvider implements RubricProvider {
 
     @Override
     public void configure(RubricConfiguration configuration) {
-        configuration.addTransformer(new TimeStampVisitor.TimeStampTransformer());
+        //configuration.addTransformer(new ExceptionConstructorVerifier1());
+       // configuration.addTransformer(new TimeStampVisitor.TimeStampTransformer());
     }
 }

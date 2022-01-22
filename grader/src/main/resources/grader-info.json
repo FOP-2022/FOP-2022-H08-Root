@@ -7,6 +7,7 @@
     {
       "name": "grader",
       "files": [
+        "h08/ExceptionConstructorVerifier1.java",
         "h08/H1_Definition_Test.java",
         "h08/H1_Test.java",
         "h08/H2_Test.java",
