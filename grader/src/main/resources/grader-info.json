@@ -21,17 +21,33 @@
         "h08/H7_Test.java",
         "h08/H08_RubricProvider.java",
         "h08/Helper.java",
-        "h08/TimeStampVisitor.java"
+        "h08/TimeStampVisitor.java",
+        "h08/reflection/AttributeMatcher.java",
+        "h08/reflection/AttributeTester.java",
+        "h08/reflection/ClassTester.java",
+        "h08/reflection/IdentifierMatcher.java",
+        "h08/reflection/MethodTester.java",
+        "h08/reflection/ParameterMatcher.java",
+        "h08/reflection/TestUtils.java",
+        "h08/tutor/AbstractExpression.java",
+        "h08/tutor/Mocked.java",
+        "h08/tutor/Utils.java"
+
       ]
     },
     {
       "name": "solution",
       "files": [
         "h08/BadUpdateTimeException.java",
+        "h08/Main.java",
         "h08/TestTimeStampExceptions.java",
         "h08/TimeStamp.java",
         "h08/UpdateTimeBeforeLastUpdateException.java",
-        "h08/UpdateTimeInTheFutureException.java"
+        "h08/UpdateTimeInTheFutureException.java",
+        "h08/roommanagement/InsufficientNumberOfSeatsException.java",
+        "h08/roommanagement/NoCertificateException.java",
+        "h08/roommanagement/Room.java",
+        "h08/roommanagement/Student.java"
       ]
     }
   ]

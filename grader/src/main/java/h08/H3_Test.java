@@ -62,13 +62,15 @@ public class H3_Test {
         // wird und nicht der String neu erzeugt wird?
         Calendar[] calendars = createManyRandomCalendars();
 
+        ExceptionConstructorVerifier1.hasConstructor = false;
+
         for (Calendar c : calendars) {
             assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(), Helper.createCorrectMessage(c, true),
                 "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
         }
 
-
-
+        //is set by call of UpdateTimeBeforeLastUpdateException constructor
+        assertTrue(ExceptionConstructorVerifier1.hasConstructor);
         //hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
 
     }
@@ -88,11 +90,16 @@ public class H3_Test {
         // und nicht der STring neu erzeugt wird?
         Calendar[] calendars = createManyRandomCalendars();
 
+        ExceptionConstructorVerifier1.hasConstructor = true;
+
         for (Calendar c : calendars) {
             assertEquals(new UpdateTimeInTheFutureException(c).getMessage(), Helper.createCorrectMessage(c, false),
                 "constructor of UpdateTimeInTheFutureException returns wrong message");
         }
 
+
+        //is set by call of UpdateTimeInTheFutureException constructor
+        assertFalse(ExceptionConstructorVerifier1.hasConstructor);
         //hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
 
     }

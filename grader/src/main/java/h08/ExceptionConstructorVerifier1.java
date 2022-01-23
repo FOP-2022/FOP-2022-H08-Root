@@ -1,4 +1,4 @@
-package h08lib;
+package h08;
 
 import org.objectweb.asm.*;
 import org.slf4j.Logger;
@@ -10,6 +10,11 @@ public class ExceptionConstructorVerifier1 implements ClassTransformer {
 
     public static boolean hasConstructor = false;
 
+    public static void setsTrueInConstructor(boolean b) {
+        Jagr.Default.getInjector().getInstance(Logger.class).info("in static method " + b);
+        hasConstructor = b;
+    }
+
     @Override
     public String getName() {
         return null;
@@ -17,7 +22,7 @@ public class ExceptionConstructorVerifier1 implements ClassTransformer {
 
     @Override
     public void transform(ClassReader reader, ClassWriter writer) {
-        if (reader.getClassName().equals("h08/UpdateTimeBeforeLastUpdateException")) {
+        if (reader.getClassName().equals("h08/BadUpdateTimeException")) {
             reader.accept(new CV(writer), 0);
         } else {
             reader.accept(writer, 0);
@@ -46,15 +51,16 @@ public class ExceptionConstructorVerifier1 implements ClassTransformer {
             }
 
             @Override
-            public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-                Jagr.Default.getInjector().getInstance(Logger.class).info("MV: {} {}", name, descriptor);
-                if (opcode == Opcodes.INVOKESPECIAL
-                    && name.equals("<init>")
-                    && descriptor.equals("(Ljava/util/Calendar;Z)V")) {
-                    Jagr.Default.getInjector().getInstance(Logger.class).info("MV: in if");
-                    hasConstructor = true;
-                }
-                super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+            public void visitCode() {
+                super.visitVarInsn(Opcodes.ILOAD, 2);
+                super.visitMethodInsn(
+                    Opcodes.INVOKESTATIC,
+                    "h08/ExceptionConstructorVerifier1",
+                    "setsTrueInConstructor",
+                    "(Z)V",
+                    false
+                );
+                super.visitCode();
             }
         }
     }

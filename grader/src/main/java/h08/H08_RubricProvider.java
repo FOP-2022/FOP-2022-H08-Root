@@ -412,7 +412,7 @@ public class H08_RubricProvider implements RubricProvider {
 
     @Override
     public void configure(RubricConfiguration configuration) {
-        //configuration.addTransformer(new ExceptionConstructorVerifier1());
+        configuration.addTransformer(new ExceptionConstructorVerifier1());
        // configuration.addTransformer(new TimeStampVisitor.TimeStampTransformer());
     }
 }
