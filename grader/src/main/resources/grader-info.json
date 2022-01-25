@@ -31,7 +31,11 @@
         "h08/reflection/TestUtils.java",
         "h08/tutor/AbstractExpression.java",
         "h08/tutor/Mocked.java",
-        "h08/tutor/Utils.java"
+        "h08/tutor/Utils.java",
+        "h08/tutor/BadUpdateTimeException.java",
+        "h08/tutor/TimeStamp2.java",
+        "h08/tutor/UpdateTimeBeforeLastUpdateException.java",
+        "h08/tutor/UpdateTimeInTheFutureException.java"
 
       ]
     },

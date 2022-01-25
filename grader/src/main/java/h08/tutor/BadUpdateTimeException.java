@@ -1,11 +1,20 @@
 package h08.tutor;
 
+import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+
 import java.util.Calendar;
-
-public class BadUpdateTimeException extends Exception {
-
+@TestForSubmission("h08")
+public class BadUpdateTimeException extends h08.BadUpdateTimeException {
+    private Calendar calendar;
+    private boolean time;
     public BadUpdateTimeException(Calendar calendar, boolean time) {
-        super((time ? "Update time is earlier than the last update: " : "Update time is in the future: ")
+        super(calendar, time);
+        this.calendar = calendar;
+        this.time = time;
+    }
+
+    public String getMessage() {
+        return (time ? "Update time is earlier than the last update: " : "Update time is in the future: ")
             + calendar.get(Calendar.DAY_OF_MONTH)
             + "." + (calendar.get(Calendar.MONTH) + 1)
             + "." + calendar.get(Calendar.YEAR)
@@ -13,6 +22,6 @@ public class BadUpdateTimeException extends Exception {
             + ":" + calendar.get(Calendar.MINUTE)
             + ":" + calendar.get(Calendar.SECOND)
             + ":" + calendar.get(Calendar.MILLISECOND)
-            + "!");
+            + "!";
     }
 }

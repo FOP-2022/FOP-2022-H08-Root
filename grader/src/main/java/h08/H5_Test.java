@@ -2,12 +2,14 @@ package h08;
 
 import h08.reflection.ClassTester;
 import h08.reflection.MethodTester;
+import h08.tutor.TimeStamp2;
 import javassist.bytecode.analysis.ControlFlow;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import spoon.reflect.code.CtCatch;
+import spoon.reflect.code.CtSwitch;
 import spoon.reflect.code.CtTry;
 import spoon.reflect.visitor.filter.TypeFilter;
 
@@ -81,7 +83,7 @@ public class H5_Test {
 
         methodTester.assertConstructsUsed(List.of(CtCatch.class));
 
-        //Kontrolle, dass Catch Klausel nur einen Catch-Block enthält
+        //Kontrolle, dass Catch Klausel nur einen Catch-Block enthält ist ^ gemacht
 
     }
 
@@ -126,9 +128,9 @@ public class H5_Test {
         Calendar after = Calendar.getInstance();
         before.set(before.get(Calendar.YEAR) - 2, 5, 15);
         after.set(after.get(Calendar.YEAR) + 2, 5, 15);
-        TimeStamp instance = new TimeStamp();
+        TimeStamp2 instance = new TimeStamp2();
 
-        Field[] fields = TimeStamp.class.getDeclaredFields();
+        Field[] fields = TimeStamp2.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
             if (field.getName().equals("lastUpdate")) {
@@ -224,9 +226,9 @@ public class H5_Test {
         Calendar after = Calendar.getInstance();
         before.set(before.get(Calendar.YEAR) - 2, 5, 15);
         after.set(after.get(Calendar.YEAR) + 2, 5, 15);
-        TimeStamp instance = new TimeStamp();
+        TimeStamp2 instance = new TimeStamp2();
 
-        Field[] fields = TimeStamp.class.getDeclaredFields();
+        Field[] fields = TimeStamp2.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
             if (field.getName() == "lastUpdate") {
@@ -256,6 +258,16 @@ public class H5_Test {
 
     @Test
     public void testSwitchCase() {
+        ClassTester<TestTimeStampExceptions> classtester = new ClassTester<TestTimeStampExceptions>(TestTimeStampExceptions.class).assureClassResolved();
+        Method[] methods = TestTimeStampExceptions.class.getDeclaredMethods();
+        boolean hasSwitchCase = false;
+        for (Method m : methods) {
+            MethodTester methodTester = new MethodTester(classtester, m.getName()).assureMethodResolved();
+            hasSwitchCase = methodTester.assertCtMethodExists().getElements(new TypeFilter<>(CtSwitch.class)).size() >= 1;
+        }
+
+        assertTrue(hasSwitchCase, "switch-case is not used");
+
 
     }
 

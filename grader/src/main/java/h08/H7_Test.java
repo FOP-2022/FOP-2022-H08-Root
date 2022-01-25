@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static java.lang.reflect.Modifier.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -90,6 +92,15 @@ public class H7_Test {
 
     @Test
     public void testCheckRegistrationWithoutException() {
+        Method[] methods = Main.class.getDeclaredMethods();
+        boolean hasMethod = false;
+        for (Method m : methods) {
+            if (m.getName().equals("checkRegistration")) {
+                assertTrue(isPublic(m.getModifiers()), "checkRegistration is not public");
+                assertTrue(isStatic(m.getModifiers()), "checkRegistration is not static");
+            }
+        }
+
         int studNr = 20;
         Student[] studentsOK = new Student[studNr];
         Student[] studentsNoCert = new Student[studNr];

@@ -5,7 +5,7 @@ import java.util.Calendar;
 public class UpdateTimeBeforeLastUpdateException extends BadUpdateTimeException {
 
     public UpdateTimeBeforeLastUpdateException(Calendar calendar) {
-        super(calendar, false);
+        super(calendar, true);
         // TODO Auto-generated constructor stub
     }
 

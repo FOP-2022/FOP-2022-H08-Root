@@ -102,6 +102,8 @@ public class TestTimeStampExceptions {
      * @throws Exception which is thrown by the method chosen with param n
      */
     private void test(TimeStamp timestamp, Calendar calendar, int n) throws Exception {
+
+
         switch (n) {
             case 1:
                 timestamp.updateWithExc1(calendar);

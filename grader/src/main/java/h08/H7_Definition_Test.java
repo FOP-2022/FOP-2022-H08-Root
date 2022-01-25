@@ -87,4 +87,6 @@ public class H7_Definition_Test {
         assertTrue(1 == allconstructors.length, "there is more than one constructor in InsufficientNumberOfSeatsException");
 
     }
+
+
 }

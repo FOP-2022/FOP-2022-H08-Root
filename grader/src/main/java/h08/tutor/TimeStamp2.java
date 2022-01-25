@@ -1,12 +1,15 @@
 package h08.tutor;
 
+import h08.TimeStamp;
+import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-public class TimeStamp {
+@TestForSubmission("h08")
+public class TimeStamp2 extends TimeStamp {
     private Calendar lastUpdate;
 
-    public TimeStamp() {
+    public TimeStamp2() {
         update();
     }
 
@@ -63,7 +66,7 @@ public class TimeStamp {
      * @param calendar the potential new one
      * @throws h08.BadUpdateTimeException thrown if calendar is older than the current one or in the future
      */
-    public void updateWithExc2(Calendar calendar) throws BadUpdateTimeException {
+    public void updateWithExc2(Calendar calendar) throws h08.BadUpdateTimeException {
         if (calendar.before(lastUpdate)) {
             throw new UpdateTimeBeforeLastUpdateException(calendar);
         }

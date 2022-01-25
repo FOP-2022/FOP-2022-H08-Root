@@ -11,7 +11,7 @@ public class ExceptionConstructorVerifier1 implements ClassTransformer {
     public static boolean hasConstructor = false;
 
     public static void setsTrueInConstructor(boolean b) {
-        Jagr.Default.getInjector().getInstance(Logger.class).info("in static method " + b);
+
         hasConstructor = b;
     }
 
@@ -37,7 +37,7 @@ public class ExceptionConstructorVerifier1 implements ClassTransformer {
 
         @Override
         public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-            Jagr.Default.getInjector().getInstance(Logger.class).info("CV: {} {}", name, descriptor);
+
             if (name.equals("<init>")) {
                 return new MV(super.visitMethod(access, name, descriptor, signature, exceptions));
             }

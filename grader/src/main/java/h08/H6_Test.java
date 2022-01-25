@@ -1,5 +1,6 @@
 package h08;
 
+import h08.tutor.TimeStamp2;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
@@ -179,12 +180,12 @@ public class H6_Test {
         renewOutContent();
 
         // content tests
-        TimeStamp instance = new TimeStamp();
+        TimeStamp2 instance = new TimeStamp2();
         Calendar before = Calendar.getInstance();
         before.set(before.get(Calendar.YEAR) - 2, 5, 15);
 
 
-        Field[] fields = TimeStamp.class.getDeclaredFields();
+        Field[] fields = TimeStamp2.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
             if (field.getName().equals("lastUpdate")) {
