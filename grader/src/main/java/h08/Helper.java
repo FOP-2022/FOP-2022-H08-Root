@@ -35,4 +35,8 @@ class Helper {
             + ":" + calendar.get(Calendar.MILLISECOND)
             + "!";
     }
+
+    static String createMessageOfBadUpdateException(Calendar calendar, boolean time) {
+        return (new BadUpdateTimeException(calendar, time)).getMessage();
+    }
 }

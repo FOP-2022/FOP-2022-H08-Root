@@ -156,7 +156,9 @@ public class H7_Test {
             Main.checkRegistration(studentsNoCert, bigRoom);
         } catch (NoCertificateException e) {
             excThrown = true;
-            assertEquals(nameNoCert + " has/have no certificate(s)", e.getMessage(),
+            Student[] noCertStud = new Student[1];
+            noCertStud[0] = new Student(nameNoCert, false);
+            assertEquals((new NoCertificateException(noCertStud)).getMessage(), e.getMessage(),
                 "NoCertificateException has wrong student array parameter");
         } catch (Exception e) {
             fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
@@ -169,7 +171,7 @@ public class H7_Test {
             Main.checkRegistration(studentsOK, smallRoom);
         } catch (InsufficientNumberOfSeatsException e) {
             excThrown = true;
-            assertEquals(smallRoom.name + " has not enough seats", e.getMessage(),
+            assertEquals((new InsufficientNumberOfSeatsException(smallRoom,1)).getMessage(), e.getMessage(),
                 "InsufficientNumberOfSeatsException gets no or wrong Room");
             assertTrue(e.getNumberOfMissingSeats() == 1, "InsufficientNumberOfSeatsException gets "
                 + "wrong number of missing seats");
@@ -184,7 +186,7 @@ public class H7_Test {
             Main.checkRegistration(studentsNoCert, smallRoom);
         } catch (InsufficientNumberOfSeatsException e) {
             excThrown = true;
-            assertEquals(smallRoom.name + " has not enough seats", e.getMessage(),
+            assertEquals((new InsufficientNumberOfSeatsException(smallRoom,1)).getMessage(), e.getMessage(),
                 "InsufficientNumberOfSeatsException gets no or wrong Room");
             assertTrue(e.getNumberOfMissingSeats() == 1, "InsufficientNumberOfSeatsException gets "
                 + "wrong number of missing seats");
