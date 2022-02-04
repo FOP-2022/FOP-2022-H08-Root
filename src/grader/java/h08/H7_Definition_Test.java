@@ -58,7 +58,6 @@ public class H7_Definition_Test {
             "class NoCertificateException does not extend class Exception");
     }
 
-
     @Test
     public void testConstructorExistenceNoCertificateException() {
         Constructor[] allconstructors = null;

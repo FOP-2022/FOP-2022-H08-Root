@@ -8,5 +8,4 @@ public class UpdateTimeBeforeLastUpdateException extends BadUpdateTimeException 
         super(calendar, true);
         // TODO Auto-generated constructor stub
     }
-
 }
