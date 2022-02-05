@@ -48,7 +48,7 @@ public class H6_Test {
                     containsParam = false;
                 }
 
-                assertTrue(parameter.length == 2, "method testPass has too many parameters");
+                assertEquals(2, parameter.length, "method testPass has too many parameters");
                 hasMethod = true;
             }
         }
@@ -59,9 +59,7 @@ public class H6_Test {
         Calendar cal = Calendar.getInstance();
         try {
             tte.testPass(instance, cal);
-        } catch (BadUpdateTimeException e) {
-            // TODO Auto-generated catch block
-
+        } catch (BadUpdateTimeException ignored) {
         }
     }
 
@@ -108,7 +106,7 @@ public class H6_Test {
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 field.setAccessible(true);
                 f = field;
             }
@@ -120,16 +118,13 @@ public class H6_Test {
 
         //time too early
 
-
         boolean errorThrown = false;
         try {
             tte.testPass(instance, before);
         } catch (UpdateTimeBeforeLastUpdateException e) {
-            // TODO Auto-generated catch block
             errorThrown = true;
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            fail("time of Calendar is too early: method testPass throws wrong exception");
+            fail("time of Calendar is too early: method testPass throws wrong exception", e);
         }
         assertTrue(errorThrown, "time of Calendar is too early: method testPass does not throw any exception");
 
@@ -143,13 +138,10 @@ public class H6_Test {
 
         try {
             tte.testPass(instance, futureCal);
-        } catch (UpdateTimeInTheFutureException e) {
-            // TODO Auto-generated catch block
-
+        } catch (UpdateTimeInTheFutureException ignored) {
             errorThrown = true;
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            fail("time of Calendar in the future: method testPass throws wrong exception");
+            fail("time of Calendar in the future: method testPass throws wrong exception", e);
         }
 
         assertTrue(errorThrown, "time of Calendar in the future: method testPass does not throw any exception");
@@ -164,14 +156,12 @@ public class H6_Test {
         try {
             tte.testPass(instance, toAdd);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            fail("correct Calendar: method testPass throws exception");
+            fail("correct Calendar: method testPass throws exception", e);
         }
     }
 
     @Test
     public void testTestCatchPassedContent() throws IllegalArgumentException, IllegalAccessException {
-
 
         //content
 
@@ -183,7 +173,6 @@ public class H6_Test {
         TimeStamp2 instance = new TimeStamp2();
         Calendar before = Calendar.getInstance();
         before.set(before.get(Calendar.YEAR) - 2, 5, 15);
-
 
         Field[] fields = TimeStamp2.class.getDeclaredFields();
         Field f = null;

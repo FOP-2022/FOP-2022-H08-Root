@@ -1,6 +1,5 @@
 package h08;
 
-
 import org.sourcegrade.jagr.api.rubric.Criterion;
 import org.sourcegrade.jagr.api.rubric.Grader;
 import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
@@ -248,7 +247,6 @@ public class H08_RubricProvider implements RubricProvider {
             .build()
         ).build();
 
-
     //---------------------- H7.1 -------------------------
 
     public static final Criterion H7_1_T1 = Criterion.builder()
@@ -289,7 +287,6 @@ public class H08_RubricProvider implements RubricProvider {
             .pointsFailedMin()
             .build()
         ).build();
-
 
     //---------------------- H7.2 -------------------------
 
@@ -409,10 +406,9 @@ public class H08_RubricProvider implements RubricProvider {
         return RUBRIC;
     }
 
-
     @Override
     public void configure(RubricConfiguration configuration) {
         configuration.addTransformer(new ExceptionConstructorVerifier1());
-       // configuration.addTransformer(new TimeStampVisitor.TimeStampTransformer());
+        // configuration.addTransformer(new TimeStampVisitor.TimeStampTransformer());
     }
 }

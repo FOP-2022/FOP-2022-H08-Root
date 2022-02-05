@@ -1,7 +1,5 @@
 package h08.tutor;
 
-
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +19,6 @@ public abstract class AbstractExpression implements Comparable<AbstractExpressio
         return getCharacterList().stream().map(String::valueOf).collect(Collectors.joining()).toCharArray();
     }
 
-
     public abstract Stream<AbstractExpression> stream();
 
     public int length() {
@@ -39,7 +36,6 @@ public abstract class AbstractExpression implements Comparable<AbstractExpressio
     public int nextIndex() {
         return startIndex() + length();
     }
-
 
     @Override
     public int compareTo(AbstractExpression o) {

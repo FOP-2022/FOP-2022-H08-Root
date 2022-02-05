@@ -25,7 +25,6 @@ public class H1_Test {
     @Test
     @BeforeEach
     public void testConstructorContent() throws IllegalAccessException {
-
         Calendar before = Calendar.getInstance();
         TimeStamp instance = new TimeStamp();
         Calendar after = Calendar.getInstance();
@@ -116,9 +115,5 @@ public class H1_Test {
                     "getTimeStamp returns incorrect Calendar");
             }
         }
-    }
-
-    @Test
-    public void content() {
     }
 }

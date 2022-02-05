@@ -60,32 +60,25 @@ public class H7_Definition_Test {
 
     @Test
     public void testConstructorExistenceNoCertificateException() {
-        Constructor[] allconstructors = null;
+        Constructor<?>[] allconstructors = null;
         try {
-            Constructor constructor = NoCertificateException.class.getDeclaredConstructor(Student[].class);
+            NoCertificateException.class.getDeclaredConstructor(Student[].class);
             allconstructors = InsufficientNumberOfSeatsException.class.getConstructors();
         } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            fail("constructor of UpdateTimeBeforeLastUpdateException wrong");
+            fail("constructor of UpdateTimeBeforeLastUpdateException wrong", e);
         }
-        assertTrue(1 == allconstructors.length,
-            "there is more than one constructor in InsufficientNumberOfSeatsException");
-
+        assertEquals(1, allconstructors.length, "there is more than one constructor in InsufficientNumberOfSeatsException");
     }
 
     @Test
     public void testConstructorExistenceInsufficientNumberOfSeatsException() {
-        Constructor[] allconstructors = null;
+        Constructor<?>[] allconstructors = null;
         try {
-            Constructor constructor = InsufficientNumberOfSeatsException.class.getDeclaredConstructor(Room.class, int.class);
+            InsufficientNumberOfSeatsException.class.getDeclaredConstructor(Room.class, int.class);
             allconstructors = InsufficientNumberOfSeatsException.class.getConstructors();
         } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            fail("constructor of UpdateTimeBeforeLastUpdateException wrong");
+            fail("constructor of UpdateTimeBeforeLastUpdateException wrong", e);
         }
-        assertTrue(1 == allconstructors.length, "there is more than one constructor in InsufficientNumberOfSeatsException");
-
+        assertEquals(1, allconstructors.length, "there is more than one constructor in InsufficientNumberOfSeatsException");
     }
-
-
 }

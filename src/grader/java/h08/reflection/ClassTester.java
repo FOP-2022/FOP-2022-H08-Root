@@ -72,7 +72,7 @@ public class ClassTester<T> {
      */
     public ClassTester(String packageName, String className, double similarity, int accessModifier,
                        Class<? super T> superClass, List<IdentifierMatcher> implementsInterfaces, T classInstance) {
-        this.classIdentifier = new IdentifierMatcher(className, packageName, similarity);
+        classIdentifier = new IdentifierMatcher(className, packageName, similarity);
         this.accessModifier = accessModifier;
         this.superClass = superClass;
         this.implementsInterfaces = new ArrayList<>(implementsInterfaces);
@@ -202,8 +202,9 @@ public class ClassTester<T> {
      * @param className the Class Name for the error Message
      */
     public static void assertClassNotNull(Class<?> theClass, String className) {
-        if (theClass == null)
+        if (theClass == null) {
             fail(String.format("class %s does not exist", className));
+        }
     }
 
     /**
@@ -586,8 +587,9 @@ public class ClassTester<T> {
             VirtualFile vf = null;
             if (cycle != null) {
                 SourceFile sourceFile = cycle.getSubmission().getSourceFile(sourceFileName);
-                if (sourceFile == null)
+                if (sourceFile == null) {
                     fail(String.format("file %s does not exist", sourceFileName));
+                }
                 spoon.addInputResource(new VirtualFile(Objects.requireNonNull(sourceFile).getContent(), sourceFileName));
             } else {
                 spoon.addInputResource("../solution/src/main/java/" + sourceFileName);
@@ -621,11 +623,13 @@ public class ClassTester<T> {
             .sorted((x, y) -> Double.valueOf(TestUtils.similarity(y.getName(), matcher.identifierName))
                 .compareTo(TestUtils.similarity(x.getName(), matcher.identifierName)))
             .findFirst().orElse(null);
-        if (bestMatch == null)
+        if (bestMatch == null) {
             fail(String.format("attribute <%s> does not exist", matcher.identifierName));
+        }
         var sim = TestUtils.similarity(bestMatch.getName(), matcher.identifierName);
-        if (sim < matcher.similarity)
+        if (sim < matcher.similarity) {
             fail(String.format("attribute <%s> does not exist", matcher.identifierName));
+        }
         return bestMatch;
     }
 
@@ -904,7 +908,6 @@ public class ClassTester<T> {
                     assertSame(null, theClass.getSuperclass());
                 } else {
                     assertSame(Object.class, theClass.getSuperclass());
-
                 }
             }
         } else {
@@ -1055,8 +1058,9 @@ public class ClassTester<T> {
             .findFirst().orElse(null);
         var sim = TestUtils.similarity(bestMatch.getSimpleName(), className);
         assertNotNull(bestMatch, getClassNotFoundMessage());
-        if (sim < similarity)
+        if (sim < similarity) {
             fail(String.format("class <%s> not found", className));
+        }
         return theClass = (Class<T>) bestMatch;
     }
 
@@ -1310,8 +1314,6 @@ public class ClassTester<T> {
         return assertDoesNotThrow(() -> field.get(getClassInstance()));
     }
 
-
-
     /**
      * Asserts that a given field has a certain value
      *
@@ -1384,5 +1386,4 @@ public class ClassTester<T> {
     public void assertIsPlainClass() {
         assertIsPlainClass(theClass, classIdentifier.identifierName);
     }
-
 }

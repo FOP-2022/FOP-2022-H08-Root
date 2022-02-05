@@ -1,6 +1,5 @@
 package h08;
 
-
 import h08.roommanagement.InsufficientNumberOfSeatsException;
 import h08.roommanagement.NoCertificateException;
 import h08.roommanagement.Room;
@@ -8,12 +7,12 @@ import h08.roommanagement.Student;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static java.lang.reflect.Modifier.*;
+import static java.lang.reflect.Modifier.isPublic;
+import static java.lang.reflect.Modifier.isStatic;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -23,9 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class H7_Test {
 
     String names = "AhcusahNaisieboiLohghuGaeRiuewophahlahaquahghaiquievaepievoyaikauXaekaegeekeiyeCixueghodieSivaiphieC";
-
-
-
 
     @Test
     public void testConstructorContentInsufficientNumberOfSeatsException() {
@@ -44,8 +40,6 @@ public class H7_Test {
         }
 
         //missing!!!!: getMessage() is NOT overwritten by studi
-
-
     }
 
     @Test
@@ -62,10 +56,6 @@ public class H7_Test {
             assertEquals(seatsMissing, e.getNumberOfMissingSeats(), "method getNumberOfMissingSeats does not work");
         }
     }
-
-
-
-
 
     @Test
     public void testContentNoCertificateException() {
@@ -86,8 +76,6 @@ public class H7_Test {
         assertEquals(Arrays.stream(students).map(stud -> stud.name).collect(Collectors.joining(", "))
             + " has/have no certificate(s)", e.getMessage(), "NoCertificateException has wrong message: "
             + e.getMessage());
-
-
     }
 
     @Test
@@ -150,7 +138,6 @@ public class H7_Test {
         Room smallRoom = new Room("small", studNr * 2 - 2);
         boolean excThrown = false;
 
-
         //noCertificate
         try {
             Main.checkRegistration(studentsNoCert, bigRoom);
@@ -171,9 +158,9 @@ public class H7_Test {
             Main.checkRegistration(studentsOK, smallRoom);
         } catch (InsufficientNumberOfSeatsException e) {
             excThrown = true;
-            assertEquals((new InsufficientNumberOfSeatsException(smallRoom,1)).getMessage(), e.getMessage(),
+            assertEquals((new InsufficientNumberOfSeatsException(smallRoom, 1)).getMessage(), e.getMessage(),
                 "InsufficientNumberOfSeatsException gets no or wrong Room");
-            assertTrue(e.getNumberOfMissingSeats() == 1, "InsufficientNumberOfSeatsException gets "
+            assertEquals(1, e.getNumberOfMissingSeats(), "InsufficientNumberOfSeatsException gets "
                 + "wrong number of missing seats");
         } catch (Exception e) {
             fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
@@ -186,16 +173,14 @@ public class H7_Test {
             Main.checkRegistration(studentsNoCert, smallRoom);
         } catch (InsufficientNumberOfSeatsException e) {
             excThrown = true;
-            assertEquals((new InsufficientNumberOfSeatsException(smallRoom,1)).getMessage(), e.getMessage(),
+            assertEquals((new InsufficientNumberOfSeatsException(smallRoom, 1)).getMessage(), e.getMessage(),
                 "InsufficientNumberOfSeatsException gets no or wrong Room");
-            assertTrue(e.getNumberOfMissingSeats() == 1, "InsufficientNumberOfSeatsException gets "
+            assertEquals(1, e.getNumberOfMissingSeats(), "InsufficientNumberOfSeatsException gets "
                 + "wrong number of missing seats");
         } catch (Exception e) {
             fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
         }
         assertTrue(excThrown, "no InsufficientNumberOfSeatsException was thrown although it should");
         excThrown = false;
-
     }
-
 }

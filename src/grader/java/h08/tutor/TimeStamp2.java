@@ -5,6 +5,7 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 @TestForSubmission("h08")
 public class TimeStamp2 extends TimeStamp {
     private Calendar lastUpdate;

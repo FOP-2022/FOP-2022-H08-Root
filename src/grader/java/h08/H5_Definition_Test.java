@@ -37,7 +37,6 @@ public class H5_Definition_Test {
         assertTrue(isPublic(Class.forName("h08.TimeStamp").getModifiers()), "Class TestTimeStampExceptions is abstract");
     }
 
-
     @ParameterizedTest(name = "testCatch{index}")
     @ValueSource(ints = {1, 2, 3, 4, 5})
     public void testExistenceTestCatch(int nr) {

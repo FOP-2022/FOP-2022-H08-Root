@@ -1,13 +1,13 @@
 package h08.tutor;
 
-
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.Calendar;
+
 @TestForSubmission("h08")
 public class UpdateTimeBeforeLastUpdateException extends h08.UpdateTimeBeforeLastUpdateException {
 
-    private Calendar calendar;
+    private final Calendar calendar;
 
     public UpdateTimeBeforeLastUpdateException(Calendar calendar) {
         super(calendar);
@@ -18,5 +18,4 @@ public class UpdateTimeBeforeLastUpdateException extends h08.UpdateTimeBeforeLas
     public String getMessage() {
         return new BadUpdateTimeException(calendar, true).getMessage();
     }
-
 }

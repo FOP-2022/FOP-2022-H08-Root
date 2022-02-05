@@ -171,12 +171,9 @@ public class H4_Test {
         assertSame(variableValueBefore, f.get(instance),
             "time of Calendar in the future: method updateWithExc" + nr + " changes value of lastUpdate");
 
-
-
         //should work
 
         Calendar toAdd = Calendar.getInstance();
-
 
         errorThrown = false;
         variableValueBefore = (Calendar) f.get(instance);
@@ -184,7 +181,6 @@ public class H4_Test {
         try {
             method.invoke(instance, toAdd);
         } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
             fail("correct Calendar, but exception thrown in method updateWithExc " + nr + ": " + e.getCause().getClass());
         }
 

@@ -72,8 +72,4 @@ public class H3_Definition_Test {
         assertEquals(Class.forName("h08.UpdateTimeInTheFutureException").getSuperclass(), BadUpdateTimeException.class,
             "class UpdateTimeInTheFutureException does not extend class BadUpdateTimeException");
     }
-
-    @Test
-    public void checkClasses() {
-    }
 }

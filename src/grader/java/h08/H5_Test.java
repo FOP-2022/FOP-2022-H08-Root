@@ -3,7 +3,6 @@ package h08;
 import h08.reflection.ClassTester;
 import h08.reflection.MethodTester;
 import h08.tutor.TimeStamp2;
-import javassist.bytecode.analysis.ControlFlow;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -79,12 +78,14 @@ public class H5_Test {
 
         ClassTester<TestTimeStampExceptions> classtester = new ClassTester<TestTimeStampExceptions>(TestTimeStampExceptions.class).assureClassResolved();
         MethodTester methodTester = new MethodTester(classtester, "testCatch2").assureMethodResolved();
-        assertTrue(methodTester.assertCtMethodExists().getElements(new TypeFilter<>(CtTry.class)).get(0).getCatchers().size() == 2);
+        assertEquals(
+            2,
+            methodTester.assertCtMethodExists().getElements(new TypeFilter<>(CtTry.class)).get(0).getCatchers().size()
+        );
 
         methodTester.assertConstructsUsed(List.of(CtCatch.class));
 
-        //Kontrolle, dass Catch Klausel nur einen Catch-Block enthält ist ^ gemacht
-
+        // Kontrolle, dass Catch Klausel nur einen Catch-Block enthält, ist ^ gemacht
     }
 
     @Test
@@ -105,8 +106,6 @@ public class H5_Test {
 
         int updateWithExcNr = n % 10;
         int testCatchNr = n / 10;
-
-
 
         //content
 
@@ -199,12 +198,10 @@ public class H5_Test {
         System.setOut(System.out);
     }
 
-
     @ParameterizedTest(name = "testCatchn ->{0}<- updateWithExcn")
     @ValueSource(ints = {11, 12, 13, 14, 15, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 52, 53, 54, 55})
     public void testContentTestCatchShouldWork(int n) throws IllegalArgumentException, IllegalAccessException,
         InvocationTargetException {
-
 
         final int updateWithExcNr = n % 10;
 
@@ -220,7 +217,6 @@ public class H5_Test {
         }
 
         renewOutContent();
-
 
         Calendar before = Calendar.getInstance();
         Calendar after = Calendar.getInstance();
@@ -258,17 +254,15 @@ public class H5_Test {
 
     @Test
     public void testSwitchCase() {
-        ClassTester<TestTimeStampExceptions> classtester = new ClassTester<TestTimeStampExceptions>(TestTimeStampExceptions.class).assureClassResolved();
+        ClassTester<TestTimeStampExceptions> classTester = new ClassTester<>(TestTimeStampExceptions.class).assureClassResolved();
         Method[] methods = TestTimeStampExceptions.class.getDeclaredMethods();
         boolean hasSwitchCase = false;
         for (Method m : methods) {
-            MethodTester methodTester = new MethodTester(classtester, m.getName()).assureMethodResolved();
+            MethodTester methodTester = new MethodTester(classTester, m.getName()).assureMethodResolved();
             hasSwitchCase = methodTester.assertCtMethodExists().getElements(new TypeFilter<>(CtSwitch.class)).size() >= 1;
         }
 
         assertTrue(hasSwitchCase, "switch-case is not used");
-
-
     }
 
     private void renewOutContent() {

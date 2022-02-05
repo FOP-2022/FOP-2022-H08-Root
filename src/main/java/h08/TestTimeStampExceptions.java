@@ -20,8 +20,7 @@ public class TestTimeStampExceptions {
             System.out.println(n + " : UpdateTimeBeforeLastUpdateException : " + e.getClass().getSimpleName() + " " + e.getMessage());
         } catch (UpdateTimeInTheFutureException e) {
             System.out.println(n + " : UpdateTimeInTheFutureException : " + e.getClass().getSimpleName() + " " + e.getMessage());
-        } catch (Exception e) {
-
+        } catch (Exception ignored) {
         }
     }
 
@@ -37,8 +36,7 @@ public class TestTimeStampExceptions {
             test(timestamp, calendar, n);
         } catch (UpdateTimeBeforeLastUpdateException | UpdateTimeInTheFutureException e) {
             System.out.println(n + " : UpdateTimeBeforeLastUpdateException oder UpdateTimeInTheFutureException : " + e.getClass().getSimpleName() + " " + e.getMessage());
-        } catch (Exception e) {
-
+        } catch (Exception ignored) {
         }
     }
 
@@ -56,8 +54,7 @@ public class TestTimeStampExceptions {
             System.out.println(n + " : UpdateTimeBeforeLastUpdateException : " + e.getClass().getSimpleName() + " " + e.getMessage());
         } catch (BadUpdateTimeException e) {
             System.out.println(n + " : BadUpdateTimeException : " + e.getClass().getSimpleName() + " " + e.getMessage());
-        } catch (Exception e) {
-
+        } catch (Exception ignored) {
         }
     }
 
@@ -73,8 +70,7 @@ public class TestTimeStampExceptions {
             test(timestamp, calendar, n);
         } catch (BadUpdateTimeException e) {
             System.out.println(n + " : BadUpdateTimeException : " + e.getClass().getSimpleName() + " " + e.getMessage());
-        } catch (Exception e) {
-
+        } catch (Exception ignored) {
         }
     }
 
@@ -102,8 +98,6 @@ public class TestTimeStampExceptions {
      * @throws Exception which is thrown by the method chosen with param n
      */
     private void test(TimeStamp timestamp, Calendar calendar, int n) throws Exception {
-
-
         switch (n) {
             case 1:
                 timestamp.updateWithExc1(calendar);

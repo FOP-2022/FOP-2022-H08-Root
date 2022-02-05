@@ -3,10 +3,12 @@ package h08.tutor;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.Calendar;
+
 @TestForSubmission("h08")
 public class BadUpdateTimeException extends h08.BadUpdateTimeException {
-    private Calendar calendar;
-    private boolean time;
+    private final Calendar calendar;
+    private final boolean time;
+
     public BadUpdateTimeException(Calendar calendar, boolean time) {
         super(calendar, time);
         this.calendar = calendar;

@@ -77,17 +77,16 @@ public class H2_Test {
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 field.setAccessible(true);
                 f = field;
             }
         }
 
-        Calendar variableValueBefore = (Calendar) f.get(instance);
         boolean errorThrown = false;
 
         //time too late
-        variableValueBefore = (Calendar) f.get(instance);
+        Calendar variableValueBefore = (Calendar) f.get(instance);
         Calendar futureCal = Helper.createFutureCal();
         try {
             instance.update(futureCal);
@@ -102,8 +101,6 @@ public class H2_Test {
     @Test
     public void testContentTimeStampUpdateWithParameterTooEarlyCase() throws IllegalArgumentException, IllegalAccessException {
 
-
-
         TimeStamp instance = new TimeStamp();
         Calendar before = Calendar.getInstance();
         before.set(2020, 5, 15);
@@ -111,7 +108,7 @@ public class H2_Test {
         Field[] fields = TimeStamp.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 field.setAccessible(true);
                 f = field;
             }

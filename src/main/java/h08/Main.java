@@ -11,7 +11,6 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-
     }
 
     public static void checkRegistration(Student[] students, Room room) throws NoCertificateException {
@@ -19,7 +18,7 @@ public class Main {
             throw new InsufficientNumberOfSeatsException(room, students.length - room.numberOfSeats / 2);
         }
 
-        List<Student> studentsWithoutCertificate = new ArrayList<Student>();
+        List<Student> studentsWithoutCertificate = new ArrayList<>();
 
         for (Student stud : students) {
             if (!stud.hasCertificate) {

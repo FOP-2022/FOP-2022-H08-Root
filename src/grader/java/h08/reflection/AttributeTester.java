@@ -5,16 +5,13 @@ import java.util.Objects;
 
 import static h08.reflection.TestUtils.assertModifier;
 import static java.lang.reflect.Modifier.isStatic;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AttributeTester {
 
     private ClassTester<?> classTester;
     private AttributeMatcher matcher;
     private Field field;
-
-
-
 
     public AttributeTester setMatcher(AttributeMatcher matcher) {
         this.matcher = matcher;
@@ -41,8 +38,9 @@ public class AttributeTester {
     }
 
     private void assureAccessible(Object object) {
-        if (!field.canAccess(isStatic(field.getModifiers()) ? null : object))
+        if (!field.canAccess(isStatic(field.getModifiers()) ? null : object)) {
             assertDoesNotThrow(() -> field.setAccessible(true));
+        }
     }
 
     public <T> T getValue() {
@@ -58,5 +56,4 @@ public class AttributeTester {
         assureAccessible(object);
         assertDoesNotThrow(() -> field.set(object, value));
     }
-
 }

@@ -1,10 +1,11 @@
 package h08;
 
-import org.objectweb.asm.*;
-import org.slf4j.Logger;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.sourcegrade.jagr.api.testing.ClassTransformer;
-import org.sourcegrade.jagr.launcher.env.Jagr;
-
 
 public class ExceptionConstructorVerifier1 implements ClassTransformer {
 
@@ -52,8 +53,8 @@ public class ExceptionConstructorVerifier1 implements ClassTransformer {
 
             @Override
             public void visitCode() {
-                super.visitVarInsn(Opcodes.ILOAD, 2);
-                super.visitMethodInsn(
+                visitVarInsn(Opcodes.ILOAD, 2);
+                visitMethodInsn(
                     Opcodes.INVOKESTATIC,
                     "h08/ExceptionConstructorVerifier1",
                     "setsTrueInConstructor",

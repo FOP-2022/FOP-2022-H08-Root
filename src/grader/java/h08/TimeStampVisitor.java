@@ -6,10 +6,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.util.Printer;
-import org.slf4j.Logger;
 import org.sourcegrade.jagr.api.testing.ClassTransformer;
-import org.sourcegrade.jagr.launcher.env.Jagr;
 
 public class TimeStampVisitor extends ClassVisitor {
 
@@ -32,16 +29,12 @@ public class TimeStampVisitor extends ClassVisitor {
         }
     }
 
-
     public TimeStampVisitor(ClassVisitor visitor) {
         super(Opcodes.ASM9, visitor);
     }
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-
-        Jagr.Default.getInjector().getInstance(Logger.class)
-            .info("{}{}", name, descriptor);
         if (name.equals("<init>") && descriptor.equals("()V")) {
             return new TSMethodVisitor(super.visitMethod(access, name, descriptor, signature, exceptions));
         }
@@ -59,9 +52,6 @@ public class TimeStampVisitor extends ClassVisitor {
             if (owner.equals("h08/TimeStamp") && name.equals("update") && descriptor.equals("()V")) {
                 callsMethod = true;
             }
-
-            Jagr.Default.getInjector().getInstance(Logger.class)
-                .info("Statement: {} {}.{}{}", Printer.OPCODES[opcode], owner, name, descriptor);
             super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
         }
     }

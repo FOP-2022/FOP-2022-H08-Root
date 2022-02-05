@@ -3,9 +3,11 @@ package h08.tutor;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.Calendar;
+
 @TestForSubmission("h08")
 public class UpdateTimeInTheFutureException extends h08.UpdateTimeInTheFutureException {
-    private Calendar calendar;
+    private final Calendar calendar;
+
     public UpdateTimeInTheFutureException(Calendar calendar) {
 
         super(calendar);

@@ -32,7 +32,10 @@ val grader: SourceSet by sourceSets.creating {
 
 dependencies {
     implementation("org.jetbrains:annotations:23.0.0")
-    "graderImplementation"("org.sourcegrade:jagr-launcher:0.4.0-SNAPSHOT")
+    "graderCompileOnly"("org.sourcegrade:jagr-launcher:0.4.0-SNAPSHOT")
+    "graderImplementation"("fr.inria.gforge.spoon:spoon-core:10.0.0")
+    "graderImplementation"("org.mockito:mockito-core:4.3.1")
+    "graderImplementation"("org.ow2.asm:asm-util:9.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 

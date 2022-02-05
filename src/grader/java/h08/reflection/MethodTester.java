@@ -1,7 +1,6 @@
 package h08.reflection;
 
 import h08.tutor.Mocked;
-import h08.tutor.Utils;
 import org.mockito.invocation.Invocation;
 import spoon.Launcher;
 import spoon.reflect.code.CtCodeElement;
@@ -10,7 +9,6 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.filter.TypeFilter;
-
 
 import javax.management.RuntimeErrorException;
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +22,6 @@ import java.util.stream.Collectors;
 import static h08.tutor.Utils.Messages.wasNotCalledRecursively;
 import static h08.tutor.Utils.TestCollection.test;
 import static org.junit.jupiter.api.Assertions.*;
-
 
 /**
  * A Method Tester
@@ -78,10 +75,10 @@ public class MethodTester {
     public MethodTester(ClassTester<?> classTester, String methodName, double similarity, int accessModifier,
                         Class<?> returnType, List<ParameterMatcher> parameters, boolean allowSuperClass) {
         this.classTester = classTester;
-        this.methodIdentifier = new IdentifierMatcher(methodName, similarity);
+        methodIdentifier = new IdentifierMatcher(methodName, similarity);
         this.accessModifier = accessModifier;
         this.returnType = returnType;
-        this.parameters = parameters == null ? null :  new ArrayList<>(parameters);
+        this.parameters = parameters == null ? null : new ArrayList<>(parameters);
         this.allowSuperClass = allowSuperClass;
     }
 
@@ -98,7 +95,6 @@ public class MethodTester {
     public MethodTester(ClassTester<?> classTester, String methodName, double similarity, int accessModifier,
                         Class<?> returnType, List<ParameterMatcher> parameters) {
         this(classTester, methodName, similarity, accessModifier, returnType, parameters, false);
-
     }
 
     /**
@@ -247,8 +243,6 @@ public class MethodTester {
         return countMatchingParameters(parameters, new ArrayList<>(List.of(m.getParameters())), ignoreNames);
     }
 
-
-
     /**
      * assert that the Method Parameters match
      *
@@ -323,7 +317,6 @@ public class MethodTester {
      */
     public static void assertMethodNotNull(Method m, String name) {
         assertNotNull(m, getMethodNotFoundMessage(name));
-
     }
 
     /**
@@ -378,15 +371,18 @@ public class MethodTester {
     }
 
     public static boolean isRecursive(List<CtElement> elements, CtMethod<?> methodToCall, int level) {
-        if (level <= 0)
+        if (level <= 0) {
             return false;
+        }
         for (var e : elements) {
             if (e instanceof CtInvocation<?>) {
                 var method = (CtInvocation<?>) e;
-                if (method.getExecutable().equals(methodToCall.getReference()))
+                if (method.getExecutable().equals(methodToCall.getReference())) {
                     return true;
-                if (isRecursive(e.getDirectChildren(), methodToCall, level - 1))
+                }
+                if (isRecursive(e.getDirectChildren(), methodToCall, level - 1)) {
                     return true;
+                }
             } else if (isRecursive(e.getDirectChildren(), methodToCall, level)) {
                 return true;
             }
@@ -653,13 +649,17 @@ public class MethodTester {
      * @return the Returned Value of the Method
      */
     public <T> T invoke(Object instance, Object... params) {
-        if (instance instanceof Mocked)
+        if (instance instanceof Mocked) {
             instance = ((Mocked) instance).getActualObject();
-        for (int i = 0; i < params.length; i++)
-            if (params[i] instanceof Mocked)
+        }
+        for (int i = 0; i < params.length; i++) {
+            if (params[i] instanceof Mocked) {
                 params[i] = ((Mocked) params[i]).getActualObject();
-        if (instance != null)
+            }
+        }
+        if (instance != null) {
             assertInvokeable();
+        }
         assertDoesNotThrow(() -> theMethod.setAccessible(true), "Konnte Methode nicht ausführen.");
         Object returnValue = null;
         try {
@@ -689,11 +689,6 @@ public class MethodTester {
             .filter(x -> x.getMethod().getName().equals(getTheMethod().getName())).collect(Collectors.toList());
     }
 
-    // public boolean needsJavadoc() {
-    // assertMethodResolved();
-    // // theMethod.
-    // }
-
     public List<Invocation> getInvocations(Object instance) {
         return getInvocations().stream().filter(x -> x.getMock() == instance).collect(Collectors.toList());
     }
@@ -708,8 +703,9 @@ public class MethodTester {
     }
 
     public void assertInvoked() {
-        if (getInvocationCount() == 0)
+        if (getInvocationCount() == 0) {
             fail(wasNotCalledRecursively(getMethodIdentifier().identifierName));
+        }
     }
 
     /**
@@ -752,18 +748,22 @@ public class MethodTester {
     public void assertConstructsNotUsed(List<Class<? extends CtCodeElement>> disallowedConstructs) {
         var method = assertCtMethodExists();
         var test = test();
-        for (var construct : disallowedConstructs)
-            if(!method.getElements(new TypeFilter<>(construct)).isEmpty())
+        for (var construct : disallowedConstructs) {
+            if (!method.getElements(new TypeFilter<>(construct)).isEmpty()) {
                 test.add(() -> fail(String.format("<%s> was used unexpectedly", construct.getSimpleName().substring(2))));
+            }
+        }
         test.run();
     }
 
     public void assertConstructsUsed(List<Class<? extends CtCodeElement>> disallowedConstructs) {
         var method = assertCtMethodExists();
         var test = test();
-        for (var construct : disallowedConstructs)
-            if(method.getElements(new TypeFilter<>(construct)).isEmpty())
+        for (var construct : disallowedConstructs) {
+            if (method.getElements(new TypeFilter<>(construct)).isEmpty()) {
                 test.add(() -> fail(String.format("<%s> was not used unexpectedly", construct.getSimpleName().substring(2))));
+            }
+        }
         test.run();
     }
 
@@ -789,8 +789,9 @@ public class MethodTester {
 
     public void assertRecursive(int level) {
         var m = assertCtMethodExists();
-        if (!isRecursive(m.getDirectChildren(), m, level))
+        if (!isRecursive(m.getDirectChildren(), m, level)) {
             fail(String.format("method <%s> is not recursive", getMethodIdentifier().identifierName));
+        }
     }
 
     public void assertNotDirectlyRecursive() {
@@ -799,10 +800,10 @@ public class MethodTester {
 
     public void assertNotRecursive(int level) {
         var m = assertCtMethodExists();
-        if (isRecursive(m.getDirectChildren(), m, level))
+        if (isRecursive(m.getDirectChildren(), m, level)) {
             fail(String.format("method <%s> is recursive", getMethodIdentifier().identifierName));
+        }
     }
-
 
     /**
      * Asserts the Return Value of an invokation with the given parameters
@@ -867,10 +868,10 @@ public class MethodTester {
         ClassTester.assertClassNotNull(theClass, "zu Methode " + methodName);
         ArrayList<Method> methods = allowSuperClass ? getAllMethods(theClass)
             : new ArrayList<>(Arrays.asList(theClass.getDeclaredMethods()));
-        var bestMatch = methods.stream()
-            .sorted((x, y) -> Double.valueOf(TestUtils.similarity(methodName, y.getName()))
-                .compareTo(TestUtils.similarity(methodName, x.getName())))
-            .findFirst().orElse(null);
+        var bestMatch = methods.stream().min((x, y) -> Double.compare(
+            TestUtils.similarity(methodName, y.getName()),
+            TestUtils.similarity(methodName, x.getName())
+        )).orElse(null);
         assertMethodNotNull(bestMatch, methodName);
         var sim = TestUtils.similarity(bestMatch.getName(), methodName);
         assertTrue(sim >= similarity, getMethodNotFoundMessage() + "Ähnlichster Methodenname:" + bestMatch.getName()
@@ -881,10 +882,10 @@ public class MethodTester {
                 .collect(Collectors.toCollection(ArrayList::new));
             if (matches.size() > 1) {
                 // Find Best match according to parameter options
-                bestMatch = matches.stream()
-                    .sorted((x, y) -> Integer.valueOf(countMatchingParameters(y, methodName, parameters, true))
-                        .compareTo(countMatchingParameters(x, methodName, parameters, true)))
-                    .findFirst().orElse(null);
+                bestMatch = matches.stream().min((x, y) -> Integer.compare(
+                    countMatchingParameters(y, methodName, parameters, true),
+                    countMatchingParameters(x, methodName, parameters, true))
+                ).orElse(null);
             }
         }
 

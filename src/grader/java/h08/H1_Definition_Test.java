@@ -38,10 +38,9 @@ public class H1_Definition_Test {
     @BeforeEach
     public void testConstructorExistence() {
         try {
-            Constructor<TimeStamp> constructor = TimeStamp.class.getDeclaredConstructor();
+            TimeStamp.class.getDeclaredConstructor();
         } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            fail("Constructor does not exist");
+            fail("Constructor does not exist", e);
         }
     }
 

@@ -15,9 +15,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
-
 
 public interface Utils {
 
@@ -111,31 +110,29 @@ public interface Utils {
                 builder.append('(');
                 builder.append(Arrays.stream(entry.parameters).map(Objects::toString).collect(Collectors.joining(",")));
                 builder.append(')');
-
             }
             if (entry.hasError()) {
-                if (builder.length() != 0)
+                if (builder.length() != 0) {
                     builder.append(' ');
+                }
                 builder.append(entry.error.getMessage());
             }
             return builder.toString();
         }
-
     }
-
 
     interface SpoonPredicate {
 
         static <T extends CtElement> Filter<T> isCodeElement() {
             return o -> o instanceof CtCodeElement;
         }
-
     }
 
     class TestCollection {
 
         public final String methodName;
         final LinkedList<Entry> entries = new LinkedList<>();
+
         private TestCollection(String methodName) {
             this.methodName = methodName;
         }
@@ -189,19 +186,21 @@ public interface Utils {
                     e.runnable.run();
                 } catch (AssertionFailedError error) {
                     e.error = error;
-                    if (e.newType)
+                    if (e.newType) {
                         countType = 0;
-                    if (mode == Mode.SHOW_FIRST && countType == 0)
+                    }
+                    if (mode == Mode.SHOW_FIRST && countType == 0) {
                         e.show |= true;
-                    if (mode == Mode.SHOW_ALL)
+                    }
+                    if (mode == Mode.SHOW_ALL) {
                         e.show |= true;
+                    }
                     if (e.terminate()) {
                         e.show |= true;
                         break;
                     }
                     count++;
                     countType++;
-
                 }
             }
             if (count != 0 && mode != Mode.SILENT) {
@@ -240,13 +239,18 @@ public interface Utils {
                 return TestCollection.this;
             }
 
-            boolean toShow() {return show;}
+            boolean toShow() {
+                return show;
+            }
 
-            boolean terminate() {return terminate;}
+            boolean terminate() {
+                return terminate;
+            }
 
-            boolean newType() {return newType;}
+            boolean newType() {
+                return newType;
+            }
         }
-
     }
 
     class State {
@@ -274,8 +278,9 @@ public interface Utils {
         static MockedStatic<?> mockUseDefaultAnswer(Class<?> clazz, Method... methodsTomock) {
             List<Method> methods = List.of(methodsTomock);
             return mockStatic(clazz, a -> {
-                if (methods.contains(a.getMethod()))
+                if (methods.contains(a.getMethod())) {
                     return null;
+                }
                 return a.callRealMethod();
             });
         }
