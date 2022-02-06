@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class H1_Definition_Test {
 
     @Test
-    @BeforeEach
     public void classExistence() throws ClassNotFoundException {
         try {
             Class.forName("h08.TimeStamp");
@@ -35,7 +34,6 @@ public class H1_Definition_Test {
     }
 
     @Test
-    @BeforeEach
     public void testConstructorExistence() {
         try {
             TimeStamp.class.getDeclaredConstructor();

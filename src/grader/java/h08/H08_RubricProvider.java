@@ -25,7 +25,11 @@ public class H08_RubricProvider implements RubricProvider {
         .shortDescription("Void update() und Calendar getTimeStamp() existieren und diese und der Konstruktor funktionieren")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H1_Test.class.getMethod("content")))
+                H1_Test.class.getMethod("classExistence")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H1_Test.class.getMethod("testConstructorExistence")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H1_Test.class.getMethod("testDefinitionAndAttribute")))
             .pointsPassedMax()
             .pointsFailedMin()
             .build()
