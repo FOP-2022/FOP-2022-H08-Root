@@ -7,7 +7,7 @@ public class TestTimeStampExceptions {
     //H5
 
     /**
-     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception
+     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception.
      *
      * @param timestamp object which is necessary to test the methods of TimeStamp, has current calendar
      * @param calendar  potential new calendar
@@ -17,7 +17,8 @@ public class TestTimeStampExceptions {
         try {
             test(timestamp, calendar, n);
         } catch (UpdateTimeBeforeLastUpdateException e) {
-            System.out.println(n + " : UpdateTimeBeforeLastUpdateException : " + e.getClass().getSimpleName() + " " + e.getMessage());
+            System.out.println(n + " : UpdateTimeBeforeLastUpdateException : " + e.getClass().getSimpleName() + " "
+                + e.getMessage());
         } catch (UpdateTimeInTheFutureException e) {
             System.out.println(n + " : UpdateTimeInTheFutureException : " + e.getClass().getSimpleName() + " " + e.getMessage());
         } catch (Exception ignored) {
@@ -25,7 +26,7 @@ public class TestTimeStampExceptions {
     }
 
     /**
-     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception
+     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception.
      *
      * @param timestamp object which is necessary to test the methods of TimeStamp, has current calendar
      * @param calendar  potential new calendar
@@ -34,14 +35,16 @@ public class TestTimeStampExceptions {
     public void testCatch2(TimeStamp timestamp, Calendar calendar, int n) {
         try {
             test(timestamp, calendar, n);
-        } catch (UpdateTimeBeforeLastUpdateException | UpdateTimeInTheFutureException e) {
-            System.out.println(n + " : UpdateTimeBeforeLastUpdateException oder UpdateTimeInTheFutureException : " + e.getClass().getSimpleName() + " " + e.getMessage());
+        } catch (UpdateTimeBeforeLastUpdateException
+            | UpdateTimeInTheFutureException e) {
+            System.out.println(n + " : UpdateTimeBeforeLastUpdateException oder UpdateTimeInTheFutureException : "
+                + e.getClass().getSimpleName() + " " + e.getMessage());
         } catch (Exception ignored) {
         }
     }
 
     /**
-     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception
+     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception.
      *
      * @param timestamp object which is necessary to test the methods of TimeStamp, has current calendar
      * @param calendar  potential new calendar
@@ -51,7 +54,8 @@ public class TestTimeStampExceptions {
         try {
             test(timestamp, calendar, n);
         } catch (UpdateTimeBeforeLastUpdateException e) {
-            System.out.println(n + " : UpdateTimeBeforeLastUpdateException : " + e.getClass().getSimpleName() + " " + e.getMessage());
+            System.out.println(n + " : UpdateTimeBeforeLastUpdateException : "
+                + e.getClass().getSimpleName() + " " + e.getMessage());
         } catch (BadUpdateTimeException e) {
             System.out.println(n + " : BadUpdateTimeException : " + e.getClass().getSimpleName() + " " + e.getMessage());
         } catch (Exception ignored) {
@@ -59,7 +63,7 @@ public class TestTimeStampExceptions {
     }
 
     /**
-     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception
+     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception.
      *
      * @param timestamp object which is necessary to test the methods of TimeStamp, has current calendar
      * @param calendar  potential new calendar
@@ -75,7 +79,7 @@ public class TestTimeStampExceptions {
     }
 
     /**
-     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception
+     * tests the timestamp function updateWithExc_n_ (param) and prints out information about thrown exception.
      *
      * @param timestamp object which is necessary to test the methods of TimeStamp, has current calendar
      * @param calendar  potential new calendar
@@ -90,7 +94,7 @@ public class TestTimeStampExceptions {
     }
 
     /**
-     * calls the correct method updateWithExcn in dependency to n and throws its Exception
+     * calls the correct method updateWithExcn in dependency to n and throws its Exception.
      *
      * @param timestamp object which is necessary to test the methods of TimeStamp, has current calendar
      * @param calendar  potential new calendar
@@ -114,13 +118,15 @@ public class TestTimeStampExceptions {
             case 5:
                 timestamp.updateWithExc5(calendar);
                 break;
+            default:
+                break;
         }
     }
 
     //H6
 
     /**
-     * calls updateWithExc1 with given parameters and passes Exception
+     * calls updateWithExc1 with given parameters and passes Exception.
      *
      * @param timestamp object which is necessary to test the methods of TimeStamp, has current calendar
      * @param calendar  potential new calendar
