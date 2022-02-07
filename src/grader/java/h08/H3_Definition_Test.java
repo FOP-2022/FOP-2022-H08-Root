@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestForSubmission("h08")
 public class H3_Definition_Test {
     @Test
-    @BeforeEach
     public void checkClassBadUpdateTimeException() throws ClassNotFoundException {
         try {
             Class.forName("h08.BadUpdateTimeException");
@@ -34,7 +33,6 @@ public class H3_Definition_Test {
     }
 
     @Test
-    @BeforeEach
     public void checkClassUpdateTimeBeforeLastUpdateException() throws ClassNotFoundException {
         try {
             Class.forName("h08.UpdateTimeBeforeLastUpdateException");
@@ -54,7 +52,6 @@ public class H3_Definition_Test {
     }
 
     @Test
-    @BeforeEach
     void checkClassUpdateTimeInTheFutureException() throws ClassNotFoundException {
         try {
             Class.forName("h08.UpdateTimeInTheFutureException");

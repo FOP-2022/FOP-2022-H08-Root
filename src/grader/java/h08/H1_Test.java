@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class H1_Test {
 
     @Test
-    @BeforeEach
     public void testConstructorContent() throws IllegalAccessException {
         Calendar before = Calendar.getInstance();
         TimeStamp instance = new TimeStamp();
@@ -41,7 +40,6 @@ public class H1_Test {
     }
 
     @Test
-    @BeforeEach
     public void testTimeStampUpdateWithoutParameter() throws IllegalArgumentException, IllegalAccessException {
         Method[] methods = TimeStamp.class.getDeclaredMethods();
         assertTrue(Arrays.stream(methods).anyMatch(m -> m.getName().equals("update")), "there is no method update");
@@ -82,7 +80,6 @@ public class H1_Test {
     }
 
     @Test
-    @BeforeEach
     public void testGetTimeStamp() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Method[] methods = TimeStamp.class.getDeclaredMethods();
         assertTrue(Arrays.stream(methods).anyMatch(m -> m.getName().equals("getTimeStamp")),

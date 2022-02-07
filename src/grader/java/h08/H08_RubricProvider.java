@@ -75,7 +75,11 @@ public class H08_RubricProvider implements RubricProvider {
         .shortDescription("Alle drei Klassen existieren korrekt")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H3_Definition_Test.class.getMethod("checkClasses")))
+                H3_Definition_Test.class.getMethod("checkClassBadUpdateTimeException")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H3_Definition_Test.class.getMethod("checkClassUpdateTimeBeforeLastUpdateException")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H3_Definition_Test.class.getMethod("checkClassUpdateTimeInTheFutureException")))
             .pointsPassedMax()
             .pointsFailedMin()
             .build()
