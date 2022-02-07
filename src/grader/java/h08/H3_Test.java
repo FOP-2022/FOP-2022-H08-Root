@@ -1,7 +1,9 @@
 package h08;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import org.sourcegrade.jagr.api.testing.extension.JagrExecutionCondition;
 
 import java.lang.reflect.Constructor;
 import java.util.Calendar;
@@ -56,6 +58,7 @@ public class H3_Test {
         }
     }
 
+    @ExtendWith(JagrExecutionCondition.class)
     @Test
     public void testConstructorContentUpdateTimeBeforeLastUpdateException() {
         //wie testet man, dass auch wirklich der Konstruktor der Superklasse aufgerufen
@@ -83,6 +86,7 @@ public class H3_Test {
         }
     }
 
+    @ExtendWith(JagrExecutionCondition.class)
     @Test
     public void testConstructorContentUpdateTimeInTheFutureException() {
         //wie testet man, dass auch wirklich der Konstruktor der Superklasse aufgerufen wird

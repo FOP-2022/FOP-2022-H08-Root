@@ -81,7 +81,6 @@ public class H7_Test {
     @Test
     public void testCheckRegistrationWithoutException() {
         Method[] methods = Main.class.getDeclaredMethods();
-        boolean hasMethod = false;
         for (Method m : methods) {
             if (m.getName().equals("checkRegistration")) {
                 assertTrue(isPublic(m.getModifiers()), "checkRegistration is not public");
@@ -93,7 +92,6 @@ public class H7_Test {
         Student[] studentsOK = new Student[studNr];
         Student[] studentsNoCert = new Student[studNr];
         String realName;
-        String nameNoCert;
         for (int i = 0; i < studNr; i++) {
             realName = "";
             for (int j = 0; j < 5; j++) {
@@ -104,8 +102,6 @@ public class H7_Test {
         }
 
         Room bigRoom = new Room("big", studNr * 2);
-        Room smallRoom = new Room("small", studNr * 2 - 2);
-        boolean excThrown = false;
 
         //works
         try {
@@ -181,6 +177,6 @@ public class H7_Test {
             fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
         }
         assertTrue(excThrown, "no InsufficientNumberOfSeatsException was thrown although it should");
-        excThrown = false;
+
     }
 }

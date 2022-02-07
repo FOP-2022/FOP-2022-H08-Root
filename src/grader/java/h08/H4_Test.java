@@ -175,8 +175,6 @@ public class H4_Test {
 
         Calendar toAdd = Calendar.getInstance();
 
-        errorThrown = false;
-        variableValueBefore = (Calendar) f.get(instance);
 
         try {
             method.invoke(instance, toAdd);

@@ -55,7 +55,6 @@ public class H2_Test {
             }
         }
 
-        Calendar variableValueBefore = (Calendar) f.get(instance);
 
         //should work
 

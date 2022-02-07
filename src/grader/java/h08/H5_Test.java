@@ -4,9 +4,11 @@ import h08.reflection.ClassTester;
 import h08.reflection.MethodTester;
 import h08.tutor.TimeStamp2;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import org.sourcegrade.jagr.api.testing.extension.JagrExecutionCondition;
 import spoon.reflect.code.CtCatch;
 import spoon.reflect.code.CtSwitch;
 import spoon.reflect.code.CtTry;
@@ -68,7 +70,7 @@ public class H5_Test {
             testContentTestCatch(i);
         }
     }
-
+    @ExtendWith(JagrExecutionCondition.class)
     @Test
     public void testContentTestCatch2125()
         throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
@@ -142,7 +144,7 @@ public class H5_Test {
         final Calendar variableValueBefore1 = (Calendar) f.get(instance);
         TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
         methodCatch.invoke(exceptions, instance, before, updateWithExcNr);
-        //exceptions.testCatch1(instance, before, updateWithExcNr);
+
         if (updateWithExcNr <= nrOutputPrinted[testCatchNr - 1]) {
             String compareString;
             if (staticExceptionBeforeLastUpdateStatic[testCatchNr - 1] == null) {
@@ -177,7 +179,7 @@ public class H5_Test {
 
         final Calendar variableValueBefore2 = (Calendar) f.get(instance);
         methodCatch.invoke(exceptions, instance, futureCal, updateWithExcNr);
-        //exceptions.testCatch1(instance, futureCal, updateWithExcNr);
+
         if (updateWithExcNr <= nrOutputPrinted[testCatchNr - 1]) {
             assertEquals(outContent.toString(),
                 String.format("%s%s : %s %s\n",
@@ -233,13 +235,12 @@ public class H5_Test {
             }
         }
 
-        Calendar variableValueBefore = (Calendar) f.get(instance);
+
 
         //should work
 
         Calendar toAdd = Calendar.getInstance();
 
-        variableValueBefore = (Calendar) f.get(instance);
         TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
         methodCatch.invoke(exceptions, instance, toAdd, updateWithExcNr);
         //exceptions.testCatch1(instance, toAdd, n);
@@ -252,6 +253,7 @@ public class H5_Test {
         System.setOut(System.out);
     }
 
+    @ExtendWith(JagrExecutionCondition.class)
     @Test
     public void testSwitchCase() {
         ClassTester<TestTimeStampExceptions> classTester = new ClassTester<>(TestTimeStampExceptions.class).assureClassResolved();
