@@ -21,7 +21,10 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Answers.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.mockingDetails;
+import static org.mockito.Mockito.spy;
 
 /**
  * A Class Tester
@@ -30,36 +33,36 @@ import static org.mockito.Mockito.*;
  */
 public class ClassTester<T> {
     /**
-     * The Class Identifier (Containing Name, Similarity)
+     * The Class Identifier (Containing Name, Similarity).
      */
     IdentifierMatcher classIdentifier;
     /**
-     * The resolved Class that will be tested
+     * The resolved Class that will be tested.
      */
     Class<T> theClass;
     /**
-     * The Expected Access Modifier
+     * The Expected Access Modifier.
      */
     int accessModifier;
     /**
-     * The Class Instance of the Class Being Tested
+     * The Class Instance of the Class Being Tested.
      */
     T classInstance;
     /**
-     * The Expected Super class
+     * The Expected Super class.
      */
     private Class<? super T> superClass;
     /**
-     * Matchers for the Interfaces that are expected to be implemented
+     * Matchers for the Interfaces that are expected to be implemented.
      */
     private ArrayList<IdentifierMatcher> implementsInterfaces;
     /**
-     * The Spoon Launcher
+     * The Spoon Launcher.
      */
     private Launcher spoon = new Launcher();
 
     /**
-     * Creates a new {@link ClassTester}
+     * Creates a new {@link ClassTester}.
      *
      * @param packageName          the Package Name of the Class
      * @param className            The Class Name
@@ -80,7 +83,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Creates a new {@link ClassTester}
+     * Creates a new {@link ClassTester}.
      *
      * @param packageName          the Package Name of the Class
      * @param className            The Class Name
@@ -101,7 +104,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Creates a new {@link ClassTester}
+     * Creates a new {@link ClassTester}.
      *
      * @param packageName    the Package Name of the Class
      * @param className      The Class Name
@@ -113,7 +116,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Creates a new {@link ClassTester}
+     * Creates a new {@link ClassTester}.
      *
      * @param packageName the Package Name of the Class
      * @param className   The Class Name
@@ -124,7 +127,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Creates a new {@link ClassTester}
+     * Creates a new {@link ClassTester}.
      *
      * @param packageName the Package Name of the Class
      * @param className   The Class Name
@@ -148,7 +151,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets all Fields from a given Class and its superclasses recursively
+     * Gets all Fields from a given Class and its superclasses recursively.
      *
      * @param fields the fields so far (initially give it new ArrayList<>())
      * @param clazz  the Class to search
@@ -165,7 +168,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets all Fields from a given Class and its superclasses recursively
+     * Gets all Fields from a given Class and its superclasses recursively.
      *
      * @param clazz the Class to search
      * @return all Fields from a given Class and its superclasses recursively
@@ -175,7 +178,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Generates a class not found Message
+     * Generates a class not found Message.
      *
      * @param className the Class Name
      * @return a class not found Message
@@ -185,18 +188,17 @@ public class ClassTester<T> {
     }
 
     /**
-     * Generates a Interface not found Message
+     * Generates an Interface not found Message.
      *
      * @param interfaceName the Interface Name
-     * @return a Interface not found Message
+     * @return an Interface not found Message
      */
     public static String getInterfaceNotImplementedMessage(String interfaceName) {
         return String.format("Interface %s wird nicht erweitert.", interfaceName);
     }
 
     /**
-     * Asserts that a given Class is not {@code null} and fails with the propper
-     * message if not
+     * Asserts that a given Class is not {@code null} and fails with the proper message if not.
      *
      * @param theClass  the {@link Class}
      * @param className the Class Name for the error Message
@@ -208,7 +210,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Generates a Message for a Missing enum constant
+     * Generates a Message for a Missing enum constant.
      *
      * @param constantName the Constant name
      * @return the generated Message
@@ -218,7 +220,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets a random Enum Constant
+     * Gets a random Enum Constant.
      *
      * @param enumClass     the {@link Enum}-{@link Class}
      * @param enumClassName the expected {@link Enum}-{@link Class}-Name
@@ -234,7 +236,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Returns the Default Value for the given Type
+     * Returns the Default Value for the given Type.
      *
      * @param type the Type Class
      * @return the Default Value for the given Type
@@ -262,7 +264,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Returns the Random Value for the given Type
+     * Returns the Random Value for the given Type.
      *
      * @param type the Type Class
      * @return the Random Value for the given Type
@@ -296,7 +298,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Generates A derived Class from a given Class
+     * Generates A derived Class from a given Class.
      *
      * @param <T>              The Generic Class Type
      * @param clazz            The source class
@@ -316,7 +318,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves an Instance of a given class (even abstract)
+     * Resolves an Instance of a given class (even abstract).
      *
      * @param <T>       The Instance type
      * @param clazz     The class to generate the Instance from
@@ -330,7 +332,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves a static Instance of a given class (even abstract)
+     * Resolves a static Instance of a given class (even abstract).
      *
      * @param <T>       The Instance type
      * @param clazz     The class to generate the Instance from
@@ -344,7 +346,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves an Instance of a given class (even abstract)
+     * Resolves an Instance of a given class (even abstract).
      *
      * @param <T>       The Instance type
      * @param clazz     The class to generate the Instance from
@@ -408,7 +410,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets a field to a given Class
+     * Sets a field to a given Class.
      *
      * @param instance the Instance to set the field
      * @param field    the Field to modify
@@ -423,7 +425,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Value of a given field of a given Instance
+     * Gets the Value of a given field of a given Instance.
      *
      * @param instance the Class Instance
      * @param field    the Field to get
@@ -436,7 +438,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets a specific Enum-Value
+     * Gets a specific Enum-Value.
      *
      * @param <T>          The Generic Enum-Type
      * @param enumClass    the Enum Class
@@ -457,7 +459,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * asserts a given Class is an Interface
+     * asserts a given Class is an Interface.
      *
      * @param theClass  the class to check
      * @param className the expected Class Name
@@ -468,7 +470,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * asserts a given Class is an Enum
+     * asserts a given Class is an Enum.
      *
      * @param theClass  the class to check
      * @param className the expected Class Name
@@ -479,7 +481,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * asserts a given Class is a Plain Class
+     * asserts a given Class is a Plain Class.
      *
      * @param theClass  the class to check
      * @param className the expected Class Name
@@ -491,7 +493,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Implemented Interfaces
+     * Gets the Implemented Interfaces.
      *
      * @return the Implemented Interfaces
      */
@@ -500,7 +502,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets the Implemented Interfaces
+     * Sets the Implemented Interfaces.
      *
      * @param implementsInterfaces the new Implemented Interfaces
      */
@@ -509,7 +511,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Super Class
+     * Gets the Super Class.
      *
      * @return the super class
      */
@@ -518,7 +520,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets the Super Class
+     * Sets the Super Class.
      *
      * @param superClass the Super Class
      */
@@ -527,7 +529,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Adds an Interface Matcher to the {@link #implementsInterfaces} List
+     * Adds an Interface Matcher to the {@link #implementsInterfaces} List.
      *
      * @param interfaceMatcher the InterfaceMatcher
      */
@@ -539,7 +541,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Adds an Interface Matcher to the {@link #implementsInterfaces} List
+     * Adds an Interface Matcher to the {@link #implementsInterfaces} List.
      *
      * @param interfaceName the InterfaceMatcher
      * @param similarity    the Maximum similarity allowed
@@ -549,7 +551,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Adds an Interface Matcher to the {@link #implementsInterfaces} List
+     * Adds an Interface Matcher to the {@link #implementsInterfaces} List.
      *
      * @param interfaceName the InterfaceMatcher
      */
@@ -558,7 +560,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Spoon Launcher
+     * Gets the Spoon Launcher.
      *
      * @return the Spoon Launcher
      */
@@ -567,7 +569,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets {@link #spoon} to the given Value
+     * Sets {@link #spoon} to the given Value.
      *
      * @param spoon the new Spoon Launcher
      */
@@ -600,7 +602,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets all Fields from {@link #theClass} and its superclasses recursively
+     * Gets all Fields from {@link #theClass} and its superclasses recursively.
      *
      * @return all Fields from from {@link #theClass} and its superclasses
      * recursively
@@ -634,7 +636,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that a given attribute has a getter
+     * Asserts that a given attribute has a getter.
      *
      * @param attribute the Attribute-{@link Field}
      */
@@ -665,7 +667,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that a given attribute has a getter
+     * Asserts that a given attribute has a getter.
      *
      * @param attribute the Attribute-{@link Field}
      * @param testValue the TestValue
@@ -685,7 +687,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that a given attribute has a getter
+     * Asserts that a given attribute has a getter.
      *
      * @param attribute the Attribute-{@link Field}
      */
@@ -695,8 +697,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * asserts that all the interfaces described by the given matchers are being
-     * extended
+     * asserts that all the interfaces described by the given matchers are being extended.
      *
      * @param implementsInterfaces the Interface-Matchers
      */
@@ -727,21 +728,21 @@ public class ClassTester<T> {
 
     /**
      * asserts that all the interfaces described by {@link #implementsInterfaces}
-     * are being extended
+     * are being extended.
      */
     public void assertImplementsInterfaces() {
         assertImplementsInterfaces(implementsInterfaces);
     }
 
     /**
-     * asserts that {@link #theClass} does not extend any interfaces
+     * asserts that {@link #theClass} does not extend any interfaces.
      */
     public void assertDoesNotImplementAnyInterfaces() {
         assertImplementsInterfaces(null);
     }
 
     /**
-     * Returns true if {@link #theClass} is not null
+     * Returns true if {@link #theClass} is not null.
      *
      * @return true if {@link #theClass} is not null
      */
@@ -759,7 +760,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Returns true if {@link #theClass} is Mocked
+     * Returns true if {@link #theClass} is Mocked.
      *
      * @return true if {@link #theClass} is Mocked
      * @see MockingDetails#isMock()
@@ -769,7 +770,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Returns true if {@link #theClass} is statically Mocked
+     * Returns true if {@link #theClass} is statically Mocked.
      *
      * @return true if {@link #theClass} is statically Mocked
      * @see MockingDetails#isMock()
@@ -779,7 +780,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Returns true if {@link #theClass} is a Spy
+     * Returns true if {@link #theClass} is a Spy.
      *
      * @return true if {@link #theClass} is a Spy
      * @see MockingDetails#isSpy()
@@ -789,7 +790,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Makes the class a Spy if not done already
+     * Makes the class a Spy if not done already.
      *
      * @return this
      */
@@ -802,7 +803,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Makes the class a Mock if not one already
+     * Makes the class a Mock if not one already.
      *
      * @return this
      */
@@ -815,7 +816,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Makes the class a Static Mock if not one already
+     * Makes the class a Static Mock if not one already.
      *
      * @return this
      */
@@ -828,7 +829,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Makes the class a Spy if not done already
+     * Makes the class a Spy if not done already.
      *
      * @return this
      */
@@ -839,7 +840,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Generates a class not found Message
+     * Generates a class not found Message.
      *
      * @return a class not found Message
      */
@@ -849,7 +850,7 @@ public class ClassTester<T> {
 
     /**
      * Asserts that {@link #theClass} is not {@code null} and fails with the propper
-     * message if not resolved
+     * message if not resolved.
      */
     public void assertClassResolved() {
         assertClassNotNull(theClass, classIdentifier.identifierName);
@@ -895,7 +896,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Assert tthat the Superclass of {@link #theClass} matches {@link #superClass}
+     * Assert that the Superclass of {@link #theClass} matches {@link #superClass}.
      */
     public void assertSuperclass() {
         assertClassResolved();
@@ -916,7 +917,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Class if Already resolved
+     * Gets the Class if Already resolved.
      *
      * @return the Class if Already resolved
      */
@@ -925,7 +926,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets the Class
+     * Sets the Class.
      *
      * @param theClass the new Class
      */
@@ -934,7 +935,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Value of {@link #accessModifier}
+     * Gets the Value of {@link #accessModifier}.
      *
      * @return the Value of {@link #accessModifier}
      */
@@ -943,7 +944,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets {@link #accessModifier} to the given Modifier
+     * Sets {@link #accessModifier} to the given Modifier.
      *
      * @param accessModifier the new Modifier
      */
@@ -952,7 +953,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that the Access Modifier is correct, with propper Fail Message
+     * Asserts that the Access Modifier is correct, with proper Fail Message.
      */
     public void assertAccessModifier() {
         if (accessModifier >= 0) {
@@ -961,7 +962,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Value of {@link #classInstance}
+     * Gets the Value of {@link #classInstance}.
      *
      * @return the Value of {@link #classInstance}
      */
@@ -970,7 +971,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets {@link #classInstance} to the given Value
+     * Sets {@link #classInstance} to the given Value.
      *
      * @param classInstance the new Class Instance
      */
@@ -979,7 +980,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Returns true if {@link #classInstance} is not {@code null}
+     * Returns true if {@link #classInstance} is not {@code null}.
      *
      * @return true if {@link #classInstance} is not {@code null}
      */
@@ -988,7 +989,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that {@link #classInstance} is not {@code null}
+     * Asserts that {@link #classInstance} is not {@code null}.
      */
     public void assertClassInstanceResolved() {
 
@@ -996,7 +997,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Assert that enum Constants with the given names exist
+     * Assert that enum Constants with the given names exist.
      *
      * @param expectedConstants the enum Constants
      */
@@ -1010,7 +1011,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets a random Enum Constant
+     * Gets a random Enum Constant.
      *
      * @return the random Enum Constant
      */
@@ -1021,7 +1022,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * returns the Value of {@link #classIdentifier}
+     * returns the Value of {@link #classIdentifier}.
      *
      * @return the Value of {@link #classIdentifier}
      */
@@ -1039,7 +1040,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves a Class With the given name and Similarity
+     * Resolves a Class With the given name and Similarity.
      *
      * @param similarity The minimum required similarity
      * @return the resolved Class With the given name and similarity
@@ -1065,7 +1066,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves a Class With the current Class name and Similarity
+     * Resolves a Class With the current Class name and Similarity.
      *
      * @return the resolved Class With the given name and similarity
      */
@@ -1074,7 +1075,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves a Class With the given Similarity
+     * Resolves a Class With the given Similarity.
      *
      * @param similarity The minimum required similarity
      * @return the resolved Class With the given name and similarity
@@ -1084,7 +1085,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Finds The Class and stores it in {@link #theClass}
+     * Finds The Class and stores it in {@link #theClass}.
      *
      * @return this
      */
@@ -1094,8 +1095,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves the class if necessary (We do not care about fields fields being
-     * made accessible here)
+     * Resolves the class if necessary (We do not care about fields being made accessible here).
      *
      * @return this
      */
@@ -1107,8 +1107,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves the Class and Instance and stores them in {@link #theClass} and
-     * {@link #classInstance}
+     * Resolves the Class and Instance and stores them in {@link #theClass} and {@link #classInstance}.
      *
      * @return this
      */
@@ -1119,8 +1118,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves the Class and Instance and stores them in {@link #theClass} and
-     * {@link #classInstance}
+     * Resolves the Class and Instance and stores them in {@link #theClass} and {@link #classInstance}.
      *
      * @return this
      */
@@ -1131,8 +1129,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves the Class and Instance and stores them in {@link #theClass} and
-     * {@link #classInstance}
+     * Resolves the Class and Instance and stores them in {@link #theClass} and {@link #classInstance}.
      *
      * @return this
      */
@@ -1152,7 +1149,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * /* Resolves a static Instance of {@link #theClass} (even abstract)
+     * /* Resolves a static Instance of {@link #theClass} (even abstract).
      *
      * @return the instance
      */
@@ -1161,7 +1158,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves an Instance of {@link #theClass} (even abstract)
+     * Resolves an Instance of {@link #theClass} (even abstract).
      *
      * @return the instance
      */
@@ -1172,7 +1169,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves an Instance of {@link #theClass} (even abstract)
+     * Resolves an Instance of {@link #theClass} (even abstract).
      *
      * @return the instance
      */
@@ -1181,7 +1178,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolve a real Instance
+     * Resolve a real Instance.
      *
      * @return the real instance
      */
@@ -1191,7 +1188,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves a Constructor with the given parameters
+     * Resolves a Constructor with the given parameters.
      *
      * @param parameters the Expected Parameters
      * @return the best Match
@@ -1219,7 +1216,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves a Constructor with the given parameters
+     * Resolves a Constructor with the given parameters.
      *
      * @param parameters the Expected Parameters
      * @return the best Match
@@ -1229,7 +1226,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that a {@link Constructor} was declared correctly
+     * Asserts that a {@link Constructor} was declared correctly.
      *
      * @param constructor    the {@link Constructor}
      * @param accessModifier the expected access Modifier
@@ -1244,7 +1241,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that a {@link Constructor} was declared correctly
+     * Asserts that a {@link Constructor} was declared correctly.
      *
      * @param constructor    the {@link Constructor}
      * @param accessModifier the expected access Modifier
@@ -1272,12 +1269,8 @@ public class ClassTester<T> {
 //        }
 //    }
 
-    public void when() {
-
-    }
-
     /**
-     * Sets a field to {@link #classInstance}
+     * Sets a field to {@link #classInstance}.
      *
      * @param field the Field to modify
      * @param value the new Value
@@ -1287,8 +1280,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets a field of {@link #classInstance} to a random Value Supported by its
-     * type
+     * Sets a field of {@link #classInstance} to a random Value Supported by its type.
      *
      * @param field the Field to set
      * @return the random Value
@@ -1301,7 +1293,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the Value of a given field of {@link #classInstance}
+     * Gets the Value of a given field of {@link #classInstance}.
      *
      * @param field the Field to get
      * @return the Value
@@ -1315,7 +1307,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that a given field has a certain value
+     * Asserts that a given field has a certain value.
      *
      * @param field             the field
      * @param expected          the expected Value
@@ -1345,7 +1337,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Asserts that a given field has a certain value
+     * Asserts that a given field has a certain value.
      *
      * @param field    the field
      * @param expected the expected Value
@@ -1355,7 +1347,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets a specific Enum-Value
+     * Gets a specific Enum-Value.
      *
      * @param expectedName the expected Enum Class Name
      * @param similarity   the min Similarity
@@ -1367,21 +1359,21 @@ public class ClassTester<T> {
     }
 
     /**
-     * asserts {@link #theClass} is an Interface
+     * asserts {@link #theClass} is an Interface.
      */
     public void assertIsInterface() {
         assertIsInterface(theClass, classIdentifier.identifierName);
     }
 
     /**
-     * asserts {@link #theClass} is an Enum
+     * asserts {@link #theClass} is an Enum.
      */
     public void assertIsEnum() {
         assertIsEnum(theClass, classIdentifier.identifierName);
     }
 
     /**
-     * asserts {@link #theClass} is a Plain Class
+     * asserts {@link #theClass} is a Plain Class.
      */
     public void assertIsPlainClass() {
         assertIsPlainClass(theClass, classIdentifier.identifierName);

@@ -1,27 +1,27 @@
 package h08.reflection;
 
 /**
- * An Attribute Matcher based on {@link IdentifierMatcher}
+ * An Attribute Matcher based on {@link IdentifierMatcher}.
  *
  * @author Ruben Deisenroth
  * @see IdentifierMatcher
  */
 public class AttributeMatcher extends IdentifierMatcher {
     /**
-     * The expected Access Modifier
+     * The expected Access Modifier.
      */
     public int modifier;
     /**
-     * The Expected Attribute Type
+     * The Expected Attribute Type.
      */
     public Class<?> type;
     /**
-     * whether to also match super implementations
+     * Whether to also match super implementations.
      */
     public boolean allowSuperClass;
 
     /**
-     * Generates a new {@link AttributeMatcher}
+     * Generates a new {@link AttributeMatcher}.
      *
      * @param name            The Name to match
      * @param similarity      The Minimum similarity required
@@ -37,7 +37,7 @@ public class AttributeMatcher extends IdentifierMatcher {
     }
 
     /**
-     * Generates a new {@link AttributeMatcher}
+     * Generates a new {@link AttributeMatcher}.
      *
      * @param name       The Name to match
      * @param similarity The Minimum similarity required
@@ -49,7 +49,7 @@ public class AttributeMatcher extends IdentifierMatcher {
     }
 
     /**
-     * Generates a new {@link AttributeMatcher}
+     * Generates a new {@link AttributeMatcher}.
      *
      * @param name            The Name to match
      * @param similarity      The Minimum similarity required
@@ -61,7 +61,7 @@ public class AttributeMatcher extends IdentifierMatcher {
     }
 
     /**
-     * Generates a new {@link AttributeMatcher}
+     * Generates a new {@link AttributeMatcher}.
      *
      * @param name       The Name to match
      * @param similarity The Minimum similarity required

@@ -197,20 +197,20 @@ public class MethodTester {
     }
 
     /**
-     * Counts the matching Parameters
+     * Counts the matching Parameters.
      *
-     * @param expectedParametes the Expected Parameter List
+     * @param expectedParameters the Expected Parameter List
      * @param actualParameters  the Actual Parameter List
      * @param ignoreNames       whether to ignore Parameter Names
      * @return the Amount of matching Parameters
      */
     public static int countMatchingParameters(
-        ArrayList<ParameterMatcher> expectedParametes,
+        ArrayList<ParameterMatcher> expectedParameters,
         ArrayList<Parameter> actualParameters,
         boolean ignoreNames) {
         int count = 0;
-        for (int i = 0; i < expectedParametes.size(); i++) {
-            var matcher = expectedParametes.get(i);
+        for (int i = 0; i < expectedParameters.size(); i++) {
+            var matcher = expectedParameters.get(i);
             var param = actualParameters.get(i);
             if (param.getType() != matcher.parameterType) {
                 continue;
