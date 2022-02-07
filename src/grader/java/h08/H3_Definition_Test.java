@@ -52,7 +52,7 @@ public class H3_Definition_Test {
     }
 
     @Test
-    void checkClassUpdateTimeInTheFutureException() throws ClassNotFoundException {
+    public void checkClassUpdateTimeInTheFutureException() throws ClassNotFoundException {
         try {
             Class.forName("h08.UpdateTimeInTheFutureException");
         } catch (ClassNotFoundException e) {

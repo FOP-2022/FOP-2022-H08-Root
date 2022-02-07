@@ -15,6 +15,10 @@ public class H08_RubricProvider implements RubricProvider {
         .shortDescription("Klasse TimeStamp, der Konstruktor und das Attribut lastUpdate existieren")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
+                H1_Definition_Test.class.getMethod("classExistence")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
+                H1_Definition_Test.class.getMethod("testConstructorExistence")))
+            .requirePass(JUnitTestRef.ofMethod(() ->
                 H1_Definition_Test.class.getMethod("testDefinitionAndAttribute")))
             .pointsPassedMax()
             .pointsFailedMin()
@@ -25,11 +29,11 @@ public class H08_RubricProvider implements RubricProvider {
         .shortDescription("Void update() und Calendar getTimeStamp() existieren und diese und der Konstruktor funktionieren")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H1_Test.class.getMethod("classExistence")))
+                H1_Test.class.getMethod("testConstructorContent")))
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H1_Test.class.getMethod("testConstructorExistence")))
+                H1_Test.class.getMethod("testTimeStampUpdateWithoutParameter")))
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H1_Test.class.getMethod("testDefinitionAndAttribute")))
+                H1_Test.class.getMethod("testGetTimeStamp")))
             .pointsPassedMax()
             .pointsFailedMin()
             .build()
