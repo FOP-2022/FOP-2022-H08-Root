@@ -7,6 +7,9 @@ import static h08.reflection.TestUtils.assertModifier;
 import static java.lang.reflect.Modifier.isStatic;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * attributeTester for h08.
+ */
 public class AttributeTester {
 
     private ClassTester<?> classTester;

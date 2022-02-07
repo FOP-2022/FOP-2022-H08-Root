@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * class for h08.
+ */
 public abstract class AbstractExpression implements Comparable<AbstractExpression> {
 
     public final int startIndex;

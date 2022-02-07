@@ -7,6 +7,9 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.sourcegrade.jagr.api.testing.ClassTransformer;
 
+/**
+ * verifier for h08.
+ */
 public class ExceptionConstructorVerifier1 implements ClassTransformer {
 
     public static boolean hasConstructor = false;

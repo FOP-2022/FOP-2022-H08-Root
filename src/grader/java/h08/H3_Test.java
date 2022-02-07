@@ -68,7 +68,8 @@ public class H3_Test {
         ExceptionConstructorVerifier1.hasConstructor = false;
 
         for (Calendar c : calendars) {
-            assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(), Helper.createMessageOfBadUpdateException(c, true),
+            assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(),
+                Helper.createMessageOfBadUpdateException(c, true),
                 "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
         }
 

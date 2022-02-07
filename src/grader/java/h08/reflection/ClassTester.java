@@ -27,7 +27,7 @@ import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.spy;
 
 /**
- * A Class Tester
+ * A Class Tester.
  *
  * @author Ruben Deisenroth
  */
@@ -136,6 +136,11 @@ public class ClassTester<T> {
         this(packageName, className, 1, -1, null, new ArrayList<>(), null);
     }
 
+    /**
+     * class tester.
+     *
+     * @param clazz clazz
+     */
     public ClassTester(Class<T> clazz) {
         this(
             clazz.getPackageName(),
@@ -178,6 +183,24 @@ public class ClassTester<T> {
     }
 
     /**
+     * Gets all Fields from {@link #theClass} and its superclasses recursively.
+     *
+     * @return all Fields from {@link #theClass} and its superclasses recursively
+     */
+    public ArrayList<Field> getAllFields() {
+        return getAllFields(new ArrayList<>(), getTheClass());
+    }
+
+    /**
+     * Generates a class not found Message.
+     *
+     * @return a class not found Message
+     */
+    public String getClassNotFoundMessage() {
+        return getClassNotFoundMessage(classIdentifier.identifierName);
+    }
+
+    /**
      * Generates a class not found Message.
      *
      * @param className the Class Name
@@ -210,16 +233,6 @@ public class ClassTester<T> {
     }
 
     /**
-     * Generates a Message for a Missing enum constant.
-     *
-     * @param constantName the Constant name
-     * @return the generated Message
-     */
-    public static String getEnumConstantMissingMessage(String constantName) {
-        return String.format("Enum-Konstante %s fehlt.", constantName);
-    }
-
-    /**
      * Gets a random Enum Constant.
      *
      * @param enumClass     the {@link Enum}-{@link Class}
@@ -233,6 +246,27 @@ public class ClassTester<T> {
             return null;
         }
         return enumConstants[ThreadLocalRandom.current().nextInt(enumConstants.length)];
+    }
+
+    /**
+     * Gets a random Enum Constant.
+     *
+     * @return the random Enum Constant
+     */
+    @SuppressWarnings("unchecked")
+    public Enum<?> getRandomEnumConstant() {
+        assertIsEnum();
+        return getRandomEnumConstant((Class<Enum<?>>) theClass, classIdentifier.identifierName);
+    }
+
+    /**
+     * Generates a Message for a Missing enum constant.
+     *
+     * @param constantName the Constant name
+     * @return the generated Message
+     */
+    public static String getEnumConstantMissingMessage(String constantName) {
+        return String.format("Enum-Konstante %s fehlt.", constantName);
     }
 
     /**
@@ -382,6 +416,15 @@ public class ClassTester<T> {
         return instance;
     }
 
+    /**
+     * set field.
+     *
+     * @param field field
+     * @param obj obj
+     * @param value value
+     * @throws IllegalArgumentException exception
+     * @throws IllegalAccessException exception
+     */
     public static void setFieldTyped(Field field, Object obj, Object value)
         throws IllegalArgumentException, IllegalAccessException {
         if (field == null) {
@@ -425,6 +468,30 @@ public class ClassTester<T> {
     }
 
     /**
+     * Sets a field to {@link #classInstance}.
+     *
+     * @param field the Field to modify
+     * @param value the new Value
+     */
+    public void setField(Field field, Object value) {
+        setField(getClassInstance(), field, value);
+    }
+
+    /**
+     * Gets the Value of a given field of {@link #classInstance}.
+     *
+     * @param field the Field to get
+     * @return the Value
+     */
+    public Object getFieldValue(Field field) {
+        assertClassInstanceResolved();
+        if (!field.canAccess(Modifier.isStatic(field.getModifiers()) ? null : getClassInstance())) {
+            assertDoesNotThrow(() -> field.setAccessible(true));
+        }
+        return assertDoesNotThrow(() -> field.get(getClassInstance()));
+    }
+
+    /**
      * Gets the Value of a given field of a given Instance.
      *
      * @param instance the Class Instance
@@ -459,6 +526,18 @@ public class ClassTester<T> {
     }
 
     /**
+     * Gets a specific Enum-Value.
+     *
+     * @param expectedName the expected Enum Class Name
+     * @param similarity   the min Similarity
+     * @return the specific Enum-Value
+     */
+    @SuppressWarnings("unchecked")
+    public Enum<?> getEnumValue(String expectedName, double similarity) {
+        return getEnumValue((Class<Enum<?>>) theClass, expectedName, similarity);
+    }
+
+    /**
      * asserts a given Class is an Interface.
      *
      * @param theClass  the class to check
@@ -467,6 +546,20 @@ public class ClassTester<T> {
     public static void assertIsInterface(Class<?> theClass, String className) {
         assertClassNotNull(theClass, className);
         assertTrue(theClass.isInterface(), String.format("%s ist kein Interface.", className));
+    }
+
+    /**
+     * asserts {@link #theClass} is an Interface.
+     */
+    public void assertIsInterface() {
+        assertIsInterface(theClass, classIdentifier.identifierName);
+    }
+
+    /**
+     * asserts {@link #theClass} is an Enum.
+     */
+    public void assertIsEnum() {
+        assertIsEnum(theClass, classIdentifier.identifierName);
     }
 
     /**
@@ -490,6 +583,13 @@ public class ClassTester<T> {
         assertClassNotNull(theClass, className);
         assertFalse(theClass.isInterface(), String.format("%s sollte kein Interface sein.", className));
         assertFalse(theClass.isEnum(), String.format("%s sollte kein Enum sein.", className));
+    }
+
+    /**
+     * asserts {@link #theClass} is a Plain Class.
+     */
+    public void assertIsPlainClass() {
+        assertIsPlainClass(theClass, classIdentifier.identifierName);
     }
 
     /**
@@ -577,6 +677,11 @@ public class ClassTester<T> {
         this.spoon = spoon;
     }
 
+    /**
+     * launcher.
+     *
+     * @return classtester
+     */
     public ClassTester<T> assureSpoonLauncherModelsBuild() {
         assureClassResolved();
         if (spoon == null) {
@@ -599,16 +704,6 @@ public class ClassTester<T> {
             spoon.buildModel();
         }
         return this;
-    }
-
-    /**
-     * Gets all Fields from {@link #theClass} and its superclasses recursively.
-     *
-     * @return all Fields from from {@link #theClass} and its superclasses
-     * recursively
-     */
-    public ArrayList<Field> getAllFields() {
-        return getAllFields(new ArrayList<>(), getTheClass());
     }
 
     /**
@@ -679,7 +774,7 @@ public class ClassTester<T> {
         var methodTester = new MethodTester(this, String.format("set%s%s",
             attribute.getName().substring(0, 1).toUpperCase(), attribute.getName().substring(1)), 0.8,
             Modifier.PUBLIC, void.class, new ArrayList<>(List.of(
-            new ParameterMatcher(attribute.getName(), 0.8, attribute.getType())))).verify();
+                new ParameterMatcher(attribute.getName(), 0.8, attribute.getType())))).verify();
 
         // test with Value
         methodTester.invoke(testValue);
@@ -751,7 +846,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Gets the {@link MockingDetails} of {@link #theClass}
+     * Gets the {@link MockingDetails} of {@link #theClass}.
      *
      * @return the {@link MockingDetails} of {@link #theClass}
      */
@@ -776,7 +871,8 @@ public class ClassTester<T> {
      * @see MockingDetails#isMock()
      */
     public boolean is_static_mock() {
-        return classInstanceResolved() && mockingDetails(getClassInstance()).isMock() && getClassInstance() instanceof MockedStatic;
+        return classInstanceResolved() && mockingDetails(getClassInstance())
+            .isMock() && getClassInstance() instanceof MockedStatic;
     }
 
     /**
@@ -837,15 +933,6 @@ public class ClassTester<T> {
         assertClassInstanceResolved();
         assertTrue(is_spy(), "Faulty Test: Class was not spied on");
         return this;
-    }
-
-    /**
-     * Generates a class not found Message.
-     *
-     * @return a class not found Message
-     */
-    public String getClassNotFoundMessage() {
-        return getClassNotFoundMessage(classIdentifier.identifierName);
     }
 
     /**
@@ -1003,22 +1090,11 @@ public class ClassTester<T> {
      */
     public void assertEnumConstants(String[] expectedConstants) {
         assertClassResolved();
-        var enum_values = theClass.getEnumConstants();
+        var enumValues = theClass.getEnumConstants();
         for (String n : expectedConstants) {
-            assertTrue(Stream.of(enum_values).anyMatch(x -> x.toString().equals(n)),
+            assertTrue(Stream.of(enumValues).anyMatch(x -> x.toString().equals(n)),
                 String.format("Enum-Konstante %s fehlt.", n));
         }
-    }
-
-    /**
-     * Gets a random Enum Constant.
-     *
-     * @return the random Enum Constant
-     */
-    @SuppressWarnings("unchecked")
-    public Enum<?> getRandomEnumConstant() {
-        assertIsEnum();
-        return getRandomEnumConstant((Class<Enum<?>>) theClass, classIdentifier.identifierName);
     }
 
     /**
@@ -1031,7 +1107,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Sets {@link #classIdentifier} to the given Value
+     * Sets {@link #classIdentifier} to the given Value.
      *
      * @param classIdentifier the new Class Identifier
      */
@@ -1140,7 +1216,7 @@ public class ClassTester<T> {
     }
 
     /**
-     * Resolves an Instance of {@link #theClass} (even abstract)
+     * Resolves an Instance of {@link #theClass} (even abstract).
      *
      * @return the instance
      */
@@ -1252,32 +1328,22 @@ public class ClassTester<T> {
         assertConstructorValid(constructor, accessModifier, new ArrayList<>(Arrays.asList(parameters)));
     }
 
-//    /**
-//     * Gets Method Documentation for JavaDoc
-//     *
-//     * @param d the Source Documentation
-//     * @return the Method Documentation
-//     */
-//    public MethodDocumentation getConstructorDocumentation(SourceDocumentation d, ParameterMatcher... parameters) {
-//        try {
-//            assureClassResolved();
-//            var constructor = resolveConstructor(parameters);
-//            return d.forTopLevelType(getTheClass().getName()).forConstructor(
-//                constructor.getParameterTypes());
-//        } catch (Throwable e) {
-//            return d.forTopLevelType("").forConstructor();
-//        }
-//    }
-
-    /**
-     * Sets a field to {@link #classInstance}.
-     *
-     * @param field the Field to modify
-     * @param value the new Value
-     */
-    public void setField(Field field, Object value) {
-        setField(getClassInstance(), field, value);
-    }
+    //    /**
+    //     * Gets Method Documentation for JavaDoc
+    //     *
+    //     * @param d the Source Documentation
+    //     * @return the Method Documentation
+    //     */
+    //    public MethodDocumentation getConstructorDocumentation(SourceDocumentation d, ParameterMatcher... parameters) {
+    //        try {
+    //            assureClassResolved();
+    //            var constructor = resolveConstructor(parameters);
+    //            return d.forTopLevelType(getTheClass().getName()).forConstructor(
+    //                constructor.getParameterTypes());
+    //        } catch (Throwable e) {
+    //            return d.forTopLevelType("").forConstructor();
+    //        }
+    //    }
 
     /**
      * Sets a field of {@link #classInstance} to a random Value Supported by its type.
@@ -1290,20 +1356,6 @@ public class ClassTester<T> {
         var value = getRandomValue(field.getType());
         setField(field, value);
         return value;
-    }
-
-    /**
-     * Gets the Value of a given field of {@link #classInstance}.
-     *
-     * @param field the Field to get
-     * @return the Value
-     */
-    public Object getFieldValue(Field field) {
-        assertClassInstanceResolved();
-        if (!field.canAccess(Modifier.isStatic(field.getModifiers()) ? null : getClassInstance())) {
-            assertDoesNotThrow(() -> field.setAccessible(true));
-        }
-        return assertDoesNotThrow(() -> field.get(getClassInstance()));
     }
 
     /**
@@ -1320,8 +1372,8 @@ public class ClassTester<T> {
         if (field.getType() instanceof Class) {
             var actual = getFieldValue(field);
             if (expected == null && actual != null || (expected != null && !expected.equals(actual))) {
-                fail(message + "Expected: [" +
-                    expected == null
+                fail(message + "Expected: ["
+                    + expected == null
                     ? null
                     : expected.getClass().getName() + "@" + Integer.toHexString(expected.hashCode())
                     + "], but got: ["
@@ -1346,36 +1398,4 @@ public class ClassTester<T> {
         assertFieldEquals(field, expected, "");
     }
 
-    /**
-     * Gets a specific Enum-Value.
-     *
-     * @param expectedName the expected Enum Class Name
-     * @param similarity   the min Similarity
-     * @return the specific Enum-Value
-     */
-    @SuppressWarnings("unchecked")
-    public Enum<?> getEnumValue(String expectedName, double similarity) {
-        return getEnumValue((Class<Enum<?>>) theClass, expectedName, similarity);
-    }
-
-    /**
-     * asserts {@link #theClass} is an Interface.
-     */
-    public void assertIsInterface() {
-        assertIsInterface(theClass, classIdentifier.identifierName);
-    }
-
-    /**
-     * asserts {@link #theClass} is an Enum.
-     */
-    public void assertIsEnum() {
-        assertIsEnum(theClass, classIdentifier.identifierName);
-    }
-
-    /**
-     * asserts {@link #theClass} is a Plain Class.
-     */
-    public void assertIsPlainClass() {
-        assertIsPlainClass(theClass, classIdentifier.identifierName);
-    }
 }

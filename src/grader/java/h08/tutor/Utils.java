@@ -18,6 +18,9 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
 
+/**
+ * class for h08.
+ */
 public interface Utils {
 
     static <T> Iterable<T> iterate(Stream<T> s) {
@@ -30,11 +33,15 @@ public interface Utils {
         }
     }
 
+    /**
+     * interface.
+     */
     interface Messages {
 
         static String isAnInvalidExpression(char[] array) {
             return isAnInvalid(String.format("<%s>",
-                IntStream.range(0, array.length).mapToObj(i -> String.valueOf(array[i])).collect(Collectors.joining())), "expression");
+                IntStream.range(0, array.length).mapToObj(i -> String.valueOf(array[i])).collect(Collectors.joining())),
+                "expression");
         }
 
         static String isAnInvalid(Object x, Object y) {
@@ -102,6 +109,12 @@ public interface Utils {
             return String.format("method %s was not called recursively", name);
         }
 
+        /**
+         * entry error.
+         *
+         * @param entry entry
+         * @return String
+         */
         static String ofEntryError(TestCollection.Entry entry) {
             var builder = new StringBuilder();
             var collection = entry.collection();
@@ -121,6 +134,9 @@ public interface Utils {
         }
     }
 
+    /**
+     * predicate.
+     */
     interface SpoonPredicate {
 
         static <T extends CtElement> Filter<T> isCodeElement() {
@@ -128,6 +144,9 @@ public interface Utils {
         }
     }
 
+    /**
+     * collection.
+     */
     class TestCollection {
 
         public final String methodName;
@@ -151,33 +170,23 @@ public interface Utils {
             return this;
         }
 
-        public TestCollection add(Runnable runnable, Object... parameters) {
-            entries.add(new Entry(runnable, parameters));
-            return this;
-        }
-
-        public TestCollection letShow() {
-            entries.getLast().show |= true;
-            return this;
-        }
-
-        public TestCollection terminateOnException() {
-            entries.getLast().terminate = true;
-            return this;
-        }
-
-        public boolean hasFailedEntries() {
-            return entries.stream().anyMatch(Entry::hasError);
-        }
-
-        public Stream<Entry> getEntriesToShow() {
-            return entries.stream().filter(Entry::hasError).filter(Entry::toShow);
-        }
-
+        /**
+         * run.
+         *
+         * @param <T> param
+         * @return T
+         */
         public <T> T run() {
             return run(Mode.SHOW_ALL);
         }
 
+        /**
+         * run.
+         *
+         * @param mode mode
+         * @param <T> T
+         * @return T
+         */
         public <T> T run(Mode mode) {
             int count = 0;
             int countType = 0;
@@ -210,6 +219,32 @@ public interface Utils {
             return null;
         }
 
+        public TestCollection add(Runnable runnable, Object... parameters) {
+            entries.add(new Entry(runnable, parameters));
+            return this;
+        }
+
+        public TestCollection letShow() {
+            entries.getLast().show |= true;
+            return this;
+        }
+
+        public TestCollection terminateOnException() {
+            entries.getLast().terminate = true;
+            return this;
+        }
+
+        public boolean hasFailedEntries() {
+            return entries.stream().anyMatch(Entry::hasError);
+        }
+
+        public Stream<Entry> getEntriesToShow() {
+            return entries.stream().filter(Entry::hasError).filter(Entry::toShow);
+        }
+
+        /**
+         * mode.
+         */
         public enum Mode {
             SHOW_FIRST, SHOW_ALL, SHOW_NO, SILENT, STOP_ON_EXCEPTION
         }
@@ -253,6 +288,9 @@ public interface Utils {
         }
     }
 
+    /**
+     * state.
+     */
     class State {
         private Object state = 0;
 
@@ -274,7 +312,17 @@ public interface Utils {
         }
     }
 
+    /**
+     * utils.
+     */
     interface MockitoUtils {
+        /**
+         * answer.
+         *
+         * @param clazz clazz
+         * @param methodsTomock methods
+         * @return mocked
+         */
         static MockedStatic<?> mockUseDefaultAnswer(Class<?> clazz, Method... methodsTomock) {
             List<Method> methods = List.of(methodsTomock);
             return mockStatic(clazz, a -> {

@@ -2,6 +2,9 @@ package h08;
 
 import java.util.Calendar;
 
+/**
+ * class for h08.
+ */
 public class TestTimeStampExceptions {
 
     //H5

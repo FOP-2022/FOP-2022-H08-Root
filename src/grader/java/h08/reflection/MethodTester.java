@@ -10,7 +10,6 @@ import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.filter.TypeFilter;
 
-import javax.management.RuntimeErrorException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -18,52 +17,53 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.management.RuntimeErrorException;
 
 import static h08.tutor.Utils.Messages.wasNotCalledRecursively;
 import static h08.tutor.Utils.TestCollection.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * A Method Tester
+ * A Method Tester.
  *
  * @author Ruben Deisenroth
  */
 public class MethodTester {
     /**
-     * whether to also match super implementations
+     * whether to also match super implementations.
      */
     public boolean allowSuperClass;
     /**
-     * The Method-Identifier
+     * The Method-Identifier.
      */
     IdentifierMatcher methodIdentifier;
     /**
-     * The resolved Method that will be tested
+     * The resolved Method that will be tested.
      */
     Method theMethod;
     /**
-     * The Expected Access Modifier
+     * The Expected Access Modifier.
      */
     int accessModifier;
     /**
-     * The expected return Type
+     * The expected return Type.
      */
     private Class<?> returnType;
     /**
-     * The expected parameters
+     * The expected parameters.
      */
     private ArrayList<ParameterMatcher> parameters;
     /**
-     * A Class Tester (used for invoking)
+     * A Class Tester (used for invoking).
      */
     private ClassTester<?> classTester;
     /**
-     * Whether to allow derived return Types
+     * Whether to allow derived return Types.
      */
     private boolean looseReturnTypeChecking;
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester    A Class Tester (used for invoking)
      * @param methodName     the expected method name
@@ -83,7 +83,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester    A Class Tester (used for invoking)
      * @param methodName     the expected method name
@@ -98,7 +98,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester             A Class Tester (used for invoking)
      * @param methodName              the expected method name
@@ -116,7 +116,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester    A Class Tester (used for invoking)
      * @param methodName     the expected method name
@@ -130,7 +130,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester    A Class Tester (used for invoking)
      * @param methodName     the expected method name
@@ -142,7 +142,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester A Class Tester (used for invoking)
      * @param methodName  the expected method name
@@ -156,7 +156,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester A Class Tester (used for invoking)
      * @param methodName  the expected method name
@@ -167,7 +167,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a new {@link MethodTester}
+     * Generates a new {@link MethodTester}.
      *
      * @param classTester A Class Tester (used for invoking)
      * @param methodName  the expected method name
@@ -177,7 +177,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a Message for an invalid return type
+     * Generates a Message for an invalid return type.
      *
      * @param methodName the Method name
      * @return the generated Message
@@ -187,7 +187,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a Should Not Have Parameter Message
+     * Generates a Should Not Have Parameter Message.
      *
      * @param methodName the Method name
      * @return the generated Message
@@ -226,7 +226,7 @@ public class MethodTester {
     }
 
     /**
-     * Counts the matching Parameters
+     * Counts the matching Parameters.
      *
      * @param m           The Method to verify
      * @param methodName  The expected Method name
@@ -244,7 +244,7 @@ public class MethodTester {
     }
 
     /**
-     * assert that the Method Parameters match
+     * assert that the Method Parameters match.
      *
      * @param expectedParameters the expected Parameter List
      * @param actualParamters    the actual Parameter List
@@ -277,7 +277,7 @@ public class MethodTester {
     }
 
     /**
-     * assert that the Method Parameters match
+     * assert that the Method Parameters match.
      *
      * @param m           The Method to verify
      * @param methodName  The expected Method name
@@ -291,7 +291,23 @@ public class MethodTester {
     }
 
     /**
-     * Generates a Method not found Message
+     * assert that the Method Parameters match with {@link #parameters}.
+     */
+    public void assertParametersMatch() {
+        assertParametersMatch(theMethod, methodIdentifier.identifierName, parameters, false);
+    }
+
+    /**
+     * Generates a Method not found Message.
+     *
+     * @return the generated Message
+     */
+    public String getMethodNotFoundMessage() {
+        return getMethodNotFoundMessage(methodIdentifier.identifierName);
+    }
+
+    /**
+     * Generates a Method not found Message.
      *
      * @param methodName the expecteed Method name
      * @return the generated Message
@@ -300,6 +316,9 @@ public class MethodTester {
         return String.format("Methode %s existiert nicht.", methodName);
     }
 
+    /**
+     * assert Correct Declaration.
+     */
     public void assertCorrectDeclaration() {
         assertMethodResolved();
         test()
@@ -310,7 +329,7 @@ public class MethodTester {
     }
 
     /**
-     * Assert that a given method is not {@code null}
+     * Assert that a given method is not {@code null}.
      *
      * @param m    the Method
      * @param name the expected Method name
@@ -320,7 +339,7 @@ public class MethodTester {
     }
 
     /**
-     * Generates a Class tester null message
+     * Generates a Class tester null message.
      *
      * @param methodName the expected Method name
      * @return the generated message
@@ -329,6 +348,12 @@ public class MethodTester {
         return String.format("Fehlerhafter Test für Methode %s: Kein Klassentester gegeben.", methodName);
     }
 
+    /**
+     * array to string.
+     *
+     * @param array array
+     * @return String
+     */
     public static String safeArrayToString(Object... array) {
         var paramsString = "[]";
         if (array != null) {
@@ -344,7 +369,7 @@ public class MethodTester {
     }
 
     /**
-     * Gets all Fields from a given Class and its superclasses recursively
+     * Gets all Fields from a given Class and its superclasses recursively.
      *
      * @param methods the fields so far (initially give it new ArrayList<>())
      * @param clazz   the Class to search
@@ -361,7 +386,7 @@ public class MethodTester {
     }
 
     /**
-     * Gets all Fields from a given Class and its superclasses recursively
+     * Gets all Fields from a given Class and its superclasses recursively.
      *
      * @param clazz the Class to search
      * @return all Fields from a given Class and its superclasses recursively
@@ -370,6 +395,14 @@ public class MethodTester {
         return getAllMethods(new ArrayList<>(), clazz);
     }
 
+    /**
+     * is Recursive?.
+     *
+     * @param elements elements
+     * @param methodToCall methodToCall
+     * @param level level
+     * @return answer
+     */
     public static boolean isRecursive(List<CtElement> elements, CtMethod<?> methodToCall, int level) {
         if (level <= 0) {
             return false;
@@ -391,7 +424,7 @@ public class MethodTester {
     }
 
     /**
-     * returns the Value of {@link #classTester}
+     * returns the Value of {@link #classTester}.
      *
      * @return the Value of {@link #classTester}
      */
@@ -400,7 +433,7 @@ public class MethodTester {
     }
 
     /**
-     * Set {@link #classTester} to the given value
+     * Set {@link #classTester} to the given value.
      *
      * @param classTester the new Class Tester
      */
@@ -409,7 +442,7 @@ public class MethodTester {
     }
 
     /**
-     * returns the Value of {@link #methodIdentifier}
+     * returns the Value of {@link #methodIdentifier}.
      *
      * @return the Value of {@link #methodIdentifier}
      */
@@ -418,14 +451,14 @@ public class MethodTester {
     }
 
     /**
-     * Set {@link #methodIdentifier} to the given value
+     * Set {@link #methodIdentifier} to the given value.
      */
     public void setMethodIdentifier(IdentifierMatcher methodIdentifier) {
         this.methodIdentifier = methodIdentifier;
     }
 
     /**
-     * returns the Value of {@link #returnType}
+     * returns the Value of {@link #returnType}.
      *
      * @return the Value of {@link #returnType}
      */
@@ -434,14 +467,14 @@ public class MethodTester {
     }
 
     /**
-     * Set {@link #returnType} to the given value
+     * Set {@link #returnType} to the given value.
      */
     public void setReturnType(Class<?> returnType) {
         this.returnType = returnType;
     }
 
     /**
-     * returns true if {@link #looseReturnTypeChecking} is true
+     * returns true if {@link #looseReturnTypeChecking} is true.
      *
      * @return true if {@link #looseReturnTypeChecking} is true
      */
@@ -450,7 +483,7 @@ public class MethodTester {
     }
 
     /**
-     * Allow or disallow Loose return Type Checking
+     * Allow or disallow Loose return Type Checking.
      *
      * @param looseReturnTypeChecking the new Rule
      */
@@ -459,7 +492,7 @@ public class MethodTester {
     }
 
     /**
-     * asserts that the Return type matches the expected return Type
+     * asserts that the Return type matches the expected return Type.
      */
     public void assertReturnType() {
         if (returnType == null) {
@@ -476,7 +509,7 @@ public class MethodTester {
     }
 
     /**
-     * Verifies that the Method was declared correctly
+     * Verifies that the Method was declared correctly.
      *
      * @returns this
      */
@@ -493,7 +526,7 @@ public class MethodTester {
     }
 
     /**
-     * returns the Value of {@link #parameters}
+     * returns the Value of {@link #parameters}.
      *
      * @return the Value of {@link #parameters}
      */
@@ -502,14 +535,14 @@ public class MethodTester {
     }
 
     /**
-     * Set {@link #parameters} to the given value
+     * Set {@link #parameters} to the given value.
      */
     public void setParameters(ArrayList<ParameterMatcher> parameters) {
         this.parameters = parameters;
     }
 
     /**
-     * returns the Value of {@link #theMethod}
+     * returns the Value of {@link #theMethod}.
      *
      * @return the Value of {@link #theMethod}
      */
@@ -518,14 +551,14 @@ public class MethodTester {
     }
 
     /**
-     * Set {@link #theMethod} to the given value
+     * Set {@link #theMethod} to the given value.
      */
     public void setTheMethod(Method theMethod) {
         this.theMethod = theMethod;
     }
 
     /**
-     * Adds expected Parameter Matchers to {@link #parameters}
+     * Adds expected Parameter Matchers to {@link #parameters}.
      *
      * @param interfaceMatcher the Interface Metchers to add
      */
@@ -537,7 +570,7 @@ public class MethodTester {
     }
 
     /**
-     * Adds expected Parameter Matchers to {@link #parameters}
+     * Adds expected Parameter Matchers to {@link #parameters}.
      *
      * @param type       The expected parameter type
      * @param name       The Name to match
@@ -548,7 +581,7 @@ public class MethodTester {
     }
 
     /**
-     * Adds expected Parameter Matchers to {@link #parameters}
+     * Adds expected Parameter Matchers to {@link #parameters}.
      *
      * @param type The expected parameter type
      */
@@ -557,23 +590,7 @@ public class MethodTester {
     }
 
     /**
-     * assert that the Method Parameters match with {@link #parameters}
-     */
-    public void assertParametersMatch() {
-        assertParametersMatch(theMethod, methodIdentifier.identifierName, parameters, false);
-    }
-
-    /**
-     * Generates a Method not found Message
-     *
-     * @return the generated Message
-     */
-    public String getMethodNotFoundMessage() {
-        return getMethodNotFoundMessage(methodIdentifier.identifierName);
-    }
-
-    /**
-     * returns {@code true} if {@link #theMethod} is not {@code null}
+     * returns {@code true} if {@link #theMethod} is not {@code null}.
      *
      * @return {@code true} if {@link #theMethod} is not {@code null}
      */
@@ -582,14 +599,14 @@ public class MethodTester {
     }
 
     /**
-     * Assert that the method is resolved
+     * Assert that the method is resolved.
      */
     public void assertMethodResolved() {
         assertTrue(methodResolved(), getMethodNotFoundMessage());
     }
 
     /**
-     * Assert that {@link #classTester} is not {@code null}
+     * Assert that {@link #classTester} is not {@code null}.
      */
     public void assertClassTesterNotNull() {
         assertNotNull(classTester, getClassTesterNullMessage(methodIdentifier.identifierName));
@@ -597,7 +614,7 @@ public class MethodTester {
 
     /**
      * returns {@code true} if {@link #classTester} is not
-     * {@code null} and {@link ClassTester#class_resolved} returns true
+     * {@code null} and {@link ClassTester#class_resolved} returns true.
      *
      * @return {@code true} if {@link #classTester} is not {@code null}
      */
@@ -606,7 +623,7 @@ public class MethodTester {
     }
 
     /**
-     * Asserts that {@link ClassTester#classInstance} is not {@code null}
+     * Asserts that {@link ClassTester#classInstance} is not {@code null}.
      */
     public void assertClassResolved() {
         assertClassTesterNotNull();
@@ -617,7 +634,6 @@ public class MethodTester {
      * returns {@code true}, if the Method is invokable.
      *
      * <br>
-     * </br>
      * To be exact: returns {@code true} if
      * {@link #classTester} {@link #theMethod} and
      * {@link ClassTester#classInstance} are
@@ -632,8 +648,8 @@ public class MethodTester {
 
     /**
      * Asserts that the Method is invokable.
-     * <p>
-     * To be exact: asserts that {@link #classTester} {@link #theMethod} and
+     *
+     * <p>To be exact: asserts that {@link #classTester} {@link #theMethod} and
      * {@link ClassTester#classInstance} are resolved
      */
     public void assertInvokeable() {
@@ -643,7 +659,7 @@ public class MethodTester {
     }
 
     /**
-     * Invokes {@link #theMethod} using {@link #classTester}
+     * Invokes {@link #theMethod} using {@link #classTester}.
      *
      * @param params the Parameters used for invoking
      * @return the Returned Value of the Method
@@ -678,7 +694,7 @@ public class MethodTester {
     }
 
     /**
-     * Gets the Invocations of the Method
+     * Gets the Invocations of the Method.
      *
      * @return the Invocations of the Method
      */
@@ -694,7 +710,7 @@ public class MethodTester {
     }
 
     /**
-     * Gets the Invocation Count (How often Has the Method been invoked?)
+     * Gets the Invocation Count (How often Has the Method been invoked?).
      *
      * @return the Invocation Count
      */
@@ -709,7 +725,7 @@ public class MethodTester {
     }
 
     /**
-     * Gets random Valid Parameter Values
+     * Gets random Valid Parameter Values.
      *
      * @return the Random Parameters
      */
@@ -719,7 +735,7 @@ public class MethodTester {
     }
 
     /**
-     * {@link #theMethod} using {@link #classTester} with Random parameters
+     * {@link #theMethod} using {@link #classTester} with Random parameters.
      *
      * @return the Returned Value of the Method
      */
@@ -729,7 +745,7 @@ public class MethodTester {
     }
 
     /**
-     * Asserts the Return Value of an invokation with the given parameters
+     * Asserts the Return Value of an invokation with the given parameters.
      *
      * @param expected          the expected Return value
      * @param additionalMessage an Additional Message Text
@@ -741,7 +757,17 @@ public class MethodTester {
     }
 
     /**
-     * Asserts that none of the Blacklisted Constructs were Used
+     * Asserts the Return Value of an invokation with the given parameters.
+     *
+     * @param expected the expected Return value
+     * @param params   the Parameters used for invokation
+     */
+    public void assertReturnValueEquals(Object expected, Object... params) {
+        assertReturnValueEquals(expected, "", params);
+    }
+
+    /**
+     * Asserts that none of the Blacklisted Constructs were Used.
      *
      * @param disallowedConstructs the Disallowed Constructs
      */
@@ -756,6 +782,11 @@ public class MethodTester {
         test.run();
     }
 
+    /**
+     * assert construct.
+     *
+     * @param disallowedConstructs disallowed construct
+     */
     public void assertConstructsUsed(List<Class<? extends CtCodeElement>> disallowedConstructs) {
         var method = assertCtMethodExists();
         var test = test();
@@ -767,6 +798,11 @@ public class MethodTester {
         test.run();
     }
 
+    /**
+     * assert method exists.
+     *
+     * @return method
+     */
     public CtMethod<?> assertCtMethodExists() {
         assureMethodResolved();
         Launcher spoon = assertDoesNotThrow(() -> getClassTester().assureSpoonLauncherModelsBuild().getSpoon(),
@@ -806,17 +842,7 @@ public class MethodTester {
     }
 
     /**
-     * Asserts the Return Value of an invokation with the given parameters
-     *
-     * @param expected the expected Return value
-     * @param params   the Parameters used for invokation
-     */
-    public void assertReturnValueEquals(Object expected, Object... params) {
-        assertReturnValueEquals(expected, "", params);
-    }
-
-    /**
-     * Returns the Value of {@link #accessModifier}
+     * Returns the Value of {@link #accessModifier}.
      *
      * @return the Value of {@link #accessModifier}
      */
@@ -825,7 +851,7 @@ public class MethodTester {
     }
 
     /**
-     * Sets {@link #accessModifier} to the given Value
+     * Sets {@link #accessModifier} to the given Value.
      *
      * @param accessModifier the new Access Modifier
      */
@@ -834,7 +860,7 @@ public class MethodTester {
     }
 
     /**
-     * Asserts the actual access Modifier matches {@link #accessModifier}
+     * Asserts the actual access Modifier matches {@link #accessModifier}.
      */
     public void assertAccessModifier() {
         if (accessModifier >= 0) {
@@ -843,10 +869,9 @@ public class MethodTester {
     }
 
     /**
-     * Resolve the Method with tolerances
+     * Resolve the Method with tolerances.
      *
      * <br>
-     * </br>
      * The Method is first searched by name using using
      * {@link TestUtils#similarity(String, String)}. If Multiple overloads are found
      * then the function with the most matching parameters according to
@@ -893,10 +918,9 @@ public class MethodTester {
     }
 
     /**
-     * Resolve the Method with tolerances
+     * Resolve the Method with tolerances.
      *
      * <br>
-     * </br>
      * The Method is first searched by name using using
      * {@link TestUtils#similarity(String, String)}. If Multiple overloads are found
      * then the function with the most matching parameters according to
@@ -917,10 +941,9 @@ public class MethodTester {
     }
 
     /**
-     * Resolve the Method with tolerances
+     * Resolve the Method with tolerances.
      *
      * <br>
-     * </br>
      * The Method is first searched by name using using
      * {@link TestUtils#similarity(String, String)}. If Multiple overloads are found
      * then the function with the most matching parameters according to
@@ -941,39 +964,9 @@ public class MethodTester {
     }
 
     /**
-     * Assures that the Method has been resolved
-     *
-     * @return the Method
-     */
-    public MethodTester assureMethodResolved() {
-        if (!methodResolved()) {
-            resolveMethod();
-        }
-        return this;
-    }
-
-    /**
-     * Gets Method Documentation for JavaDoc
-     *
-     * @param d the Source Documentation
-     * @return the Method Documentation
-     */
-//    public MethodDocumentation getMethodDocumentation(SourceDocumentation d) {
-//        try {
-//            classTester.assureClassResolved();
-//            var resolvedMethod = assureMethodResolved().getTheMethod();
-//            return d.forTopLevelType(classTester.getTheClass().getName()).forMethod(
-//                resolvedMethod.getName(), resolvedMethod.getParameterTypes());
-//        } catch (Throwable e) {
-//            return d.forTopLevelType("").forMethod("");
-//        }
-//    }
-
-    /**
-     * Resolve the Method with tolerances
+     * Resolve the Method with tolerances.
      *
      * <br>
-     * </br>
      * The Method is first searched by name using using
      * {@link TestUtils#similarity(String, String)}. If Multiple overloads are found
      * then the function with the most matching parameters according to
@@ -988,4 +981,34 @@ public class MethodTester {
     public Method resolveMethod(double similarity) {
         return resolveMethod(classTester.theClass, methodIdentifier.identifierName, similarity, parameters);
     }
+
+    /**
+     * Assures that the Method has been resolved.
+     *
+     * @return the Method
+     */
+    public MethodTester assureMethodResolved() {
+        if (!methodResolved()) {
+            resolveMethod();
+        }
+        return this;
+    }
+
+    /*
+     * Gets Method Documentation for JavaDoc.
+     *
+     * @param d the Source Documentation
+     * @return the Method Documentation
+     */
+    //    public MethodDocumentation getMethodDocumentation(SourceDocumentation d) {
+    //        try {
+    //            classTester.assureClassResolved();
+    //            var resolvedMethod = assureMethodResolved().getTheMethod();
+    //            return d.forTopLevelType(classTester.getTheClass().getName()).forMethod(
+    //                resolvedMethod.getName(), resolvedMethod.getParameterTypes());
+    //        } catch (Throwable e) {
+    //            return d.forTopLevelType("").forMethod("");
+    //        }
+    //    }
+
 }

@@ -4,6 +4,9 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.Calendar;
 
+/**
+ * class for h08.
+ */
 @TestForSubmission("h08")
 public class BadUpdateTimeException extends h08.BadUpdateTimeException {
     private final Calendar calendar;
@@ -15,6 +18,11 @@ public class BadUpdateTimeException extends h08.BadUpdateTimeException {
         this.time = time;
     }
 
+    /**
+     * get Message.
+     *
+     * @return message
+     */
     public String getMessage() {
         return (time ? "Update time is earlier than the last update: " : "Update time is in the future: ")
             + calendar.get(Calendar.DAY_OF_MONTH)

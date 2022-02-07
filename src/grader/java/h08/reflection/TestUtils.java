@@ -12,7 +12,7 @@ import java.lang.reflect.Modifier;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test Utilities by Ruben
+ * Test Utilities by Ruben.
  *
  * @author Ruben Deisenroth
  */
@@ -26,7 +26,7 @@ public class TestUtils {
     public static final int MANDATED = 0x00008000;
 
     /**
-     * Asserts matching Modifiers
+     * Asserts matching Modifiers.
      *
      * @param expected Erwarteter Wert
      * @param actual   Eigentlicher Wert
@@ -41,7 +41,7 @@ public class TestUtils {
     }
 
     /**
-     * Asserts matching Modifiers
+     * Asserts matching Modifiers.
      *
      * @param expected Erwarteter Wert
      * @param clazz    Klasse mit Modifier
@@ -51,7 +51,7 @@ public class TestUtils {
     }
 
     /**
-     * Asserts matching Modifiers
+     * Asserts matching Modifiers.
      *
      * @param expected Erwarteter Wert
      * @param method   Methode mit Modifier
@@ -62,7 +62,7 @@ public class TestUtils {
     }
 
     /**
-     * Asserts matching Modifiers
+     * Asserts matching Modifiers.
      *
      * @param expected    Erwarteter Wert
      * @param constructor Konstruktor mit Modifier
@@ -73,7 +73,7 @@ public class TestUtils {
     }
 
     /**
-     * Asserts matching Modifiers
+     * Asserts matching Modifiers.
      *
      * @param expected Erwarteter Wert
      * @param attribut Attribut mit Modifier
@@ -91,7 +91,8 @@ public class TestUtils {
      * @return the similarity
      */
     public static double similarity(String s1, String s2) {
-        String longer = s1, shorter = s2;
+        String longer = s1;
+        String shorter = s2;
         if (s1.length() < s2.length()) {
             longer = s2;
             shorter = s1;
@@ -115,9 +116,8 @@ public class TestUtils {
      *
      * @param s1 string 1
      * @param s2 string 2
-     * @return the calculated similarity (a number within 0 and 1) between two
-     * strings.
-     * @see http://rosettacode.org/wiki/Levenshtein_distance#Java
+     * @return the calculated similarity (a number within 0 and 1) between two strings.
+     *
      */
     public static int editDistance(String s1, String s2) {
         s1 = s1.toLowerCase();
@@ -171,11 +171,9 @@ public class TestUtils {
     }
 
     /**
-     * Returns {@code true} if {@link A#getTestCycle()}
-     * does not return {@code null}
+     * Returns {@code true} if does not return {@code null}.
      *
-     * @return {@code true} if {@link A#getTestCycle()}
-     * does not return {@code null}
+     * @return {@code true} if does not return {@code null}
      */
     public static boolean isAutograderRun() {
         return TestCycleResolver.getTestCycle() != null;

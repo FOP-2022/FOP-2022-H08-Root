@@ -3,6 +3,9 @@ package h08;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * class for h08.
+ */
 public class TimeStamp {
     private Calendar lastUpdate;
 

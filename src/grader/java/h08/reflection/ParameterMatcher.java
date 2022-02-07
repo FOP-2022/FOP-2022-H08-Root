@@ -1,23 +1,23 @@
 package h08.reflection;
 
 /**
- * A Parameter Matcher based on {@link IdentifierMatcher}
+ * A Parameter Matcher based on {@link IdentifierMatcher}.
  *
  * @author Ruben Deisenroth
  * @see IdentifierMatcher
  */
 public class ParameterMatcher extends IdentifierMatcher {
     /**
-     * The expected parameter type
+     * The expected parameter type.
      */
     public Class<?> parameterType;
     /**
-     * Whether or not to Allow Parameters derived from {@link #parameterType}
+     * Whether or not to Allow Parameters derived from {@link #parameterType}.
      */
     public boolean allowSubTypes = true;
 
     /**
-     * Generates a new {@link ParameterMatcher}
+     * Generates a new {@link ParameterMatcher}.
      *
      * @param identifierName The Name to match
      * @param similarity     The Minimum similarity required
@@ -32,7 +32,7 @@ public class ParameterMatcher extends IdentifierMatcher {
     }
 
     /**
-     * Generates a new {@link ParameterMatcher}
+     * Generates a new {@link ParameterMatcher}.
      *
      * @param identifierName The Name to match
      * @param similarity     The Minimum similarity required
@@ -44,7 +44,7 @@ public class ParameterMatcher extends IdentifierMatcher {
     }
 
     /**
-     * Generates a new {@link ParameterMatcher}
+     * Generates a new {@link ParameterMatcher}.
      *
      * @param parameterType The expected parameter type
      */
@@ -53,7 +53,7 @@ public class ParameterMatcher extends IdentifierMatcher {
     }
 
     /**
-     * Generates a new {@link ParameterMatcher}
+     * Generates a new {@link ParameterMatcher}.
      *
      * @param parameterType The expected parameter type
      * @param allowSubTypes Whether or not to Allow Parameters derived from

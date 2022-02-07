@@ -70,6 +70,7 @@ public class H5_Test {
             testContentTestCatch(i);
         }
     }
+
     @ExtendWith(JagrExecutionCondition.class)
     @Test
     public void testContentTestCatch2125()
@@ -78,7 +79,8 @@ public class H5_Test {
             testContentTestCatch(i);
         }
 
-        ClassTester<TestTimeStampExceptions> classtester = new ClassTester<TestTimeStampExceptions>(TestTimeStampExceptions.class).assureClassResolved();
+        ClassTester<TestTimeStampExceptions> classtester = new ClassTester<TestTimeStampExceptions>(TestTimeStampExceptions.class)
+            .assureClassResolved();
         MethodTester methodTester = new MethodTester(classtester, "testCatch2").assureMethodResolved();
         assertEquals(
             2,

@@ -1,26 +1,26 @@
 package h08.reflection;
 
 /**
- * An Identifier Matcher
+ * An Identifier Matcher.
  *
  * @author Ruben Deisenroth
  */
 public class IdentifierMatcher {
     /**
-     * The Name to match
+     * The Name to match.
      */
     public String identifierName;
     /**
-     * The package Name
+     * The package Name.
      */
     public String packageName;
     /**
-     * The Minimum similarity required
+     * The Minimum similarity required.
      */
     public double similarity;
 
     /**
-     * Creates a new {@link IdentifierMatcher}
+     * Creates a new {@link IdentifierMatcher}.
      *
      * @param identifierName The Name to match
      * @param packageName    The package Name
@@ -33,7 +33,7 @@ public class IdentifierMatcher {
     }
 
     /**
-     * Creates a new {@link IdentifierMatcher}
+     * Creates a new {@link IdentifierMatcher}.
      *
      * @param identifierName The Name to match
      * @param similarity     The Minimum similarity required

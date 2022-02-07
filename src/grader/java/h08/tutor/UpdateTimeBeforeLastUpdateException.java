@@ -4,6 +4,9 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.Calendar;
 
+/**
+ * class for h08.
+ */
 @TestForSubmission("h08")
 public class UpdateTimeBeforeLastUpdateException extends h08.UpdateTimeBeforeLastUpdateException {
 

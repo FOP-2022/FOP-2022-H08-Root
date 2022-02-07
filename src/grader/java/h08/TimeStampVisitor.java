@@ -8,10 +8,16 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.sourcegrade.jagr.api.testing.ClassTransformer;
 
+/**
+ * visitor for h08.
+ */
 public class TimeStampVisitor extends ClassVisitor {
 
     static boolean callsMethod = false;
 
+    /**
+     * transformer for h08.
+     */
     public static class TimeStampTransformer implements ClassTransformer {
 
         @Override

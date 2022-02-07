@@ -6,6 +6,9 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * class for h08.
+ */
 @TestForSubmission("h08")
 public class TimeStamp2 extends TimeStamp {
     private Calendar lastUpdate;
@@ -15,23 +18,15 @@ public class TimeStamp2 extends TimeStamp {
     }
 
     /**
-     * this method sets the variable lastUpdate to a Calendar Object which represents the current time
+     * this method sets the variable lastUpdate to a Calendar Object which represents the current time.
      */
     public void update() {
         lastUpdate = new GregorianCalendar();
     }
 
     /**
-     * this method returns the lastUpdate Calendar object
-     *
-     * @return the lastUpdate Calendar object
-     */
-    public Calendar getTimeStamp() {
-        return lastUpdate;
-    }
-
-    /**
-     * this method sets the lastUpdate variable to the parameter calendar if: calendar is not before the current lastUpdate object and calendar is not after the current time
+     * this method sets the lastUpdate variable to the parameter calendar if: calendar is not before the current
+     * lastUpdate object and calendar is not after the current time.
      *
      * @param calendar potential new lastUpdate value, if conditions are met
      */
@@ -42,7 +37,16 @@ public class TimeStamp2 extends TimeStamp {
     }
 
     /**
-     * this method checks whether the new calendar older than the current calendar or in the future
+     * this method returns the lastUpdate Calendar object.
+     *
+     * @return the lastUpdate Calendar object
+     */
+    public Calendar getTimeStamp() {
+        return lastUpdate;
+    }
+
+    /**
+     * this method checks whether the new calendar older than the current calendar or in the future.
      *
      * @param calendar the potential new one
      * @throws h08.UpdateTimeBeforeLastUpdateException thrown if the new calendar is older than the current
@@ -62,7 +66,7 @@ public class TimeStamp2 extends TimeStamp {
     }
 
     /**
-     * this method checks whether the new calendar older than the current calendar or in the future
+     * this method checks whether the new calendar older than the current calendar or in the future.
      *
      * @param calendar the potential new one
      * @throws h08.BadUpdateTimeException thrown if calendar is older than the current one or in the future
@@ -80,7 +84,7 @@ public class TimeStamp2 extends TimeStamp {
     }
 
     /**
-     * this method checks whether the new calendar older than the current calendar or in the future
+     * this method checks whether the new calendar older than the current calendar or in the future.
      *
      * @param calendar the potential new one
      * @throws Exception thrown if calendar is older than the current one or in the future
@@ -98,7 +102,7 @@ public class TimeStamp2 extends TimeStamp {
     }
 
     /**
-     * this method checks whether the new calendar older than the current calendar or in the future
+     * this method checks whether the new calendar older than the current calendar or in the future.
      *
      * @param calendar the potential new one
      * @throws Exception thrown if calendar is older than the current one or in the future
@@ -116,7 +120,7 @@ public class TimeStamp2 extends TimeStamp {
     }
 
     /**
-     * this method checks whether the new calendar older than the current calendar or in the future
+     * this method checks whether the new calendar older than the current calendar or in the future.
      *
      * @param calendar the potential new one
      * @throws Exception thrown if calendar is older than the current one or in the future
