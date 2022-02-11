@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.sourcegrade.jagr.api.testing.extension.JagrExecutionCondition;
 
-import java.lang.reflect.Constructor;
 import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,7 +64,7 @@ public class H3_Test {
         // wird und nicht der String neu erzeugt wird?
         Calendar[] calendars = createManyRandomCalendars();
 
-        ExceptionConstructorVerifier1.hasConstructor = false;
+        ExceptionConstructorVerifier.reset();
 
         for (Calendar c : calendars) {
             assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(),
@@ -73,9 +72,15 @@ public class H3_Test {
                 "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
         }
 
-        //is set by call of UpdateTimeBeforeLastUpdateException constructor
-        assertTrue(ExceptionConstructorVerifier1.hasConstructor);
-        //hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
+        assertEquals(ExceptionConstructorVerifier.correctDescriptor, ExceptionConstructorVerifier.descriptor,
+            "BadUpdateTimeException has incorrect constructor");
+        if (ExceptionConstructorVerifier.isVar2 == null) {
+            fail("Kontaktieren sie Ihren Ansprechpartner");
+        } else {
+            // is set by call of UpdateTimeInTheFutureException constructor
+            assertTrue(ExceptionConstructorVerifier.isVar2);
+            // hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
+        }
     }
 
     @Test
@@ -90,20 +95,24 @@ public class H3_Test {
     @ExtendWith(JagrExecutionCondition.class)
     @Test
     public void testConstructorContentUpdateTimeInTheFutureException() {
-        //wie testet man, dass auch wirklich der Konstruktor der Superklasse aufgerufen wird
-        // und nicht der String neu erzeugt wird?
         Calendar[] calendars = createManyRandomCalendars();
 
-        ExceptionConstructorVerifier1.hasConstructor = true;
+        ExceptionConstructorVerifier.reset();
 
         for (Calendar c : calendars) {
             assertEquals(new UpdateTimeInTheFutureException(c).getMessage(), Helper.createMessageOfBadUpdateException(c, false),
                 "constructor of UpdateTimeInTheFutureException returns wrong message");
         }
 
-        //is set by call of UpdateTimeInTheFutureException constructor
-        assertFalse(ExceptionConstructorVerifier1.hasConstructor);
-        //hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
+        assertEquals(ExceptionConstructorVerifier.correctDescriptor, ExceptionConstructorVerifier.descriptor,
+            "BadUpdateTimeException has incorrect constructor");
+        if (ExceptionConstructorVerifier.isVar2 == null) {
+            fail("Kontaktieren sie Ihren Ansprechpartner");
+        } else {
+            // is set by call of UpdateTimeInTheFutureException constructor
+            assertFalse(ExceptionConstructorVerifier.isVar2);
+            // hier muss Test auf wahren Konstruktoraufruf von BadUpdateTimeException hin
+        }
     }
 
     Calendar[] createManyRandomCalendars() {
