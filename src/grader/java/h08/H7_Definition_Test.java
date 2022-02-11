@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class H7_Definition_Test {
 
     @Test
-    public void testClassExistenceInsufficentNumberOfSeatsException() throws ClassNotFoundException {
+    public void testClassExistenceInsufficientNumberOfSeatsException() throws ClassNotFoundException {
         try {
             Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException");
         } catch (ClassNotFoundException e) {

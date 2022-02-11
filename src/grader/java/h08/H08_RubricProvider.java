@@ -268,7 +268,7 @@ public class H08_RubricProvider implements RubricProvider {
         .shortDescription("Die beiden Exception Klassen existieren und die Methode getNumberOfMissingSeats funktioniert")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
-                H7_Definition_Test.class.getMethod("testClassExistenceInsufficentNumberOfSeatsException")))
+                H7_Definition_Test.class.getMethod("testClassExistenceInsufficientNumberOfSeatsException")))
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H7_Definition_Test.class.getMethod("testClassExistenceNoCertificateException")))
             .requirePass(JUnitTestRef.ofMethod(() ->

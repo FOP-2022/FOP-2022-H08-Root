@@ -231,13 +231,11 @@ public class H5_Test {
         Field[] fields = TimeStamp2.class.getDeclaredFields();
         Field f = null;
         for (Field field : fields) {
-            if (field.getName() == "lastUpdate") {
+            if (field.getName().equals("lastUpdate")) {
                 field.setAccessible(true);
                 f = field;
             }
         }
-
-
 
         //should work
 
