@@ -150,20 +150,20 @@ public class H5_Test {
         if (updateWithExcNr <= nrOutputPrinted[testCatchNr - 1]) {
             String compareString;
             if (staticExceptionBeforeLastUpdateStatic[testCatchNr - 1] == null) {
-                compareString = String.format("%s%s : %s %s\n",
+                compareString = String.format("%s%s : %s %s",
                     outputBegin,
                     updateWithExcNr == 4 ? "BadUpdateTimeException" : "UpdateTimeBeforeLastUpdateException",
                     staticExceptionBeforeLastUpdateDynamic[updateWithExcNr - 1],
                     Helper.createCorrectMessage(before, true));
             } else {
-                compareString = String.format("%s%s : %s %s\n",
+                compareString = String.format("%s%s : %s %s",
                     outputBegin,
                     staticExceptionBeforeLastUpdateStatic[testCatchNr - 1],
                     staticExceptionBeforeLastUpdateDynamic[updateWithExcNr - 1],
                     Helper.createCorrectMessage(before, true));
             }
 
-            assertEquals(compareString, outContent.toString(),
+            assertTrue(compareString.equals(outContent.toString()) || (compareString + "\n").equals(outContent.toString()),
                 "time of Calendar is too early: output message of method testCatch" + testCatchNr + " is wrong");
         } else {
             assertEquals("", outContent.toString(),
@@ -183,13 +183,17 @@ public class H5_Test {
         methodCatch.invoke(exceptions, instance, futureCal, updateWithExcNr);
 
         if (updateWithExcNr <= nrOutputPrinted[testCatchNr - 1]) {
-            assertEquals(
+            assertTrue(
                 String.format("%s%s : %s %s\n",
                     outputBegin,
                     staticExceptionUpdateTimeInTheFutureStatic[testCatchNr - 1],
                     staticExceptionUpdateTimeInTheFutureDynamic[updateWithExcNr - 1],
-                    Helper.createCorrectMessage(futureCal, false)),
-                outContent.toString(),
+                    Helper.createCorrectMessage(futureCal, false)).equals(outContent.toString()) ||
+                    String.format("%s%s : %s %s",
+                        outputBegin,
+                        staticExceptionUpdateTimeInTheFutureStatic[testCatchNr - 1],
+                        staticExceptionUpdateTimeInTheFutureDynamic[updateWithExcNr - 1],
+                        Helper.createCorrectMessage(futureCal, false)).equals(outContent.toString()),
                 "time of Calendar in the future: output message of method testCatch" + testCatchNr + " is wrong");
         } else {
             assertEquals("", outContent.toString(),
