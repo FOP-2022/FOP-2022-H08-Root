@@ -37,11 +37,11 @@ public class H3_Test {
 
         for (Calendar c : calendars) {
             assertEquals(
-                new BadUpdateTimeException(c, true).getMessage(), Helper.createCorrectMessage(c, true),
+                Helper.createCorrectMessage(c, true), new BadUpdateTimeException(c, true).getMessage(),
                 "constructor of BadUpdateTimeException returns wrong message at least in true case"
             );
             assertEquals(
-                new BadUpdateTimeException(c, false).getMessage(), Helper.createCorrectMessage(c, false),
+                Helper.createCorrectMessage(c, false), new BadUpdateTimeException(c, false).getMessage(),
                 "constructor of BadUpdateTimeException returns wrong message in false case"
             );
         }
@@ -67,8 +67,8 @@ public class H3_Test {
         ExceptionConstructorVerifier.reset();
 
         for (Calendar c : calendars) {
-            assertEquals(new UpdateTimeBeforeLastUpdateException(c).getMessage(),
-                Helper.createMessageOfBadUpdateException(c, true),
+            assertEquals(Helper.createMessageOfBadUpdateException(c, true),
+                new UpdateTimeBeforeLastUpdateException(c).getMessage(),
                 "constructor of UpdateTimeBeforeLastUpdateException returns wrong message");
         }
 
@@ -100,7 +100,7 @@ public class H3_Test {
         ExceptionConstructorVerifier.reset();
 
         for (Calendar c : calendars) {
-            assertEquals(new UpdateTimeInTheFutureException(c).getMessage(), Helper.createMessageOfBadUpdateException(c, false),
+            assertEquals(Helper.createMessageOfBadUpdateException(c, false), new UpdateTimeInTheFutureException(c).getMessage(),
                 "constructor of UpdateTimeInTheFutureException returns wrong message");
         }
 

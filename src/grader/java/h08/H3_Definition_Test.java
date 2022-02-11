@@ -28,7 +28,7 @@ public class H3_Definition_Test {
         assertTrue(isPublic(Class.forName("h08.BadUpdateTimeException").getModifiers()),
             "class BadUpdateTimeException is not public");
         //superclass correct
-        assertEquals(Class.forName("h08.BadUpdateTimeException").getSuperclass(), Exception.class,
+        assertEquals(Exception.class, Class.forName("h08.BadUpdateTimeException").getSuperclass(),
             "class BadUpdateTimeException does not extend class Exception");
     }
 
@@ -47,7 +47,7 @@ public class H3_Definition_Test {
         assertTrue(isPublic(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getModifiers()),
             "class UpdateTimeBeforeLastUpdateException is not public");
         //superclass correct
-        assertEquals(Class.forName("h08.UpdateTimeBeforeLastUpdateException").getSuperclass(), BadUpdateTimeException.class,
+        assertEquals(BadUpdateTimeException.class, Class.forName("h08.UpdateTimeBeforeLastUpdateException").getSuperclass(),
             "class UpdateTimeBeforeLastUpdateException does not extend class BadUpdateTimeException");
     }
 
@@ -66,7 +66,7 @@ public class H3_Definition_Test {
         assertTrue(isPublic(Class.forName("h08.UpdateTimeInTheFutureException").getModifiers()),
             "class UpdateTimeInTheFutureException is not public");
         //superclass correct
-        assertEquals(Class.forName("h08.UpdateTimeInTheFutureException").getSuperclass(), BadUpdateTimeException.class,
+        assertEquals(BadUpdateTimeException.class, Class.forName("h08.UpdateTimeInTheFutureException").getSuperclass(),
             "class UpdateTimeInTheFutureException does not extend class BadUpdateTimeException");
     }
 }

@@ -34,8 +34,9 @@ public class H7_Definition_Test {
         assertTrue(isPublic(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getModifiers()),
             "class InsufficientNumberOfSeatsException is not public");
         //superclass correct
-        assertEquals(Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getSuperclass(),
-            RuntimeException.class, "class InsufficientNumberOfSeatsException does "
+        assertEquals(RuntimeException.class,
+            Class.forName("h08.roommanagement.InsufficientNumberOfSeatsException").getSuperclass(),
+            "class InsufficientNumberOfSeatsException does "
                 + "not extend class RuntimeException");
     }
 
@@ -54,7 +55,7 @@ public class H7_Definition_Test {
         assertTrue(isPublic(Class.forName("h08.roommanagement.NoCertificateException").getModifiers()),
             "class NoCertificateException is not public");
         //superclass correct
-        assertEquals(Class.forName("h08.roommanagement.NoCertificateException").getSuperclass(), Exception.class,
+        assertEquals(Exception.class, Class.forName("h08.roommanagement.NoCertificateException").getSuperclass(),
             "class NoCertificateException does not extend class Exception");
     }
 

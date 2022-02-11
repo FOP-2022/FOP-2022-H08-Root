@@ -163,10 +163,10 @@ public class H5_Test {
                     Helper.createCorrectMessage(before, true));
             }
 
-            assertEquals(outContent.toString(), compareString,
+            assertEquals(compareString, outContent.toString(),
                 "time of Calendar is too early: output message of method testCatch" + testCatchNr + " is wrong");
         } else {
-            assertEquals(outContent.toString(), "",
+            assertEquals("", outContent.toString(),
                 "time of Calendar is too early: output message of method testCatch" + testCatchNr + " is not empty");
         }
 
@@ -183,15 +183,16 @@ public class H5_Test {
         methodCatch.invoke(exceptions, instance, futureCal, updateWithExcNr);
 
         if (updateWithExcNr <= nrOutputPrinted[testCatchNr - 1]) {
-            assertEquals(outContent.toString(),
+            assertEquals(
                 String.format("%s%s : %s %s\n",
                     outputBegin,
                     staticExceptionUpdateTimeInTheFutureStatic[testCatchNr - 1],
                     staticExceptionUpdateTimeInTheFutureDynamic[updateWithExcNr - 1],
                     Helper.createCorrectMessage(futureCal, false)),
+                outContent.toString(),
                 "time of Calendar in the future: output message of method testCatch" + testCatchNr + " is wrong");
         } else {
-            assertEquals(outContent.toString(), "",
+            assertEquals("", outContent.toString(),
                 "time of Calendar in the future: output message of method testCatch" + testCatchNr + " is not empty");
         }
         renewOutContent();
@@ -245,7 +246,7 @@ public class H5_Test {
         TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
         methodCatch.invoke(exceptions, instance, toAdd, updateWithExcNr);
         //exceptions.testCatch1(instance, toAdd, n);
-        assertEquals(outContent.toString(), "",
+        assertEquals("", outContent.toString(),
             "correct Calendar: method testCatch" + testCatchNr + " prints something, probably exception is thrown");
 
         assertSame(toAdd, f.get(instance),

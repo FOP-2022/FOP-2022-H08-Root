@@ -190,7 +190,7 @@ public class H6_Test {
         String compareString = String.format("BadUpdateTimeException : UpdateTimeBeforeLastUpdateException %s\n",
             Helper.createCorrectMessage(before, true));
 
-        assertEquals(outContent.toString(), compareString,
+        assertEquals(compareString, outContent.toString(),
             "time of Calendar is too early: method testCatchPass writes wrong message");
 
         renewOutContent();
@@ -203,7 +203,7 @@ public class H6_Test {
         compareString = String.format("BadUpdateTimeException : UpdateTimeInTheFutureException %s\n",
             Helper.createCorrectMessage(futureCal, false));
 
-        assertEquals(outContent.toString(), compareString,
+        assertEquals(compareString, outContent.toString(),
             "time of Calendar in the future: method testPass does not throw any Exception");
 
         renewOutContent();
