@@ -209,16 +209,6 @@ public class H5_Test {
 
         final int updateWithExcNr = n % 10;
 
-        Method[] methodsCatch = TestTimeStampExceptions.class.getDeclaredMethods();
-
-        Method methodCatch = null;
-        int testCatchNr = n / 10;
-        for (Method m : methodsCatch) {
-
-            if (m.getName().equals("testCatch" + testCatchNr)) {
-                methodCatch = m;
-            }
-        }
 
         renewOutContent();
 
@@ -238,6 +228,17 @@ public class H5_Test {
         }
 
         //should work
+
+        Method[] methodsCatch = TestTimeStampExceptions.class.getDeclaredMethods();
+
+        Method methodCatch = null;
+        int testCatchNr = n / 10;
+        for (Method m : methodsCatch) {
+
+            if (m.getName().equals("testCatch" + testCatchNr)) {
+                methodCatch = m;
+            }
+        }
 
         Calendar toAdd = Calendar.getInstance();
 
