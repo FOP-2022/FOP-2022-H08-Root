@@ -6,9 +6,7 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-import org.slf4j.Logger;
 import org.sourcegrade.jagr.api.testing.ClassTransformer;
-import org.sourcegrade.jagr.launcher.env.Jagr;
 
 /**
  * verifier for h08.
@@ -22,13 +20,11 @@ public class ExceptionConstructorVerifier implements ClassTransformer {
     public static void handleConstructor(String descriptor, boolean correctConstructor) {
         ExceptionConstructorVerifier.descriptor = descriptor;
         ExceptionConstructorVerifier.isVar2 = correctConstructor;
-        Jagr.Default.getInjector().getInstance(Logger.class).warn("handleConstructor1: {} {}", descriptor, correctConstructor);
     }
 
     public static void handleConstructor(String descriptor) {
         ExceptionConstructorVerifier.descriptor = descriptor;
         isVar2 = null; // is incorrect and could not be determined
-        Jagr.Default.getInjector().getInstance(Logger.class).warn("handleConstructor2: {}", descriptor);
     }
 
     public static void reset() {
