@@ -259,19 +259,7 @@ public class H5_Test {
         System.setOut(System.out);
     }
 
-    @ExtendWith(JagrExecutionCondition.class)
-    @Test
-    public void testSwitchCase() {
-        ClassTester<TestTimeStampExceptions> classTester = new ClassTester<>(TestTimeStampExceptions.class).assureClassResolved();
-        Method[] methods = TestTimeStampExceptions.class.getDeclaredMethods();
-        boolean hasSwitchCase = false;
-        for (Method m : methods) {
-            MethodTester methodTester = new MethodTester(classTester, m.getName()).assureMethodResolved();
-            hasSwitchCase = methodTester.assertCtMethodExists().getElements(new TypeFilter<>(CtSwitch.class)).size() >= 1;
-        }
 
-        assertTrue(hasSwitchCase, "switch-case is not used");
-    }
 
     private void renewOutContent() {
         outContent = new ByteArrayOutputStream();

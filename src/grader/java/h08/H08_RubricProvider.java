@@ -229,8 +229,6 @@ public class H08_RubricProvider implements RubricProvider {
                 H5_Test.class.getMethod("testContentTestCatch4145_5155")))
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H5_Test.class.getMethod("testContentTestCatchShouldWork", int.class)))
-            .requirePass(JUnitTestRef.ofMethod(() ->
-                H5_Test.class.getMethod("testSwitchCase")))
             .pointsPassedMax()
             .pointsFailedMin()
             .build()
