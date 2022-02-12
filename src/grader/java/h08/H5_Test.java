@@ -164,7 +164,7 @@ public class H5_Test {
             }
 
             assertTrue(compareString.equals(outContent.toString()) || (compareString + "\n").equals(outContent.toString()),
-                "time of Calendar is too early: output message of method testCatch" + testCatchNr + " is wrong");
+                "time of Calendar is too early: output message of method testCatch" + testCatchNr + " is wrong: erwartet <" + compareString + "> aber war <" + outContent.toString() + "> ");
         } else {
             assertEquals("", outContent.toString(),
                 "time of Calendar is too early: output message of method testCatch" + testCatchNr + " is not empty");
@@ -194,7 +194,11 @@ public class H5_Test {
                         staticExceptionUpdateTimeInTheFutureStatic[testCatchNr - 1],
                         staticExceptionUpdateTimeInTheFutureDynamic[updateWithExcNr - 1],
                         Helper.createCorrectMessage(futureCal, false)).equals(outContent.toString()),
-                "time of Calendar in the future: output message of method testCatch" + testCatchNr + " is wrong");
+                "time of Calendar in the future: output message of method testCatch" + testCatchNr + " is wrong: erwartet <" +String.format("%s%s : %s %s\n",
+                    outputBegin,
+                    staticExceptionUpdateTimeInTheFutureStatic[testCatchNr - 1],
+                    staticExceptionUpdateTimeInTheFutureDynamic[updateWithExcNr - 1],
+                    Helper.createCorrectMessage(futureCal, false)) + "> aber war <" +  outContent.toString() + "> " );
         } else {
             assertEquals("", outContent.toString(),
                 "time of Calendar in the future: output message of method testCatch" + testCatchNr + " is not empty");
