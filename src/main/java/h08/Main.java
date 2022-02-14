@@ -26,7 +26,7 @@ public class Main {
      */
     public static void checkRegistration(Student[] students, Room room) throws NoCertificateException {
         if (students.length > room.numberOfSeats / 2) {
-            throw new InsufficientNumberOfSeatsException(room, students.length - room.numberOfSeats / 2);
+            throw new InsufficientNumberOfSeatsException(room, 2 * students.length - room.numberOfSeats);
         }
 
         List<Student> studentsWithoutCertificate = new ArrayList<>();

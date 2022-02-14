@@ -39,7 +39,7 @@ public class H7_Test {
                 "InsufficientNumberOfSeatsException has wrong message: " + e.getMessage());
         }
 
-        //missing!!!!: getMessage() is NOT overwritten by studi
+
     }
 
     @Test
@@ -156,7 +156,7 @@ public class H7_Test {
             excThrown = true;
             assertEquals((new InsufficientNumberOfSeatsException(smallRoom, 1)).getMessage(), e.getMessage(),
                 "InsufficientNumberOfSeatsException gets no or wrong Room");
-            assertEquals(1, e.getNumberOfMissingSeats(), "InsufficientNumberOfSeatsException gets "
+            assertEquals(2, e.getNumberOfMissingSeats(), "InsufficientNumberOfSeatsException gets "
                 + "wrong number of missing seats");
         } catch (Exception e) {
             fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
@@ -171,7 +171,7 @@ public class H7_Test {
             excThrown = true;
             assertEquals((new InsufficientNumberOfSeatsException(smallRoom, 1)).getMessage(), e.getMessage(),
                 "InsufficientNumberOfSeatsException gets no or wrong Room");
-            assertEquals(1, e.getNumberOfMissingSeats(), "InsufficientNumberOfSeatsException gets "
+            assertEquals(2, e.getNumberOfMissingSeats(), "InsufficientNumberOfSeatsException gets "
                 + "wrong number of missing seats");
         } catch (Exception e) {
             fail("wrong Exception was thrown: " + e.getClass() + " " + e.getMessage());
