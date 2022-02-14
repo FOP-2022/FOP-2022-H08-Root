@@ -127,10 +127,7 @@ public class H5_Test {
 
         // content tests
 
-        Calendar before = Calendar.getInstance();
-        Calendar after = Calendar.getInstance();
-        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
-        after.set(after.get(Calendar.YEAR) + 2, 5, 15);
+        Calendar before = Helper.createPastCal();
         TimeStamp2 instance = new TimeStamp2();
 
         Field[] fields = TimeStamp2.class.getDeclaredFields();
@@ -239,9 +236,7 @@ public class H5_Test {
         renewOutContent();
 
         Calendar before = Calendar.getInstance();
-        Calendar after = Calendar.getInstance();
         before.set(before.get(Calendar.YEAR) - 2, 5, 15);
-        after.set(after.get(Calendar.YEAR) + 2, 5, 15);
         TimeStamp2 instance = new TimeStamp2();
 
         Field[] fields = TimeStamp2.class.getDeclaredFields();

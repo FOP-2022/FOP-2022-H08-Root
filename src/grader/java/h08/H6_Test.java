@@ -100,17 +100,8 @@ public class H6_Test {
 
         // content tests
         TimeStamp instance = new TimeStamp();
-        Calendar before = Calendar.getInstance();
-        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
+        Calendar before = Helper.createPastCal();
 
-        Field[] fields = TimeStamp.class.getDeclaredFields();
-        Field f = null;
-        for (Field field : fields) {
-            if (field.getName().equals("lastUpdate")) {
-                field.setAccessible(true);
-                f = field;
-            }
-        }
 
         TestTimeStampExceptions tte = new TestTimeStampExceptions();
 
@@ -161,29 +152,19 @@ public class H6_Test {
 
         //content
 
-        // wie überprüft man, dass switch-case angewendet wird?
+
 
         renewOutContent();
 
         // content tests
-        TimeStamp2 instance = new TimeStamp2();
-        Calendar before = Calendar.getInstance();
-        before.set(before.get(Calendar.YEAR) - 2, 5, 15);
 
-        Field[] fields = TimeStamp2.class.getDeclaredFields();
-        Field f = null;
-        for (Field field : fields) {
-            if (field.getName().equals("lastUpdate")) {
-                field.setAccessible(true);
-                f = field;
-            }
-        }
 
         //situation where it should fail
 
         //time too early
 
-
+        TimeStamp2 instance = new TimeStamp2();
+        Calendar before = Helper.createPastCal();
 
         TestTimeStampExceptions exceptions = new TestTimeStampExceptions();
 
