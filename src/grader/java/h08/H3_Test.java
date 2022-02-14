@@ -36,14 +36,27 @@ public class H3_Test {
         Calendar[] calendars = createManyRandomCalendars();
 
         for (Calendar c : calendars) {
-            assertEquals(
-                Helper.createCorrectMessage(c, true), new BadUpdateTimeException(c, true).getMessage(),
-                "constructor of BadUpdateTimeException returns wrong message at least in true case"
-            );
-            assertEquals(
-                Helper.createCorrectMessage(c, false), new BadUpdateTimeException(c, false).getMessage(),
-                "constructor of BadUpdateTimeException returns wrong message in false case"
-            );
+            boolean equals= false;
+            String[] results = Helper.createCorrectMessage(c, true);
+            String message = new BadUpdateTimeException(c, true).getMessage();
+
+            for (int i = 0; i< Helper.tolerance; i++) {
+                if (results[i].equals(message)) {
+                    equals = true;
+                }
+            }
+            assertTrue(equals, "constructor of BadUpdateTimeException returns wrong message at least in true case: should be <" + results[0] + "> but was <" + message + ">");
+
+            equals= false;
+            results = Helper.createCorrectMessage(c, false);
+            message = new BadUpdateTimeException(c, false).getMessage();
+
+            for (int i = 0; i< Helper.tolerance; i++) {
+                if (results[i].equals(message)) {
+                    equals = true;
+                }
+            }
+            assertTrue(equals, "constructor of BadUpdateTimeException returns wrong message in false case: should be <" + results[0] + "> but was <" + message + ">");
         }
     }
 

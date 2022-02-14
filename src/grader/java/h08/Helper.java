@@ -6,6 +6,10 @@ import java.util.Calendar;
 
 @TestForSubmission("h08")
 class Helper {
+
+    public static final int tolerance = 15;
+
+
     static Calendar createFutureCal() {
         Calendar futureCal = Calendar.getInstance();
 
@@ -22,16 +26,21 @@ class Helper {
         return futureCal;
     }
 
-    static String createCorrectMessage(Calendar calendar, boolean time) {
-        return (time ? "Update time is earlier than the last update: " : "Update time is in the future: ")
-            + calendar.get(Calendar.DAY_OF_MONTH)
-            + "." + (calendar.get(Calendar.MONTH) + 1)
-            + "." + calendar.get(Calendar.YEAR)
-            + " / " + calendar.get(Calendar.HOUR_OF_DAY)
-            + ":" + calendar.get(Calendar.MINUTE)
-            + ":" + calendar.get(Calendar.SECOND)
-            + ":" + calendar.get(Calendar.MILLISECOND)
-            + "!";
+    static String[] createCorrectMessage(Calendar calendar, boolean time) {
+        String message[] = new String[tolerance];
+        for (int i = 0; i<tolerance; i++) {
+            int millisec = calendar.get(Calendar.MILLISECOND) + i;
+            message[i] = (time ? "Update time is earlier than the last update: " : "Update time is in the future: ")
+                + calendar.get(Calendar.DAY_OF_MONTH)
+                + "." + (calendar.get(Calendar.MONTH) + 1)
+                + "." + calendar.get(Calendar.YEAR)
+                + " / " + calendar.get(Calendar.HOUR_OF_DAY)
+                + ":" + calendar.get(Calendar.MINUTE)
+                + ":" + calendar.get(Calendar.SECOND)
+                + ":" + millisec
+                + "!";
+        }
+        return message;
     }
 
     static String createMessageOfBadUpdateException(Calendar calendar, boolean time) {
