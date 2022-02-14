@@ -55,7 +55,7 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H2_T2 = Criterion.builder()
-        .shortDescription("Methode update(Calendar c) existiert")
+        .shortDescription("update(Calendar c) funktioniert im Fall mit validem Kalender korrekt")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H2_Test.class.getMethod("testContentTimeStampUpdateWithParameterCorrectCase")))
@@ -65,7 +65,7 @@ public class H08_RubricProvider implements RubricProvider {
         ).build();
 
     public static final Criterion H2_T3 = Criterion.builder()
-        .shortDescription("update(Calendar c) funktioniert im Fall mit validem Kalender korrekt")
+        .shortDescription("update(Calendar c) funktioniert im Fall nicht validem Kalender korrekt")
         .grader(Grader.testAwareBuilder()
             .requirePass(JUnitTestRef.ofMethod(() ->
                 H2_Test.class.getMethod("testContentTimeStampUpdateWithParameterTooEarlyCase")))
