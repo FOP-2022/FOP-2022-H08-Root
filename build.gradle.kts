@@ -79,8 +79,17 @@ tasks {
     val graderLibs by creating(Jar::class) {
         group = "build"
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+        // don't include Jagr's runtime dependencies
+        val jagrRuntime = configurations["graderCompileClasspath"]
+            .resolvedConfiguration
+            .firstLevelModuleDependencies
+            .first { it.moduleGroup == "org.sourcegrade" && it.moduleName == "jagr-launcher" }
+            .allModuleArtifacts
+            .map { it.file }
+
         val runtimeDeps = grader.runtimeClasspath.mapNotNull {
-            if (it.path.toLowerCase().contains("h08")) {
+            if (it.path.toLowerCase().contains("h08") || jagrRuntime.contains(it)) {
                 null
             } else if (it.isDirectory) {
                 it
