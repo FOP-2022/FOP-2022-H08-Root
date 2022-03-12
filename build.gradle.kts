@@ -3,7 +3,6 @@ import org.sourcegrade.submitter.submit
 plugins {
     java
     application
-    id("org.sourcegrade.style") version "1.2.0"
     id("org.sourcegrade.submitter") version "0.4.0"
 }
 
@@ -19,6 +18,7 @@ submit {
     studentId = "ab12cdef"
     firstName = "sol_first"
     lastName = "sol_last"
+    requireTests = false
 }
 
 val grader: SourceSet by sourceSets.creating {
@@ -32,6 +32,9 @@ dependencies {
     "graderCompileOnly"("org.sourcegrade:jagr-launcher:0.4.0") {
         exclude("org.jetbrains", "annotations")
     }
+    "graderImplementation"("fr.inria.gforge.spoon:spoon-core:10.0.0")
+    "graderImplementation"("org.mockito:mockito-core:4.3.1")
+    "graderImplementation"("org.ow2.asm:asm-util:9.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
