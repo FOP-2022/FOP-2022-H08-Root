@@ -23,13 +23,15 @@ submit {
 
 val grader: SourceSet by sourceSets.creating {
     val test = sourceSets.test.get()
-    compileClasspath += test.compileClasspath + test.output
-    runtimeClasspath += output + compileClasspath + test.runtimeClasspath
+    compileClasspath += test.output + test.compileClasspath
+    runtimeClasspath += output + test.runtimeClasspath
 }
 
 dependencies {
     implementation("org.jetbrains:annotations:23.0.0")
-    "graderImplementation"("org.sourcegrade:jagr-launcher:0.4.0-SNAPSHOT")
+    "graderCompileOnly"("org.sourcegrade:jagr-launcher:0.4.0") {
+        exclude("org.jetbrains", "annotations")
+    }
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
@@ -59,7 +61,7 @@ tasks {
         }
         workingDir = runDir
         testClassesDirs = grader.output.classesDirs
-        classpath = grader.runtimeClasspath
+        classpath = grader.compileClasspath + grader.runtimeClasspath
         useJUnitPlatform()
     }
     named("check") {
